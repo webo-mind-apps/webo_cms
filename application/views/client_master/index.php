@@ -62,6 +62,16 @@
                   </div>
                </div>
             </div>
+            <?php
+				if ($this->session->flashdata('success')) {
+				?>
+					<div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<span class="text-semibold"><?php echo $this->session->flashdata('success'); ?></span>
+					</div>
+				<?php
+				}
+			?>
             <!-- Content area -->
             <div class="content">
                <!-- Vertical form options -->
@@ -111,7 +121,7 @@
                                  <div class="input-group" id="append-web">
                                     <input type="text" class="form-control website-name"  name="website_name[]" maxlength="100" required>
                                  </div>
-                                 <div id="add-new" style="color:blue;text-align:right;">Add new<i class="fas fa-plus"></i></div>
+                                 <div id="add-new" style="color:blue;text-align:right;margin-top:5px;"><i class="fas fa-plus" style="margin-right:5px;"></i>Add new</div>
                                 </div>
                                  <button  type="submit" id="insert-button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
                         </form>
