@@ -6,20 +6,21 @@ class Client_master extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('client_master_db', 'client_master');
+		$this->load->library("pagination");
     }
 
     function index()
     {
-        $this->load->view('webo_home/index');
+        $this->load->view('client_master/index');
     }
 
-    function admin_login()
+    function save_client_master()
     {
-        if ($this->model->admin_login_check()) {
-            redirect('Doctor_control/admin_panel');
-        } else {
-            $this->load->view('admin-worldsclinicalguide/admin_login');
-        }
+        if($this->client_master->save_client_master())
+        {
+
+        }  
     }
 }
 ?>
