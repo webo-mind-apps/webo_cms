@@ -1,19 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');  
-  
 class Client_master_db extends CI_Model 
 {  
     function __construct()  
     {
         parent::__construct();
     }
+    //save the index form value to the database
     public function save_client_master()
 	{
 		$company_name=$this->input->post('company_name'); 
 		$client_name=$this->input->post('client_name'); 
 		$phone=$this->input->post('phone'); 
         $email=$this->input->post('email'); 
-        $website=$this->input->post('website_name');
         $data = array(
             "company_name"	=> $company_name,
             "client_name"	=> $client_name,
@@ -27,7 +26,7 @@ class Client_master_db extends CI_Model
             $this->db->insert('client_master',$data);
             if ($this->db->affected_rows() > 0)
             {
-            return true;
+                return true;
             }
         }
         else
@@ -35,7 +34,7 @@ class Client_master_db extends CI_Model
             return true;
         }
     }
-
+    //save the index form value to the database
     function save_website($data)
     {
         $this->db->where('company_name', $data['company_name']);
@@ -52,9 +51,7 @@ class Client_master_db extends CI_Model
         else
         {
            return "exist";
-
         }
     }
-       
 }
 
