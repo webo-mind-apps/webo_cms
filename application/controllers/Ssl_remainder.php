@@ -4,13 +4,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Ssl_remainder extends CI_Controller
 {
     public function __construct()
-    {
+    {   
         parent::__construct();
     }
 
     function index()
     {
-        $this->load->view('webo_home/index');
+        $this->load->view('ssl_remainder/index');
     }
 
     function admin_login()

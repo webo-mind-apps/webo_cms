@@ -22,7 +22,7 @@
 			<div class="card-body">
 				<div class="media">
 					<div class="mr-3">
-						<a href="#"><img src="<?php echo base_url(); ?>my_assets/global_assets/images/placeholders/doctor-background.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+						<a href="#"><img src="<?php echo base_url(); ?>admin_assets/images/office_logo.jfif" width="38" height="38" class="rounded-circle" alt=""></a>
 					</div>
 
 					<div class="media-body">
