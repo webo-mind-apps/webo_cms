@@ -60,7 +60,16 @@
 					<a href="<?php echo base_url(); ?>ssl-remainder" class="nav-link">
 						<i class="fa fa-user"></i>
 						<span>
-							&nbsp SSL Remainder
+							&nbsp Add SSL Remainder
+						</span>
+					</a>
+				</li>
+				
+				<li class="nav-item">
+					<a href="<?php echo base_url(); ?>ssl-view" class="nav-link">
+						<i class="fa fa-user"></i>
+						<span>
+							&nbsp View SSL Remainder
 						</span>
 					</a>
 				</li>

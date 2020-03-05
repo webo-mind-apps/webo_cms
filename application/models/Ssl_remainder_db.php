@@ -25,7 +25,6 @@ class Ssl_remainder_db extends CI_Model
         $this->db->from('company_website');
         $this->db->where('company_name', $company_name);
         $query = $this->db->get();
-
         if ($query->num_rows() > 0) {
             return $query->result_array();
         } else {
