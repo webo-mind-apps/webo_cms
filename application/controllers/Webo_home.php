@@ -10,7 +10,7 @@ class Webo_home extends CI_Controller
 
     function index()
     {
-        $this->load->view('webo_home/index');
+        $this->load->view('client_master/index');
     }
 
     function admin_login()

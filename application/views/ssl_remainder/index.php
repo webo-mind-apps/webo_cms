@@ -35,7 +35,7 @@
     <!-- /theme JS files -->
     <!-- fafa-font -->
     <script src="https://kit.fontawesome.com/f64c26b0b8.js" crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js" crossorigin="anonymous"></script>
     <style>
         .table_font {
             font-size: 14px;
@@ -51,7 +51,7 @@
 
         .icon {
             padding: 10px;
-            background: #035DB8;
+            background: #045b99;
             color: white;
             min-width: 50px;
             text-align: center;
@@ -59,9 +59,9 @@
 
         .input-field {
             width: 100%;
-            padding:9px 10px 10px;
-            border-radius:0 3px 3px 0;
-            border:1px silver solid;
+            padding: 9px 10px 10px;
+            border-radius: 0 3px 3px 0;
+            border: 1px silver solid;
         }
 
         .input-field:focus {
@@ -70,7 +70,7 @@
 
         /* Set a style for the submit button */
         .btns {
-            background-color: #035DB8;
+            background-color: #045b99;
             color: white;
             padding: 15px 20px;
             border: none;
@@ -84,7 +84,7 @@
         }
 
         .btn {
-            background-color: #035DB8;
+            background-color: #045b99;
         }
     </style>
 
@@ -125,14 +125,19 @@
             <!-- Content area -->
             <form action="#" method="post">
                 <div class="content">
-
+                    <?php
+                    // echo "<pre>";
+                    // print_r($company_names_db);
+                    // exit;
+                    ?>
                     <div style="margin-left:10px;" class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
-                        <select class="form-control" name="user_type" id="user_type" required="">
+                        <select class="form-control" id="call_relavent_websites" required>
                             <option value="">Select Company</option>
-                            <option value="0">FretusFolks</option>
-                            <option value="1">Inventateq</option>
-                            <option value="2">Little foot prints</option>
-                            <option value="3">Worlds Clinical Quide</option>
+                            <?php
+                            for ($i = 0; $i < count($company_names_db); $i++) :
+                                echo '<option  value="' . $company_names_db[$i]['company_name'] . '">' . $company_names_db[$i]['company_name'] . '</option>';
+                            endfor;
+                            ?>
                         </select>
                         <div class="form-control-feedback" bis_skin_checked="1">
                             <i class="fas fa-building"></i>
@@ -140,16 +145,14 @@
                     </div>
 
                     <div style="margin-left:10px;" class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
-                        <select class="form-control" name="user_type" id="user_type" required="">
+                        <select class="form-control" id="dynamic_company_websites" required>
                             <option value="">Select Website</option>
-                            <option value="0">a.com</option>
-                            <option value="1">b.com</option>
-                            <option value="2">c.com</option>
                         </select>
                         <div class="form-control-feedback" bis_skin_checked="1">
                             <i class="fa fa-globe" aria-hidden="true"></i>
                         </div>
                     </div>
+
                     <!-- //------------------------------------------------------------------------ -->
                     <div class="col-md-6">
                         <div class="card">
@@ -237,25 +240,41 @@
                 $("#renew_buttons_auto").css('display', 'block');
                 $("#renew_buttons_manual").css('display', 'none');
             });
-        });
+            //calling relevant websites based on client name
+            $('#call_relavent_websites').change(function() {
+                var company_name = $('#call_relavent_websites').val();
+                if(!empty(company_name)){
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: "<?php echo base_url(); ?>" + "ssl-remainder/dispaly-relavent-websites",
+                        data: {
+                            company_name: company_name
+                        },
+                        success: function(response) {
+                            $("#dynamic_company_websites").empty();
+                            $("#dynamic_company_websites").append(response);
+                        }
+                    });
+                }
+            });
 
-        // Styled radios
-        $('#alpaca-radio-styled').alpaca({
-            data: 'Jimi Hendrix',
-            schema: {
-                enum: ['Jimi Hendrix', 'Mark Knopfler', 'Joe Satriani', 'Eddie Van Halen', 'Orianthi']
-            },
-            options: {
-                type: 'radio',
-                label: 'Who is your favorite guitarist?',
-                fieldClass: 'radio-styled-demo',
-                vertical: true
-            },
-            postRender: function(control) {
-                $('.radio-styled-demo').find('input[type=radio]').uniform({
-                    radioClass: 'choice'
-                });
-            }
+            // $('#alpaca-radio-styled').alpaca({
+            //     data: 'Jimi Hendrix',
+            //     schema: {
+            //         enum: ['Jimi Hendrix', 'Mark Knopfler', 'Joe Satriani', 'Eddie Van Halen', 'Orianthi']
+            //     },
+            //     options: {
+            //         type: 'radio',
+            //         label: 'Who is your favorite guitarist?',
+            //         fieldClass: 'radio-styled-demo',
+            //         vertical: true
+            //     },
+            //     postRender: function(control) {
+            //         $('.radio-styled-demo').find('input[type=radio]').uniform({
+            //             radioClass: 'choice'
+            //         });
+            //     }
+            // });
         });
     </script>
 </body>
