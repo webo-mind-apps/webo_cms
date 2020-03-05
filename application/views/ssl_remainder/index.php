@@ -128,9 +128,9 @@
                     <?php
                     // echo "<pre>";
                     // print_r($company_names_db);
-                    // exit;
+                    // exit; 
                     ?>
-                    <div style="margin-left:10px;" class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
+                    <div class="col-md-6 form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
                         <select class="form-control" id="call_relavent_websites" required>
                             <option value="">Select Company</option>
                             <?php
@@ -140,16 +140,16 @@
                             ?>
                         </select>
                         <div class="form-control-feedback" bis_skin_checked="1">
-                            <i class="fas fa-building"></i>
+                            &nbsp;&nbsp; <i class="fas fa-building"></i>
                         </div>
                     </div>
 
-                    <div style="margin-left:10px;" class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
+                    <div class="col-md-6 form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
                         <select class="form-control" id="dynamic_company_websites" required>
                             <option value="">Select Website</option>
                         </select>
                         <div class="form-control-feedback" bis_skin_checked="1">
-                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            &nbsp;&nbsp; <i class="fa fa-globe" aria-hidden="true"></i>
                         </div>
                     </div>
 
@@ -198,7 +198,7 @@
                     </div>
                     <!-- //------------------------------------------------------------------------ -->
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header header-elements-inline">
                                 <h6 class="card-title">Amount</h6>
@@ -211,7 +211,7 @@
 
                         </div>
                     </div>
-                    <button style="border-radius:3px;margin-left:10px;width:98.2%;" type="submit" class="btns">Save</button>
+                    <button style="border-radius:3px;" type="submit" class="btns col-md-6">Save</button>
 
                 </div>
             </form>
@@ -242,8 +242,9 @@
             });
             //calling relevant websites based on client name
             $('#call_relavent_websites').change(function() {
+
                 var company_name = $('#call_relavent_websites').val();
-                if(!empty(company_name)){
+                if (company_name) {
                     jQuery.ajax({
                         type: 'POST',
                         url: "<?php echo base_url(); ?>" + "ssl-remainder/dispaly-relavent-websites",
