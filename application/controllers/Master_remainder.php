@@ -10,7 +10,7 @@ class Master_remainder extends CI_Controller
 
     function index()
     {
-        $this->load->view('webo_home/index');
+        $this->load->view('master_remainder/index');
     }
 
     function admin_login()

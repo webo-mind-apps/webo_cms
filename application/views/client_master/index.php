@@ -48,7 +48,7 @@
      <!-- Page content -->
      <div class="page-content">
         <!-- Main sidebar -->
-         <?php
+        <?php
             $this->load->view('includes/main_sidebar');
         ?>
          <!-- /main sidebar -->
@@ -62,10 +62,21 @@
                   </div>
                </div>
             </div>
+            <?php
+				if ($this->session->flashdata('success')) {
+				?>
+					<div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<span class="text-semibold"><?php echo $this->session->flashdata('success'); ?></span>
+					</div>
+				<?php
+				}
+			?>
             <!-- Content area -->
             <div class="content">
-               <!-- Vertical form options -->
+               <!-- row -->
                <div class="row">
+                  <!-- column -->
                   <div class="col-md-6">
                      <!-- card-->
                      <div class="card">
@@ -79,8 +90,10 @@
                               </div>
                            </div>
                         </div>
-                        <form method="post" action="<?php echo base_url(); ?>client-master/save-client-master" >
-                           <div class="card-body">
+                        <!-- card-body -->
+                        <div class="card-body">
+                            <!-- form -->
+                            <form method="post" action="<?php echo base_url(); ?>client-master/save-client-master" >
                                 <div class="form-group">
                                  <label>Company Name</label>
                                  <div class="input-group">
@@ -108,19 +121,23 @@
                                 </div>
                                 <div class="form-group">
                                  <label>Website Name</label>
-                                 <div class="input-group" id="append-web">
+                                 <div class="input-group">
                                     <input type="text" class="form-control website-name"  name="website_name[]" maxlength="100" required>
                                  </div>
-                                 <div id="add-new" style="color:blue;text-align:right;">Add new<i class="fas fa-plus"></i></div>
+                                 <div class="input-group" id="append-web"></div>
+                                 <div  style="color:blue;text-align:right;margin-top:5px;"><span id="remove" style="margin-right:15px;"><i class="icon-cross" style="margin-right:3px;"></i>Remove</span><span id="add-new"><i class="fas fa-plus" style="margin-right:3px;"></i>Add new</span></div>
                                 </div>
                                  <button  type="submit" id="insert-button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
-                        </form>
+                            </form>
+                            <!-- /form -->
                         </div>
+                        <!-- /card-body -->
                      </div>
                      <!-- /card -->
                   </div>
+                  <!-- /column -->
                </div>
-			    <!-- /Vertical form options -->
+			   <!-- /row -->
             </div>
             <!-- /content area -->
          </div>
@@ -153,6 +170,7 @@
             $("#phone").val("");
            }
         }
+        // email validation
         function email_validation()
         {
             var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;
@@ -162,14 +180,18 @@
                 $("#email").val("");
             }
         }
+        // document ready function
         $(document).ready(function() {
             $('#add-new').css('cursor', 'pointer');
+            $('#remove').css('cursor', 'pointer');
             $("#add-new").click(function(){
                 $("#append-web").append('<div class="input-group" style="margin-top:10px;"><input type="text"  class="form-control website-name"  name="website_name[]" maxlength="100" required></div>'); 
             });
+            $("#remove").on("click", function() {  
+                $("#append-web").children().last().remove();  
+            });  
 
         });
      </script>
  </body>
-
  </html>
