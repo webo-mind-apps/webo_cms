@@ -24,12 +24,20 @@ class Ssl_remainder extends CI_Controller
     {
         $company_name = $this->input->post('company_name');
         $data['company_websites_db'] = $this->Ssl_remainder_db->fetch_company_relavent_websites($company_name);
+        echo "<option value=''>Select Website</option>";
         foreach ($data['company_websites_db'] as $key => $row) {
             echo '<option value="' . $row['website'] . '">' . $row['website'] . '</option>';
             // echo "<pre>";
             // print_r($data); //3 dimensional
             // print_r($data['company_websites_db']); //2 dimensional
             // print_r($row); //1 dimensional normal array
+        }
+    }
+    function insert_ssl_remainder()
+    {
+        if ($data['insert_ssl_datas_db'] = $this->Ssl_remainder_db->insert_ssl_remainder_db()) {
+            $this->session->set_flashdata('ssl_remainder_added', 'ssl_remainder_added');
+            redirect('ssl_remainder/');
         }
     }
 }
