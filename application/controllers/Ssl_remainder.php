@@ -40,5 +40,46 @@ class Ssl_remainder extends CI_Controller
             redirect('ssl_remainder/');
         }
     }
+
+    public function get_all_data($var = null) //created for implementing data tables
+    {
+        $fetch_data = $this->Ssl_remainder_db->make_datatables();
+        $data = array();
+        // $status = '<span class="badge bg-blue">Completed</span>';
+        $i = 0;
+        foreach ($fetch_data as $row) {
+            $sub_array   = array();
+            $sub_array[] = ++$i;
+            $sub_array[] = $row->company_name;
+            $sub_array[] = $row->company_website;
+            $sub_array[] = $row->type;
+            $sub_array[] = $row->manual_update_date;
+            $sub_array[] = $row->renewel_date;
+            $sub_array[] = $row->amount_paid;
+            $sub_array[] = '
+					 <div class="list-icons">
+					 <div class="dropdown">
+						 <a href="#" class="list-icons-item" data-toggle="dropdown">
+							 <i class="icon-menu9"></i>
+						 </a>
+						 <div class="dropdown-menu dropdown-menu-right">
+                             <a href="javascript:void(0)" id=' . $row->id . '
+                              onclick="client_master_view_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i>abc</a>
+							 <a a href="javascript:void(0)" id=' . $row->id . '   onclick="client_master_edit(this.id);" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_candidate(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+						 </div>
+					 </div>
+				 </div>
+					 ';
+            $data[] = $sub_array;
+        }
+        $output = array(
+            "draw"                =>     intval($_POST["draw"]),
+            "recordsTotal"        =>     $this->Ssl_remainder_db->get_all_data(),
+            "recordsFiltered"     =>     $this->Ssl_remainder_db->get_filtered_data(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
 }
 ?>

@@ -38,7 +38,7 @@
     <link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
-    <script src="<?php echo base_url(); ?>admin_assets/global_assets/js/plugins/pckers/daterangepicker.js"></script>
+    <script src="<?php echo base_url(); ?>admin_assets/global_assets/js/plugins/pickers/daterangepicker.js"></script>
     <style>
         .table_font {
             font-size: 14px;
@@ -190,6 +190,26 @@
                     <!-- /column -->
                 </div>
                 <!-- /row -->
+                <!-- Data Table -->
+                <div class="card">
+                    <table id="ssl_remainder_d_table" class="table datatable-basic table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Si No</th>
+                                <th>Company Name</th>
+                                <th>Company Website</th>
+                                <th>Type</th>
+                                <th>Update Date</th>
+                                <th>Renewel Date</th>
+                                <th>Amount Paid</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /Data Table -->
+
+
             </div>
             <!-- /content area -->
         </div>
@@ -199,7 +219,7 @@
 
 
     <script>
-        //hide options in radio
+        //Hide DATE PICKERS
         $(document).ready(function() {
 
             $("#renew_method").change(function() {
@@ -213,9 +233,7 @@
                     // $("#renew_inputs_auto").empty();
                     $("#update_datepick").css('display', 'block');
                     $("#ren_datepick").css('display', 'block');
-                    $("#auto_ren_datepick").css('display', 'none');
-
-
+                    $("#auto_ren_datepick").css('display', 'none');  
                 } else if ("auto" == method) {
                     // var input1 = '<input id="auto_ren_datepick" style="margin-right:250px;" type="text" class="form-control" name="auto_renewel_date" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>';
 
@@ -224,16 +242,12 @@
                     // $(".renew_inputs_manual").empty();
                     $("#update_datepick").css('display', 'none');
                     $("#ren_datepick").css('display', 'none');
-                    $("#auto_ren_datepick").css('display', 'block');
-
-
+                    $("#auto_ren_datepick").css('display', 'block'); 
                 }
             });
 
-
             //calling relevant websites based on client name
             $('#call_relavent_websites').change(function() {
-
                 var company_name = $('#call_relavent_websites').val();
                 if (company_name) {
                     jQuery.ajax({
@@ -260,14 +274,7 @@
             return true;
         }
 
-        // amount length check
-        // function amount_length() {
-        //     if ($("#amount").val().length >= 7) {
-        //         $("#amount").val("");
-        //     }
-        // }
-        //date picker
-        // $(document).on('click', '#update_datepick', '#auto_ren_datepick', '#ren_datepick', function(event) {
+        //DATE pickers
         $("#update_datepick").datepicker({
             dateFormat: 'dd-mm-yy',
             changeMonth: true,
@@ -279,28 +286,6 @@
             }
         });
 
-        //     $("#ren_datepick").datepicker({
-        //         dateFormat: 'dd-mm-yy',
-        //         changeMonth: true,
-        //         changeYear: true,
-        //         showOtherMonths: true,
-        //         yearRange: '1947:2100',
-        //         onClose: function(selectedDate) {
-        //             $("#update_datepick").datepicker("option", "maxDate", selectedDate);
-        //         }
-        //     });
-        //     $("#auto_ren_datepick").datepicker({
-        //         dateFormat: 'dd-mm-yy',
-        //         changeMonth: true,
-        //         changeYear: true,
-        //         showOtherMonths: true,
-        //         yearRange: '1947:2100',
-
-        //     });
-        // });
-
-
-        // $(document).on('click', '#ren_datepick', function(event) {
         $("#ren_datepick").datepicker({
             dateFormat: 'dd-mm-yy',
             changeMonth: true,
@@ -311,18 +296,17 @@
                 $("#update_datepick").datepicker("option", "maxDate", selectedDate);
             }
         });
-        // });
 
-        // $(document).on('click', '#auto_ren_datepick', function(event) {
         $("#auto_ren_datepick").datepicker({
             dateFormat: 'dd-mm-yy',
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
             yearRange: '1947:2100',
-
         });
-        // });
+        //DATE pickers
+
+        //ADDING and REMOVING required 
         $('#update_datepick').change(function() {
             $('#auto_ren_datepick').removeAttr('required');
             $('#update_datepick').addAttr('required');
@@ -336,10 +320,118 @@
         $('#auto_ren_datepick').change(function() {
             $('#update_datepick').removeAttr('required');
             $('#ren_datepick').removeAttr('required');
-            // $('#update_datepick').prop('required', false);
-            // $('#ren_datepick').prop('required', false);
             $('#auto_ren_datepick').addAttr('required');
+        });
+        //ADDING and REMOVING required 
+    </script>
 
+    <script>
+        // DATA TABLES CODE
+        var DatatableAdvanced = function() {
+
+            // Basic Datatable examples
+            var _componentDatatableAdvanced = function() {
+                if (!$().DataTable) {
+                    console.warn('Warning - datatables.min.js is not loaded.');
+                    return;
+                }
+
+                // Setting datatable defaults
+                $.extend($.fn.dataTable.defaults, {
+                    autoWidth: false,
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: [7]
+                    }],
+                    dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+                    language: {
+                        search: '<span>Filter:</span> _INPUT_',
+                        searchPlaceholder: 'Type to filter...',
+                        lengthMenu: '<span>Show:</span> _MENU_',
+                        paginate: {
+                            'first': 'First',
+                            'last': 'Last',
+                            'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;',
+                            'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;'
+                        }
+                    }
+                });
+
+                var dataTable = $('#ssl_remainder_d_table').DataTable({
+                    'processing': true,
+                    'serverSide': true,
+                    'order': [],
+                    'ajax': {
+                        'url': "<?php echo base_url() . 'ssl_remainder/get_all_data' ?>",
+                        'type': 'POST'
+                    },
+                    'columnDefs': [{
+                        "targets": [7],
+                        "orderable": false,
+                    }],
+
+                })
+
+                // Datatable 'length' options
+                $('.datatable-show-all').DataTable({
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ]
+                });
+
+                // DOM positioning
+                $('.datatable-dom-position').DataTable({
+                    dom: '<"datatable-header length-left"lp><"datatable-scroll"t><"datatable-footer info-right"fi>',
+                });
+
+                // Highlighting rows and columns on mouseover
+                var lastIdx = null;
+                var table = $('.datatable-highlight').DataTable();
+
+                $('.datatable-highlight tbody').on('mouseover', 'td', function() {
+                    var colIdx = table.cell(this).index().column;
+
+                    if (colIdx !== lastIdx) {
+                        $(table.cells().nodes()).removeClass('active');
+                        $(table.column(colIdx).nodes()).addClass('active');
+                    }
+                }).on('mouseleave', function() {
+                    $(table.cells().nodes()).removeClass('active');
+                });
+
+                // Columns rendering
+                $('.datatable-columns').dataTable({
+                    columnDefs: [{
+                            // The `data` parameter refers to the data for the cell (defined by the
+                            // `data` option, which defaults to the column being worked with, in
+                            // this case `data: 0`.
+                            render: function(data, type, row) {
+                                return data + ' (' + row[3] + ')';
+                            },
+                            targets: 0
+                        },
+                        {
+                            visible: false,
+                            targets: [3]
+                        }
+                    ]
+                });
+
+            };
+            //
+            // Return objects assigned to module
+            //
+            return {
+                init: function() {
+                    _componentDatatableAdvanced();
+                }
+            }
+        }();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            DatatableAdvanced.init()
         });
     </script>
 </body>
