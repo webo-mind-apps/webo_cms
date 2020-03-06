@@ -304,7 +304,7 @@
 				data: $("#frm").serialize(),
 				
 				success: function(response) {
-					
+					// location.reload();
 				},
 				error: function(xhr, ajaxOptions, thrownError) {}
 			});
