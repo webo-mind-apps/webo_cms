@@ -28,6 +28,10 @@
       <!-- /theme JS files -->
       <!-- fafa-font -->
       <script src="https://kit.fontawesome.com/f64c26b0b8.js" crossorigin="anonymous"></script>
+      <!-- ---css datepicker -->
+	<link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+	<link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css">
+	<link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
       <style>
          .table_font 
          {
@@ -50,6 +54,27 @@
 			bottom: 0;
 			right: 0;
 			top: 0;
+		}
+      .ui-datepicker-prev {
+			position: absolute;
+			top: 50% !important;
+			margin-top: -.9375rem;
+			line-height: 1;
+			color: #333;
+			padding: .4375rem;
+			cursor: pointer;
+			border-radius: .1875rem;
+		}
+
+		.ui-datepicker-next {
+			position: absolute;
+			top: 50% !important;
+			margin-top: -.9375rem;
+			line-height: 1;
+			color: #333;
+			padding: .4375rem;
+			cursor: pointer;
+			border-radius: .1875rem;
 		}
       </style>
    </head>
@@ -117,6 +142,7 @@
                                        <th>Website</th>
                                        <th>Type</th>
                                        <th>Amount</th>
+                                       <th>Renival Date</th>
                                        <th>Paid Date</th>
                                        <th>Update</th>
                                     </tr>
@@ -246,6 +272,18 @@
 					document.addEventListener('DOMContentLoaded', function() {
 						DatatableAdvanced.init()
 					});
+               // $(function() {
+            
+            // $(".paid_date").datepicker({
+            //    dateFormat: 'dd-mm-yy',
+            //    changeMonth: true,
+            //    changeYear: true,
+            //    showOtherMonths: true,
+            //    yearRange: '1990:1995',
+            //    onClose: function(selectedDate) {
+            //       // $("#To").datepicker("option", "minDate", selectedDate);
+            //    }
+            // });
       </script>
    </body>
 </html>

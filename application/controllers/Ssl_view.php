@@ -26,10 +26,12 @@ class Ssl_view extends CI_Controller
 				$sub_array   = array();
 				$sub_array[] = ++$i;
 				$sub_array[] = $row->company_name; 
-				$sub_array[] = $row->website;
+				$sub_array[] = $row->company_website;
 				$sub_array[] = $row->type;
-                $sub_array[] = $row->amount;
-				$sub_array[] = '<input id="To" type="text" name="ren_date[]" class="form-control" autocomplete="off">';
+                $sub_array[] = $row->amount_paid;
+                $sub_array[] = $row->auto_renewel_date;
+				$sub_array[] = '<input id="paid_date'.$row->id.'" type="text" name="paid_date" 
+				class="form-control paid_date" autocomplete="off">';
 				$sub_array[] = '<button type="button" id="'.$row->id.'" class="btn bg-primary" >save</button>';
 				$data[] = $sub_array;
 			}

@@ -9,7 +9,7 @@ class Ssl_view_db extends CI_Model
 
     public function make_query()
 	{ 
-        $order_column = array("a.id","b.company_name","a.website","a.type", "a.renivel","a.amount");  
+        $order_column = array("a.id","b.company_name","a.company_website","a.type", "a.auto_renewel_date","a.amount_paid");  
 		$this->db->select('a.*,b.company_name');
 		$this->db->from('add_ssl_remainder a');
 		$this->db->join('client_master b','b.id=a.company_id','left');
@@ -17,10 +17,10 @@ class Ssl_view_db extends CI_Model
             $this->db->group_start();
                 $this->db->like("a.id", $_POST["search"]["value"]);  
                 $this->db->or_like("b.company_name", $_POST["search"]["value"]);   
-                $this->db->or_like("a.website", $_POST["search"]["value"]);
+                $this->db->or_like("a.company_website", $_POST["search"]["value"]);
 				$this->db->or_like("a.type", $_POST["search"]["value"]);
-				$this->db->or_like("a.renivel", $_POST["search"]["value"]); 
-				$this->db->or_like("a.amount", $_POST["search"]["value"]); 
+				$this->db->or_like("a.auto_renewel_date", $_POST["search"]["value"]); 
+				$this->db->or_like("a.amount_paid", $_POST["search"]["value"]); 
             $this->db->group_end();
 		}
 		if(isset($_POST["order"]))  
