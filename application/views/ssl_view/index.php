@@ -285,5 +285,19 @@
             //    }
             // });
       </script>
+       <script>
+        $(function() {
+            
+            $(".paid_date").datepicker({
+               dateFormat: 'dd-mm-yy',
+               changeMonth: true,
+               changeYear: true,
+               showOtherMonths: true,
+               yearRange: '1990:1995',
+               onClose: function(selectedDate) {
+                  // $("#To").datepicker("option", "minDate", selectedDate);
+               }
+            });
+      </script>
    </body>
 </html>
