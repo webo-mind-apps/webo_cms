@@ -297,7 +297,7 @@
 		}
 
       $(".paid_date").datepicker({
-            dateFormat: 'dd-mm-yy',
+            dateFormat: 'yy-mm-d',
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
