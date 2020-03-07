@@ -108,7 +108,6 @@ class Client_master_db extends CI_Model
     //save the index form value to the database
     function save_website($data)
     {
-        $this->db->where('company_name', $data['company_name']);
         $this->db->where('website', $data['website']);
         $query = $this->db->get("company_website");
         if ($query->num_rows() <= 0)
@@ -126,13 +125,43 @@ class Client_master_db extends CI_Model
     }
     function client_master_view_details($id)
 	{
-		$this->db->select('a.*,b.website');
+		$this->db->select('a.*,b.*, b.id as site_id,a.id as id');
 		$this->db->from('client_master a');
-		$this->db->join('company_website b','a.company_name=b.company_name','left');
+		$this->db->join('company_website b','a.id=b.company_id','left');
 		$this->db->where('a.id',$id);
 		$query=$this->db->get();
 		$q=$query->result_array();
 		return $q;
+    }
+    function get_client_master_company_id($company_name)
+	{
+		$this->db->select('id');
+		$this->db->where('company_name',$company_name);
+		$query=$this->db->get('client_master');
+		$q=$query->row_array();
+		return $q;
+    }
+    function delete_client()
+	{
+		$id=$this->input->post('id'); 
+		$this->db->where("id",$id);
+        if($this->db->delete("client_master"))
+        {
+            $this->db->where("company_id",$id);
+            if($this->db->delete("company_website"))
+            {
+                return ture;
+            }
+		}
+    }
+    function delete_website()
+	{
+		$id=$this->input->post('id'); 
+		$this->db->where("id",$id);
+        if($this->db->delete("company_website"))
+        {
+            return true;
+		}
 	}
 }
 

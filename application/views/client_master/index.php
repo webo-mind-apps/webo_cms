@@ -115,12 +115,15 @@
                                        <div class="form-group">
                                           <label class="down">Website Name</label>
                                           <div class="input-group">
-                                             <input type="text" class="form-control website-name"  name="website_name[]" maxlength="100" onfocusout="website_validation();" id="website-name" required>
+                                             <input type="text" class="form-control website-name"  name="website_name[]" maxlength="100" onfocusout="website_validation();" placeholder="eg:www.google.com" required>
                                           </div>
-                                          <div class="input-group" id="append-web"></div>
-                                          <div  style="color:blue;text-align:right;margin-top:5px;"><span id="remove" style="margin-right:15px;"><i class="icon-cross" style="margin-right:3px;"></i>Remove</span><span id="add-new"><i class="fas fa-plus" style="margin-right:3px;"></i>Add new</span></div>
+                                          </div>
+                                          <div class="form-group" id="append-web" style="margin-top:10px;"></div>
+                                          <div  style="color:blue;text-align:right;margin-top:5px;">
+                                          <!-- <span id="remove" style="margin-right:15px;"><i class="icon-cross" style="margin-right:3px;"></i>Remove</span> -->
+                                          <span id="add-new"><i class="fas fa-plus" style="margin-right:3px;"></i>Add new</span></div>
                                        </div>
-                                    </div>
+                                    
                                     <div class="modal-footer down">
                                        <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
                                     </div>
@@ -250,16 +253,7 @@
                  $("#email1").val("");
              }
          }
-          // website validation
-         function website_validation()
-         {
-          var regex = /^([wW]{3})+\.(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;
-             var website=$("#website-name").val();
-             if(!regex.test(website)) 
-             {
-                 $("#website-name").val("");
-             }
-         }
+         
          function client_master_view_details(id) {
 			$("div#divLoading").addClass('show');
 			jQuery.ajax({
@@ -294,35 +288,90 @@
 				error: function(xhr, ajaxOptions, thrownError) {}
 			});
 		}
-
-
-      function edit_client_master() {
+      function delete_client_master(id) {
+         r = confirm("Are you sure to delete ?");
+			if (r == true) {
 			jQuery.ajax({
 				type: "POST",
-				url: "<?php echo base_url(); ?>client-master/edit-client-master",
+				url: "<?php echo base_url(); ?>client-master/delete-client",
 				datatype: "text",
-				data: $("#frm").serialize(),
-				
+				data: {
+					id: id
+				},
 				success: function(response) {
-					// location.reload();
+               location.reload();
 				},
 				error: function(xhr, ajaxOptions, thrownError) {}
 			});
+         }
 		}
+      function delete_webiste(id) {
+         r = confirm("Are you sure to delete ?");
+			if (r == true) {
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo base_url(); ?>client-master/delete-website",
+				datatype: "text",
+				data: {
+					id: id
+				},
+				success: function(response) {
+               alert("website deleted successfully");
+               location.reload();
+				},
+				error: function(xhr, ajaxOptions, thrownError) {}
+			});
+         }
+		}
+
+      // function edit_client_master() {
+		// 	jQuery.ajax({
+		// 		type: "POST",
+		// 		url: "<?php echo base_url(); ?>client-master/edit-client-master",
+		// 		datatype: "text",
+		// 		data: $("#frm").serialize(),
+				
+		// 		success: function(response) {
+		// 			// location.reload();
+		// 		},
+		// 		error: function(xhr, ajaxOptions, thrownError) {}
+		// 	});
+		// }
          
          // document ready function
          $(document).ready(function() {
              $('#add-new').css('cursor', 'pointer');
              $('#remove').css('cursor', 'pointer');
              $("#add-new").click(function(){
-                 $("#append-web").append('<div class="input-group" style="margin-top:10px;"><input type="text"  class="form-control website-name"  name="website_name[]" maxlength="100" onfocusout="website_validation();" required></div>'); 
+                 $("#append-web").append('<div class="input-group" style="margin-top:15px;"><input type="text" class="form-control website-name"  name="website_name[]" maxlength="100"  required><i class="icon-cross remove" style="margin:10px 0px 3px 3px;color:red;font-size:20px;cursor:pointer"></i></div>'); 
              });
-             $("#remove").on("click", function() {  
-                 $("#append-web").children().last().remove();  
-             });  
+
+             $(document).on('click', '.remove', function () { 
+              var val = $(this).parent().find('input').val();
+              if(val == ''){
+                  $(this).parent().remove()
+              }
+               
+               return false;
+              
+       })
+
+
+       $(document).on('focusout', '.website-name', function () { 
+              // website validation
+        
+          var regex = /^([wW]{3})+\.(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;
+             var website=$(this).val();
+             if(!regex.test(website)) 
+             {
+                 $(this).val("");
+             }
+         
+              
+       })
              
              $('#button').click(function() {
-         //e.preventDefault();
+               //e.preventDefault();
                 if ($('#company-name').val()) {
                    $('#fetchData').modal('toggle'); //or  $('#IDModal').modal('hide'); 
                 }

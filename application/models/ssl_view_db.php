@@ -29,7 +29,7 @@ class Ssl_view_db extends CI_Model
         }  
         else  
         {  
-             $this->db->order_by('id', 'DESC');  
+             $this->db->order_by('a.renewel_date', 'ASC');  
         }  	
 	}
 

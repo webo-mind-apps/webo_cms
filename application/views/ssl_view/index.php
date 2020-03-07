@@ -144,15 +144,13 @@
                                        <th>Website</th>
                                        <th>Type</th>
                                        <th>Amount</th>
-                                       <th>Renival Date</th>
+                                       <th>Renewal Date</th>
                                        <th>Paid Date</th>
                                        <th>Update</th>
                                     </tr>
                                  </thead>
                               </table>
                            <!-- </div> -->
-                           <input id="paid_date'.$row->id.'" type="text" name="paid_date'.$row->id.'" 
-				class="form-control paid_date" autocomplete="off">
                            <!-- /card-body -->
                         </div>
                         <!-- /card -->
@@ -296,13 +294,23 @@
 			});
 		}
 
-      $(".paid_date").datepicker({
+      // $(".paid_date").datepicker({
+      //       dateFormat: 'yy-mm-d',
+      //       changeMonth: true,
+      //       changeYear: true,
+      //       showOtherMonths: true,
+      //       yearRange: '1947:2100',
+      //   });
+      
+      $(document).on('focus', '.paid_date', function () { 
+         $(".paid_date").datepicker({
             dateFormat: 'yy-mm-d',
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
             yearRange: '1947:2100',
         });
+       })
         
       </script>
    </body>
