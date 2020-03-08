@@ -28,10 +28,12 @@
       <!-- /theme JS files -->
       <!-- fafa-font -->
       <script src="https://kit.fontawesome.com/f64c26b0b8.js" crossorigin="anonymous"></script>
-      <!-- ---css datepicker -->
-	<link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
+     <!-- ---css datepicker -->
+    <script src="<?php echo base_url(); ?>admin_assets/global_assets/js/jquery-ui.min.js"></script>
+    <link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>admin_assets/assets/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
+    <script src="<?php echo base_url(); ?>admin_assets/global_assets/js/plugins/pickers/daterangepicker.js"></script>
       <style>
          .table_font 
          {
@@ -109,7 +111,7 @@
                ?>
             <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
                <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <span class="text-semibold"><?php echo $this->session->flashdata('success'); ?></span>
+               <span class="text-semibold" id="success-msg"><?php echo $this->session->flashdata('success'); ?></span>
             </div>
             <?php
                }
@@ -142,13 +144,12 @@
                                        <th>Website</th>
                                        <th>Type</th>
                                        <th>Amount</th>
-                                       <th>Renival Date</th>
+                                       <th>Renewal Date</th>
                                        <th>Paid Date</th>
                                        <th>Update</th>
                                     </tr>
                                  </thead>
                               </table>
-
                            <!-- </div> -->
                            <!-- /card-body -->
                         </div>
@@ -272,20 +273,45 @@
 					document.addEventListener('DOMContentLoaded', function() {
 						DatatableAdvanced.init()
 					});
-               $(function() {
-            
-            $(".paid_date").datepicker({
-               dateFormat: 'dd-mm-yy',
-               changeMonth: true,
-               changeYear: true,
-               showOtherMonths: true,
-               yearRange: '1990:1995',
-               // onClose: function(selectedDate) {
-               //    // $("#To").datepicker("option", "minDate", selectedDate);
-               // }
-            });
-     
+      //   $(".paid_date").click(function(){
+
+      //      alert("dsf");
+      //   });
+      function client_paid_date_details(id) {
+         var paid_date=$("#paid_date"+id).val();
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo base_url(); ?>" + "ssl_view/client_paid_date_details",
+				datatype: "text",
+				data: {
+					id: id,
+               paid_date:paid_date
+				},
+				success: function(response) {
+               location.reload();
+				},
+				error: function(xhr, ajaxOptions, thrownError) {}
+			});
+		}
+
+      // $(".paid_date").datepicker({
+      //       dateFormat: 'yy-mm-d',
+      //       changeMonth: true,
+      //       changeYear: true,
+      //       showOtherMonths: true,
+      //       yearRange: '1947:2100',
+      //   });
+      
+      $(document).on('focus', '.paid_date', function () { 
+         $(".paid_date").datepicker({
+            dateFormat: 'yy-mm-d',
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true,
+            yearRange: '1947:2100',
         });
+       })
+        
       </script>
    </body>
 </html>

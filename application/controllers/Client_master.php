@@ -37,9 +37,9 @@ class Client_master extends CI_Controller
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
                              <a href="javascript:void(0)" id=' . $row->id . '
-                              onclick="client_master_view_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i>Web site name</a>
-							 <a a href="javascript:void(0)" id=' . $row->id . '   onclick="client_master_edit(this.id);" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
-							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_candidate(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+                              onclick="client_master_view_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
+							 <a href="javascript:void(0)" id=' . $row->id . '   onclick="client_master_edit(this.id);" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_client_master(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
 						 </div>
 					 </div>
 				 </div>
@@ -60,6 +60,7 @@ class Client_master extends CI_Controller
         $id = $this->input->post('id');
         $data = $this->client_master->client_master_view_details($id);
         $i=0;
+        $count=count($data);
 		echo '
 					<div class="modal-header bg-primary">
 						<h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
@@ -67,13 +68,23 @@ class Client_master extends CI_Controller
 					</div>
 					<div class="modal-body">
                         <div class="col-sm-2"></div>
-                        <div class="col-sm-8">';
-                          foreach($data as $row)
-                             {
-                                 echo '<i class="fa fa-trash bg-danger" style="margin-right:10px;"></i>'.ucwords($row['website']).'<br>';
-                                 $i++;
-                             } 
-                            echo '
+                        <div class="col-sm-8"> 
+                        <table class="mod-table">
+                                <tr><td>Company Name</td><td>:</td><td>'.ucwords($data[0]['company_name']).'</td></tr>
+                                <tr><td>Client Name</td><td>:</td><td>'.ucwords($data[0]['client_name']).'</td></tr>
+                                <tr><td>Phone No.</td><td>:</td><td>'.ucwords($data[0]['phone']).'</td></tr>
+                                <tr><td>Email Id</td><td>:</td><td>'.ucwords($data[0]['email']).'</td></tr>
+                                <tr><td>Website Name</td><td>:</td><td></td></tr>';
+                                if($data[0]['website']!='' || !empty($data[0]['website'])){
+                                foreach($data as $row)
+                                    {
+                                        
+                                        echo '<tr><td></td><td></td><td><a href="javascript:void(0)" id="'.$row['site_id'].'" onclick="delete_webiste(this.id);"><i class="fa fa-trash bg-danger" style="margin-right:10px;"></i></a>'.ucwords($row['website']).'</td></tr>';
+                                        $i++;
+                                    }
+                                } 
+                                    echo '
+                            </table>
                         </div>
                         <div class="col-sm-2"></div>
 						
@@ -93,8 +104,9 @@ class Client_master extends CI_Controller
             $company_name=$this->input->post('company_name'); 
             foreach($website as $key =>$row)
             {
+                $company_id=$this->client_master->get_client_master_company_id($company_name);
                 $datas = array(
-                    "company_name"			=> $company_name,
+                    "company_id"			=>$company_id['id'],
                     "website"				=> $row,
                 );
                 $insert_status=$this->client_master->save_website($datas);
@@ -132,14 +144,13 @@ class Client_master extends CI_Controller
     
     function edit_client()
     {
-        // action="'.base_url().'client-master/edit-client-master/'.$id.'"
         $id = $this->input->post('id');
         $data = $this->client_master->client_master_view_details($id);
         $i=0;
 		echo '<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
      </div>
      <div class="content">
-        <form method="post" id="frm">
+        <form method="post" id="frm" action="'.base_url().'client-master/edit-client-master">
            <div class="modal-body">
               <div class="form-group">
                  <label class="down">Company Name</label>
@@ -166,13 +177,31 @@ class Client_master extends CI_Controller
                        onfocusout="email_validation();" value="'.$data[0]['email'].'" required>
                  </div>
               </div>
-                <input type="hidden" name="id" value="'.$data[0]['id'].'">
+                <input type="hidden" name="id" value="'.$id.'">
            </div>
            <div class="modal-footer down">
-              <button  type="submit" name="insert_button" class="insert btn btn-primary" onclick="edit_client_master();">Submit<i class="icon-paperplane ml-2"></i></button>
+              <button  type="submit" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
            </div>
         </form> 
      </div>';
+    }
+    // onclick="edit_client_master();"
+    function delete_client()
+	{
+        if ($this->client_master->delete_client())
+        {
+            $msg = "Deleted successfully";
+            $this->session->set_flashdata('success', $msg);
+        }
+        redirect('client-master', 'refresh');
+    }
+    function delete_website()
+	{
+        if ($this->client_master->delete_website())
+        {
+            echo "deleted";
+        }
+        redirect('client-master', 'refresh');
     }
 }
 ?>

@@ -29,10 +29,10 @@ class Ssl_view extends CI_Controller
 				$sub_array[] = $row->company_website;
 				$sub_array[] = $row->type;
                 $sub_array[] = $row->amount_paid;
-                $sub_array[] = $row->auto_renewel_date;
-				$sub_array[] = '<input id="paid_date'.$row->id.'" type="text" name="paid_date" 
+                $sub_array[] = $row->renewel_date;
+				$sub_array[] = '<input id="paid_date'.$row->id.'" type="text" name="paid_date'.$row->id.'" 
 				class="form-control paid_date" autocomplete="off">';
-				$sub_array[] = '<button type="button" id="'.$row->id.'" class="btn bg-primary" >save</button>';
+				$sub_array[] = '<button type="button" id="'.$row->id.'" class="btn bg-primary" onclick="client_paid_date_details(this.id);" >save</button>';
 				$data[] = $sub_array;
 			}
 			$output = array(
@@ -43,6 +43,16 @@ class Ssl_view extends CI_Controller
 			);
 			echo json_encode($output);  
 		
-    }
+	}
+	function client_paid_date_details()
+    {
+		if($this->ssl_view->client_paid_date_details())
+		{
+			// echo "Inserted successfully";
+            $msg = "Inserted successfully";
+            $this->session->set_flashdata('success', $msg);
+		}
+		redirect('Ssl_view', 'refresh');
+	}
 }
 ?>
