@@ -1,3 +1,188 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Ssl_remainder_db extends CI_Model
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+    //Check records to auto fill values
+    function check_record_db($get_cmp_name, $get_cmp_website)
+    {
+        $this->db->select('a.*,c.company_name,c.id');
+        $this->db->from('add_ssl_remainder a');
+        $this->db->join('client_master c', 'a.company_id=c.id', 'left');
+        $this->db->where('c.company_name', $get_cmp_name);
+        $this->db->where('a.company_website', $get_cmp_website);
+        $check_record = $this->db->get();
+        $num = $check_record->num_rows();
+        if ($num) {
+            $check_record =  $check_record->row();
+            // echo "<pre>";
+            // print_r($check_record);
+            // exit;
+
+            return $check_record;
+        } else {
+            return false;
+        }
+    }
+    //Check records to auto fill values
+
+    //Data tables code
+
+    public function make_query()
+    {
+        $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.manual_update_date", "a.renewel_date", "a.amount_paid");
+        $this->db->select('a.*,c.company_name');
+        $this->db->from('add_ssl_remainder a');
+        $this->db->join('client_master c', 'a.company_id=c.id', 'left');
+        if (isset($_POST["search"]["value"])) {
+            $this->db->group_start();
+            $this->db->like("a.id", $_POST["search"]["value"]);
+            $this->db->or_like("c.company_name", $_POST["search"]["value"]);
+            $this->db->or_like("a.company_website", $_POST["search"]["value"]);
+            $this->db->or_like("a.type", $_POST["search"]["value"]);
+            $this->db->or_like("a.manual_update_date", $_POST["search"]["value"]);
+            $this->db->or_like("a.renewel_date", $_POST["search"]["value"]);
+            $this->db->or_like("a.amount_paid", $_POST["search"]["value"]);
+            $this->db->group_end();
+        }
+        if (isset($_POST["order"])) {
+            $this->db->order_by($order_column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else {
+            $this->db->order_by('a.id', 'DESC');
+        }
+    }
+
+    function get_all_data()
+    {
+        $this->db->select('a.*,c.company_name');
+        $this->db->from('add_ssl_remainder a');
+        $this->db->join('client_master c', 'a.company_id=c.id', 'left');
+        // $this->db->select("*");
+        // $this->db->from('add_ssl_remainder');
+        return $this->db->count_all_results();
+    }
+
+    function get_filtered_data()
+    {
+        $this->make_query();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function make_datatables()
+    {
+        $this->make_query();
+        if ($_POST["length"] != -1) {
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+    //Data tables code
+    public function fetch_company_names()
+    {
+        $this->db->select('company_name');
+        $this->db->from('client_master');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    public function fetch_company_relavent_websites($company_name)
+    {
+        $this->db->select('website');
+        $this->db->from('company_website');
+        $this->db->where('company_name', $company_name);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    function insert_ssl_remainder_db()
+    {
+        $company_name_selected = $this->input->post('company_name_selected');
+        $this->db->select('id');
+        $this->db->where('company_name', $company_name_selected);
+        $query = $this->db->get('client_master');
+        $company_id = $query->result_array();
+        $company_id = $company_id[0]['id'];
+        // echo "<pre>";
+        // echo $company_id;
+        // exit; 
+        $company_website_selected = $this->input->post('company_website_selected');
+        $renewel_method_selected = $this->input->post('renewel_method_selected');
+        $manual_update_date = "";
+        $renewel_date = "";
+        if (!empty($_POST['manual_update_date'])) {
+            $manual_update_date = $this->input->post('manual_update_date');
+            $renewel_date = $this->input->post('manual_renewel_date');
+            $this->db->select('*');
+            $this->db->from('add_ssl_remainder');
+            $this->db->where('manual_update_date', $manual_update_date);
+            $this->db->where('renewel_date', $renewel_date);
+            $this->db->where('company_id', $company_id);
+            $query = $this->db->get();
+            if ($query->num_rows() > 0) {
+                $this->session->set_flashdata('ssl_remainder_not_added', 'ssl_remainder_not_added');
+                return false;
+            }
+        } else if (!empty($_POST['auto_renewel_date'])) {
+
+            $renewel_date = $this->input->post('auto_renewel_date');
+            $this->db->select('*');
+            $this->db->from('add_ssl_remainder');
+            $this->db->where('renewel_date', $renewel_date);
+            $this->db->where('company_id', $company_id);
+            $query = $this->db->get();
+            if ($query->num_rows() > 0) {
+                $this->session->set_flashdata('ssl_remainder_not_added', 'ssl_remainder_not_added');
+                return false;
+            }
+        }
+        $amount_selected = $this->input->post('amount_selected');
+
+        $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected);
+        if ($this->db->insert("add_ssl_remainder", $field)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function delete_remainder_db()
+    {
+        // echo "model";
+        // exit;
+        $id = $this->input->post('id');
+        $this->db->where('id', $id);
+        $this->db->delete('add_ssl_remainder');
+    }
+    function update_new_user_record()
+    {
+        $name = $this->input->post('doctor_username');
+        $password = $this->input->post('doctor_password');
+        $password = hash('sha512', $password);
+        $id = $this->input->post('update_new_created_user_id');
+        $field = array('user_name' => $name, '	user_password' => $password);
+        $this->db->where('id', $id);
+        if ($this->db->update('user_master', $field)) {
+            return true;
+        }
+    }
+}
+----------------------------
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -138,11 +323,11 @@
                                 <form action="<?php echo base_url(); ?>ssl-remainder/insert-ssl-remainder" method="post">
                                     <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
                                         <label>Company<span style="color:red"> *</span> </label>
-                                        <select name="company_id_selected" id="call_relavent_websites" class="form-control get_cmp_id" required>
+                                        <select name="company_name_selected" id="call_relavent_websites" class="form-control get_cmp_name" required>
                                             <option value="">Select Company</option>
                                             <?php
                                             for ($i = 0; $i < count($company_names_db); $i++) :
-                                                echo '<option  value="' . $company_names_db[$i]['id'] . '">' . $company_names_db[$i]['company_name'] . '</option>';
+                                                echo '<option  value="' . $company_names_db[$i]['company_name'] . '">' . $company_names_db[$i]['company_name'] . '</option>';
                                             endfor;
                                             ?>
                                         </select>
@@ -257,19 +442,18 @@
 
         $(document).ready(function() {
             //Auto Fill Values
-            $(".get_cmp_id,.get_cmp_website").change(function() {
-                // alert('asdfasd');
-                var get_cmp_id = $('.get_cmp_id').val();
+            $(".get_cmp_name,.get_cmp_website").change(function() {
+                var get_cmp_name = $('.get_cmp_name').val();
                 var get_cmp_website = $('.get_cmp_website').val();
-                if (get_cmp_id != "" && get_cmp_website != "") {
-                    // alert(get_cmp_id);
+                if (get_cmp_name != "" && get_cmp_website != "") {
+                    // alert(get_cmp_name);
                     // alert(get_cmp_website);
                     jQuery.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>" + "ssl-remainder/auto-fill",
                         dataType: 'json',
                         data: {
-                            get_cmp_id: get_cmp_id,
+                            get_cmp_name: get_cmp_name,
                             get_cmp_website: get_cmp_website
                         },
                         success: function(response) {
@@ -325,20 +509,15 @@
 
             //Calling relevant websites based on client name
             $('#call_relavent_websites').change(function() {
-                var company_id = $('#call_relavent_websites').val();
-                // alert("inside relevant");
-                // alert(company_id);
-
-                if (company_id) {
+                var company_name = $('#call_relavent_websites').val();
+                if (company_name) {
                     jQuery.ajax({
                         type: 'POST',
                         url: "<?php echo base_url(); ?>" + "ssl-remainder/dispaly-relavent-websites",
                         data: {
-                            company_id: company_id
+                            company_name: company_name
                         },
                         success: function(response) {
-                            // alert(response);
-
                             $("#dynamic_company_websites").empty();
                             $("#dynamic_company_websites").append(response);
                         }
@@ -362,8 +541,7 @@
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
-            minDate: 0,
-            yearRange: '2020:2030',
+            yearRange: '1947:2100',
             onClose: function(selectedDate) {
                 $("#ren_datepick").datepicker("option", "minDate", selectedDate);
             }
@@ -374,19 +552,18 @@
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
-            minDate: 0,
-            yearRange: '2020:2030',
+            yearRange: '1947:2100',
             onClose: function(selectedDate) {
-                $("#update_datepick").datepicker("option", "minDate", selectedDate);
+                $("#update_datepick").datepicker("option", "maxDate", selectedDate);
             }
         });
 
         $("#auto_ren_datepick").datepicker({
             dateFormat: 'yy-mm-dd',
-            minDate: 0,
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
+            yearRange: '1947:2100',
         });
         //DATE pickers
 

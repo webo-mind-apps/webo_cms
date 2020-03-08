@@ -7,7 +7,31 @@ class Ssl_remainder_db extends CI_Model
     {
         parent::__construct();
     }
-    //Data tables code
+    //Check records to auto fill values
+    function check_record_db($get_cmp_id, $get_cmp_website)
+    {
+        $this->db->select('a.*,c.company_name,c.id');
+        $this->db->from('add_ssl_remainder a');
+        $this->db->join('client_master c', 'a.company_id=c.id', 'left');
+        $this->db->where('c.id', $get_cmp_id);
+        $this->db->where('a.company_website', $get_cmp_website);
+        $this->db->order_by("a.id", "desc");
+        $check_record = $this->db->get();
+        $num = $check_record->num_rows();
+        if ($num) {
+            $check_record =  $check_record->row();
+            // echo "<pre>";
+            // print_r($check_record);
+            // exit;
+
+            return $check_record;
+        } else {
+            return false;
+        }
+    }
+    //CHECK RECORDS TO AUTO FILL VALUES
+
+    //DATA TABLES CODE
 
     public function make_query()
     {
@@ -62,7 +86,7 @@ class Ssl_remainder_db extends CI_Model
     //Data tables code
     public function fetch_company_names()
     {
-        $this->db->select('company_name');
+        $this->db->select('id,company_name');
         $this->db->from('client_master');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -72,11 +96,11 @@ class Ssl_remainder_db extends CI_Model
         }
     }
 
-    public function fetch_company_relavent_websites($company_name)
+    public function fetch_company_relavent_websites($company_id)
     {
         $this->db->select('website');
         $this->db->from('company_website');
-        $this->db->where('company_name', $company_name);
+        $this->db->where('company_id', $company_id); //need to stroe in id format
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -87,12 +111,12 @@ class Ssl_remainder_db extends CI_Model
 
     function insert_ssl_remainder_db()
     {
-        $company_name_selected = $this->input->post('company_name_selected');
-        $this->db->select('id');
-        $this->db->where('company_name', $company_name_selected);
-        $query = $this->db->get('client_master');
-        $company_id = $query->result_array();
-        $company_id = $company_id[0]['id'];
+        $company_id = $this->input->post('company_id_selected');
+        // $this->db->select('id');
+        // $this->db->where('company_name', $company__selected);
+        // $query = $this->db->get('client_master');
+        // $company_id = $query->result_array();
+        // $company_id = $company_id[0]['id'];
         // echo "<pre>";
         // echo $company_id;
         // exit; 
@@ -100,16 +124,39 @@ class Ssl_remainder_db extends CI_Model
         $renewel_method_selected = $this->input->post('renewel_method_selected');
         $manual_update_date = "";
         $renewel_date = "";
+        //CHECKING UPDATE AND RENEWAL DATES DIFFERECE---------------------------------------------------/
         if (!empty($_POST['manual_update_date'])) {
+
             $manual_update_date = $this->input->post('manual_update_date');
             $renewel_date = $this->input->post('manual_renewel_date');
-            // echo "<pre>";
-            // echo $renewel_date;
-            // echo $manual_update_date;
-            // exit;
+            $this->db->select('*');
+            $this->db->from('add_ssl_remainder');
+            $this->db->where('manual_update_date', $manual_update_date);
+            $this->db->where('renewel_date', $renewel_date);
+            $this->db->where('company_id', $company_id);
+            $this->db->where('company_website', $company_website_selected);
+            $query = $this->db->get();
+            if ($query->num_rows() > 0) {
+                $this->session->set_flashdata('ssl_remainder_not_added', 'ssl_remainder_not_added');
+                return false;
+            }
         } else if (!empty($_POST['auto_renewel_date'])) {
+
             $renewel_date = $this->input->post('auto_renewel_date');
+            $this->db->select('*');
+            $this->db->from('add_ssl_remainder');
+            $this->db->where('renewel_date', $renewel_date);
+            $this->db->where('company_id', $company_id);
+            $this->db->where('company_website', $company_website_selected);
+            $query = $this->db->get();
+            if ($query->num_rows() > 0) {
+                $this->session->set_flashdata('ssl_remainder_not_added', 'ssl_remainder_not_added');
+                return false;
+            }
         }
+
+        //CHECKING UPDATE AND RENEWAL DATES DIFFERECE---------------------------------------------------/
+
         $amount_selected = $this->input->post('amount_selected');
 
         $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected);
@@ -120,22 +167,24 @@ class Ssl_remainder_db extends CI_Model
         }
     }
 
-    function del_new_user()
+    function delete_remainder_db()
     {
-        $id  = $this->input->post('del_id');
+        // echo "model";
+        // exit;
+        $id = $this->input->post('id');
         $this->db->where('id', $id);
-        $this->db->delete("user_master");
+        $this->db->delete('add_ssl_remainder');
     }
-    function update_new_user_record()
-    {
-        $name = $this->input->post('doctor_username');
-        $password = $this->input->post('doctor_password');
-        $password = hash('sha512', $password);
-        $id = $this->input->post('update_new_created_user_id');
-        $field = array('user_name' => $name, '	user_password' => $password);
-        $this->db->where('id', $id);
-        if ($this->db->update('user_master', $field)) {
-            return true;
-        }
-    }
+    // function update_new_user_record()
+    // {
+    //     $name = $this->input->post('doctor_username');
+    //     $password = $this->input->post('doctor_password');
+    //     $password = hash('sha512', $password);
+    //     $id = $this->input->post('update_new_created_user_id');
+    //     $field = array('user_name' => $name, '	user_password' => $password);
+    //     $this->db->where('id', $id);
+    //     if ($this->db->update('user_master', $field)) {
+    //         return true;
+    //     }
+    // }
 }
