@@ -51,6 +51,10 @@
 			right: 0;
 			top: 0;
 		}
+      .mod-table td
+      {
+         padding:15px 20px 15px 20px;
+      }
       </style>
    </head>
    <body>
@@ -194,7 +198,7 @@
       <!-- /page content -->
       <!-- content area -->
 				<div id="modal_theme_primary" class="modal fade" tabindex="-1">
-					<div class="modal-dialog modal-sm">
+					<div class="modal-dialog modal-md">
 						<div class="modal-content" id="client_details">
 
 						</div>
