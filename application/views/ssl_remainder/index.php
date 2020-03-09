@@ -113,11 +113,11 @@
             }
             ?>
             <?php
-            if ($this->session->flashdata('ssl_remainder_not_added', 'ssl_remainder_not_added')) {
+            if ($this->session->flashdata('ssl_remainder_updated', 'ssl_remainder_updated')) {
             ?>
                 <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span class="text-semibold">SSL Remainder Exist On The Date!..</span>
+                    <span class="text-semibold">SSL Remainder Exist Updated!..</span>
                 </div>
             <?php
             }
@@ -263,6 +263,8 @@
         $(document).ready(function() {
             //Auto Fill Values------------------------------------------------------
             $(".get_cmp_id,.get_cmp_website").change(function() {
+                var get_cmp_id = "";
+                var get_cmp_website = "";
                 var get_cmp_id = $('.get_cmp_id').val();
                 var get_cmp_website = $('.get_cmp_website').val();
                 if (get_cmp_id != "" && get_cmp_website != "") {
@@ -279,10 +281,10 @@
                             $('#renew_method').val(response.type);
                             renewelMethod();
                             $("#amount").val(response.amount_paid);
+                            $("#update_datepick").empty();
+                            $("#ren_datepick").empty();
+                            $("#auto_ren_datepick").empty();
                             if (response.type == 'manual') {
-                                $("#update_datepick").empty();
-                                $("#ren_datepick").empty();
-
                                 $('#update_datepick').val(response.manual_update_date);
                                 $('#ren_datepick').val(response.renewel_date);
                                 //remove or addd required
@@ -290,13 +292,17 @@
                                 $('#update_datepick').addAttr('required');
                                 $('#ren_datepick').addAttr('required');
                             } else if (response.type == 'auto') {
-                                $("#auto_ren_datepick").empty();
+
                                 $('#auto_ren_datepick').val(response.renewel_date);
 
                                 //remove or addd required
                                 $('#update_datepick').removeAttr('required');
                                 $('#ren_datepick').removeAttr('required');
                                 $('#auto_ren_datepick').addAttr('required');
+                            } else {
+                                $('#update_datepick').val(response.manual_update_date);
+                                $('#ren_datepick').val(response.renewel_date);
+                                $('#auto_ren_datepick').val(response.renewel_date);
                             }
                         }
                     });
