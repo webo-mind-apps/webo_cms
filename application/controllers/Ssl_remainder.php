@@ -66,13 +66,13 @@ class Ssl_remainder extends CI_Controller
             $sub_array[] = $row->company_name;
             $sub_array[] = $row->company_website;
             $sub_array[] = $row->type;
-            $sub_array[] = $row->manual_update_date;
             $sub_array[] = $row->renewel_date;
             $sub_array[] = $row->amount_paid;
+            $sub_array[] = $row->paid_date;
             $sub_array[] = '
 					 <div class="list-icons">
 					 <div class="dropdown">
-						 <a href="#" class="list-icons-item" data-toggle="dropdown">
+						 <a href="" class="list-icons-item" data-toggle="dropdown">
 							 <i class="icon-menu9"></i>
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
@@ -96,12 +96,14 @@ class Ssl_remainder extends CI_Controller
         //     onclick="client_master_view_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i>abc</a>
         //    <a a href="javascript:void(0)" id=' . $row->id . '   onclick="client_master_edit(this.id);" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
     }
-}
 
-function delete_remainder_fun()
-{
-    if ($this->Ssl_remainder_db->delete_remainder_db()) {
-        echo "deleted";
+    function delete_remainder_fun()
+    {
+        if ($this->Ssl_remainder_db->delete_remainder_db()) {
+            //$this->session->set_flashdata('ssl_deleted', 'ssl_deleted');
+        }
     }
 }
+
+
 ?>

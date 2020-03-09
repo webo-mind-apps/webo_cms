@@ -93,6 +93,16 @@
                 </div>
             </div>
             <?php
+            if ($this->session->flashdata('ssl_deleted', 'ssl_deleted')) {
+            ?>
+                <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span class="text-semibold">Deleted Successfully</span>
+                </div>
+            <?php
+            }
+            ?>
+            <?php
             if ($this->session->flashdata('ssl_remainder_added', 'ssl_remainder_added')) {
             ?>
                 <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
@@ -212,7 +222,7 @@
                                 <th>Update Date</th>
                                 <th>Renewel Date</th>
                                 <th>Amount Paid</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text-center">Delete</th>
                             </tr>
                         </thead>
                     </table>
@@ -229,27 +239,22 @@
 
 
     <script>
-        //for delete remainder
+        //For delete remainder
         function delete_remainder(id) {
             // alert(id);
-            confirm_del = confirm("Are you sure to Delete ?");
-            if (confirm_del == true) {
-                // $("div#divLoading").addClass('show');
+            r = confirm("Are you sure to delete ?");
+            if (r == true) {
                 jQuery.ajax({
                     type: "POST",
-                    url: "<?php echo base_url(); ?>" + "ssl-remainder/delete-remainder-fun",
-                    // datatype: "text",
+                    url: "<?php echo base_url(); ?>ssl-remainder/delete-remainder-fun",
+                    datatype: "text",
                     data: {
                         id: id
                     },
                     success: function(response) {
-                        // $('#get_details').empty();
-                        // $('#get_details').append(response);
-                        // $("div#divLoading").removeClass('show');
-                        // $("#ssl_remainder_d_table").DataTable().ajax.reload();
-                        alert(response);
+                        $("#ssl_remainder_d_table").DataTable().ajax.reload();
                     },
-                    // error: function(xhr, ajaxOptions, thrownError) {}
+                    error: function(xhr, ajaxOptions, thrownError) {}
                 });
             }
         }
@@ -258,12 +263,9 @@
         $(document).ready(function() {
             //Auto Fill Values
             $(".get_cmp_id,.get_cmp_website").change(function() {
-                // alert('asdfasd');
                 var get_cmp_id = $('.get_cmp_id').val();
                 var get_cmp_website = $('.get_cmp_website').val();
                 if (get_cmp_id != "" && get_cmp_website != "") {
-                    // alert(get_cmp_id);
-                    // alert(get_cmp_website);
                     jQuery.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>" + "ssl-remainder/auto-fill",
@@ -278,6 +280,9 @@
                             renewelMethod();
                             $("#amount").val(response.amount_paid);
                             if (response.type == 'manual') {
+                                $("#update_datepick").empty();
+                                $("#ren_datepick").empty();
+
                                 $('#update_datepick').val(response.manual_update_date);
                                 $('#ren_datepick').val(response.renewel_date);
                                 //remove or addd required
@@ -285,6 +290,7 @@
                                 $('#update_datepick').addAttr('required');
                                 $('#ren_datepick').addAttr('required');
                             } else if (response.type == 'auto') {
+                                $("#auto_ren_datepick").empty();
                                 $('#auto_ren_datepick').val(response.renewel_date);
 
                                 //remove or addd required
@@ -298,7 +304,6 @@
                     });
                 }
             });
-
             //Auto Fill Values
 
             //Hide DATE PICKERS
@@ -326,9 +331,6 @@
             //Calling relevant websites based on client name
             $('#call_relavent_websites').change(function() {
                 var company_id = $('#call_relavent_websites').val();
-                // alert("inside relevant");
-                // alert(company_id);
-
                 if (company_id) {
                     jQuery.ajax({
                         type: 'POST',
@@ -346,6 +348,7 @@
                 }
             });
         });
+
         // Numeric validation 
         function isNumber(evt) {
             evt = (evt) ? evt : window.event;
@@ -376,9 +379,9 @@
             showOtherMonths: true,
             minDate: 0,
             yearRange: '2020:2030',
-            onClose: function(selectedDate) {
-                $("#update_datepick").datepicker("option", "minDate", selectedDate);
-            }
+            // onClose: function(selectedDate) {
+            //     $("#update_datepick").datepicker("option", "minDate", selectedDate);
+            // }
         });
 
         $("#auto_ren_datepick").datepicker({
@@ -408,9 +411,8 @@
         });
         //ADDING and REMOVING required 
     </script>
-
+    <!-- // DATA TABLES CODE ------------------------------------------->
     <script>
-        // DATA TABLES CODE
         var DatatableAdvanced = function() {
 
             // Basic Datatable examples
