@@ -219,9 +219,9 @@
                                 <th>Company Name</th>
                                 <th>Company Website</th>
                                 <th>Type</th>
-                                <th>Update Date</th>
                                 <th>Renewel Date</th>
                                 <th>Amount Paid</th>
+                                <th>Paid Date</th>
                                 <th class="text-center">Delete</th>
                             </tr>
                         </thead>
@@ -239,7 +239,7 @@
 
 
     <script>
-        //For delete remainder
+        //For delete remainder------------------------------------------------------
         function delete_remainder(id) {
             // alert(id);
             r = confirm("Are you sure to delete ?");
@@ -258,10 +258,10 @@
                 });
             }
         }
-        //for delete remainder
+        //for delete remainder------------------------------------------------------
 
         $(document).ready(function() {
-            //Auto Fill Values
+            //Auto Fill Values------------------------------------------------------
             $(".get_cmp_id,.get_cmp_website").change(function() {
                 var get_cmp_id = $('.get_cmp_id').val();
                 var get_cmp_website = $('.get_cmp_website').val();
@@ -298,15 +298,13 @@
                                 $('#ren_datepick').removeAttr('required');
                                 $('#auto_ren_datepick').addAttr('required');
                             }
-
-
                         }
                     });
                 }
             });
-            //Auto Fill Values
+            //Auto Fill Values------------------------------------------------------
 
-            //Hide DATE PICKERS
+            //Hide DATE PICKERS------------------------------------------------------
             $("#renew_method").change(function() {
                 renewelMethod()
             });
@@ -326,9 +324,9 @@
                     $("#auto_ren_datepick").css('display', 'block');
                 }
             }
-            //Hide DATE PICKERS
+            //Hide DATE PICKERS------------------------------------------------------
 
-            //Calling relevant websites based on client name
+            //Calling Relevant Websites Based On Client Name-------------------------
             $('#call_relavent_websites').change(function() {
                 var company_id = $('#call_relavent_websites').val();
                 if (company_id) {
@@ -347,9 +345,10 @@
                     });
                 }
             });
+            //Calling Relevant Websites Based On Client Name-------------------------
         });
 
-        // Numeric validation 
+        // Numeric validation--------------------------------------------------------
         function isNumber(evt) {
             evt = (evt) ? evt : window.event;
             var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -358,8 +357,9 @@
             }
             return true;
         }
+        // Numeric validation--------------------------------------------------------
 
-        //DATE pickers
+        //DATE pickers---------------------------------------------------------------
         $("#update_datepick").datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
@@ -391,9 +391,9 @@
             changeYear: true,
             showOtherMonths: true,
         });
-        //DATE pickers
+        //DATE pickers-----------------------------------------------------------------
 
-        //ADDING and REMOVING required 
+        //ADDING and REMOVING required ------------------------------------------------
         $('#update_datepick').change(function() {
             $('#auto_ren_datepick').removeAttr('required');
             $('#update_datepick').addAttr('required');
