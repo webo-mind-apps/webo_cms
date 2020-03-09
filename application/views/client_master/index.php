@@ -328,20 +328,6 @@
 			});
          }
 		}
-
-      // function edit_client_master() {
-		// 	jQuery.ajax({
-		// 		type: "POST",
-		// 		url: "<?php echo base_url(); ?>client-master/edit-client-master",
-		// 		datatype: "text",
-		// 		data: $("#frm").serialize(),
-				
-		// 		success: function(response) {
-		// 			// location.reload();
-		// 		},
-		// 		error: function(xhr, ajaxOptions, thrownError) {}
-		// 	});
-		// }
          
          // document ready function
          $(document).ready(function() {
