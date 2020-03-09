@@ -35,9 +35,9 @@ class Ssl_remainder_db extends CI_Model
 
     public function make_query()
     {
-        $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.manual_update_date", "a.renewel_date", "a.amount_paid");
+        $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.renewel_date", "a.amount_paid", "a.paid_date",);
         $this->db->select('a.*,c.company_name');
-        $this->db->from('add_ssl_remainder a');
+        $this->db->from('paid_ssl_remainder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
         if (isset($_POST["search"]["value"])) {
             $this->db->group_start();
@@ -45,9 +45,9 @@ class Ssl_remainder_db extends CI_Model
             $this->db->or_like("c.company_name", $_POST["search"]["value"]);
             $this->db->or_like("a.company_website", $_POST["search"]["value"]);
             $this->db->or_like("a.type", $_POST["search"]["value"]);
-            $this->db->or_like("a.manual_update_date", $_POST["search"]["value"]);
             $this->db->or_like("a.renewel_date", $_POST["search"]["value"]);
             $this->db->or_like("a.amount_paid", $_POST["search"]["value"]);
+            $this->db->or_like("a.paid_date", $_POST["search"]["value"]);
             $this->db->group_end();
         }
         if (isset($_POST["order"])) {
@@ -60,10 +60,8 @@ class Ssl_remainder_db extends CI_Model
     function get_all_data()
     {
         $this->db->select('a.*,c.company_name');
-        $this->db->from('add_ssl_remainder a');
+        $this->db->from('paid_ssl_remainder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
-        // $this->db->select("*");
-        // $this->db->from('add_ssl_remainder');
         return $this->db->count_all_results();
     }
 
@@ -112,14 +110,6 @@ class Ssl_remainder_db extends CI_Model
     function insert_ssl_remainder_db()
     {
         $company_id = $this->input->post('company_id_selected');
-        // $this->db->select('id');
-        // $this->db->where('company_name', $company__selected);
-        // $query = $this->db->get('client_master');
-        // $company_id = $query->result_array();
-        // $company_id = $company_id[0]['id'];
-        // echo "<pre>";
-        // echo $company_id;
-        // exit; 
         $company_website_selected = $this->input->post('company_website_selected');
         $renewel_method_selected = $this->input->post('renewel_method_selected');
         $manual_update_date = "";
@@ -154,7 +144,6 @@ class Ssl_remainder_db extends CI_Model
                 return false;
             }
         }
-
         //CHECKING UPDATE AND RENEWAL DATES DIFFERECE---------------------------------------------------/
 
         $amount_selected = $this->input->post('amount_selected');
@@ -169,11 +158,11 @@ class Ssl_remainder_db extends CI_Model
 
     function delete_remainder_db()
     {
-        // echo "model";
-        // exit;
         $id = $this->input->post('id');
         $this->db->where('id', $id);
-        $this->db->delete('add_ssl_remainder');
+        if ($this->db->delete('paid_ssl_remainder')) {
+            return true;
+        }
     }
     // function update_new_user_record()
     // {
