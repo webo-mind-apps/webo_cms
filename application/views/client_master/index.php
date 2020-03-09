@@ -303,7 +303,8 @@
 					id: id
 				},
 				success: function(response) {
-               location.reload();
+               alert(response);
+               $("#client_master_d_table").DataTable().ajax.reload();
 				},
 				error: function(xhr, ajaxOptions, thrownError) {}
 			});
@@ -321,7 +322,7 @@
 				},
 				success: function(response) {
                alert("website deleted successfully");
-               location.reload();
+               $("#client_master_d_table").DataTable().ajax.reload();
 				},
 				error: function(xhr, ajaxOptions, thrownError) {}
 			});
