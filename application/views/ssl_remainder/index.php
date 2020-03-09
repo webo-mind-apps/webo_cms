@@ -178,13 +178,19 @@
                                     </div>
                                     <!-- date pickers -->
                                     <div class="">
+                                        <label class="hide_manual_label" style="display:none;float:left;">Update Date </label>
+                                        <label class="hide_manual_label" style="display:none;float:right;">Renewel Date </label>
                                         <div class="input-group renew_inputs_manual">
+
                                             <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" autocomplete="off" style="display:none" required>
+
+
                                             <input id="ren_datepick" style="margin-left:5px;display:none;" type="text" class="form-control" name="manual_renewel_date" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
                                         </div>
                                     </div>
 
                                     <div class="">
+                                        <label class="hide_auto_label" style="display:none;float:left;">Renewel Date </label>
                                         <div class="input-group" id="renew_inputs_auto">
                                             <input id="auto_ren_datepick" style="margin:0 250px 7px 0;display:none;" type="text" class="form-control" name="auto_renewel_date" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
                                         </div>
@@ -318,12 +324,20 @@
             function renewelMethod() {
                 var method = $('#renew_method').val();
                 if ("manual" == method) {
+                    //label dipsplay-------
+                    $(".hide_manual_label").css('display', 'block');
+                    $(".hide_auto_label").css('display', 'none');
+                    //label dipsplay-------
 
                     $("#update_datepick").css('display', 'block');
                     $("#ren_datepick").css('display', 'block');
                     $("#auto_ren_datepick").css('display', 'none');
 
                 } else if ("auto" == method) {
+                    //label dipsplay------- 
+                    $(".hide_auto_label").css('display', 'block');
+                    $(".hide_manual_label").css('display', 'none');
+                    //label dipsplay-------
 
                     $("#update_datepick").css('display', 'none');
                     $("#ren_datepick").css('display', 'none');
