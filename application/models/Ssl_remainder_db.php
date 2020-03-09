@@ -35,10 +35,14 @@ class Ssl_remainder_db extends CI_Model
 
     public function make_query()
     {
+        $get_cmp_id = $this->input->get('cid');
+        $get_cmp_website = $this->input->get('cweb');
         $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.renewel_date", "a.amount_paid", "a.paid_date",);
         $this->db->select('a.*,c.company_name');
         $this->db->from('paid_ssl_remainder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
+        $this->db->where('company_id', $get_cmp_id);
+        $this->db->where('company_website', $get_cmp_website);
         if (isset($_POST["search"]["value"])) {
             $this->db->group_start();
             $this->db->like("a.id", $_POST["search"]["value"]);

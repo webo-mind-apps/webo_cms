@@ -58,8 +58,17 @@ class Ssl_remainder extends CI_Controller
         }
     }
 
+    // function auto_fill_ssl_table()
+    // {
+    //     $get_cmp_id = $this->input->post('get_cmp_id');
+    //     $get_cmp_website = $this->input->post('get_cmp_website');
+    //     if ($data = $this->Ssl_remainder_db->make_query($get_cmp_id, $get_cmp_website)) {
+    //     }
+    // }
+
     public function get_all_data($var = null) //created for implementing data tables
     {
+
         $fetch_data = $this->Ssl_remainder_db->make_datatables();
         $data = array();
         // $status = '<span class="badge bg-blue">Completed</span>';

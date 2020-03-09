@@ -316,6 +316,30 @@
             });
             //Auto Fill Values------------------------------------------------------
 
+            //Auto Fill view Ssl Remainder Table Values------------------------------------------------------
+
+            $(".get_cmp_id,.get_cmp_website").change(function() {
+                $('#ssl_remainder_d_table').DataTable().destroy();
+                DatatableAdvanced.init();
+
+                // var get_cmp_id = "";
+                // var get_cmp_website = "";
+                // var get_cmp_id = $('.get_cmp_id').val();
+                // var get_cmp_website = $('.get_cmp_website').val();
+                // if (get_cmp_id != "" && get_cmp_website != "") {
+                //     jQuery.ajax({
+                //         type: "POST",
+                //         url: "<?php echo base_url(); ?>" + "ssl_remainder/get_all_data?cid=" + get_cmp_id + "&cweb=" + get_cmp_website,
+                //         dataType: 'json',
+                //         success: function(response) {
+
+                //         }
+                //     });
+                // }
+            });
+            //Auto Fill view Ssl Remainder Table Values------------------------------------------------------
+
+
             //Hide DATE PICKERS------------------------------------------------------
             $("#renew_method").change(function() {
                 renewelMethod()
@@ -464,20 +488,27 @@
                     }
                 });
 
-                var dataTable = $('#ssl_remainder_d_table').DataTable({
-                    'processing': true,
-                    'serverSide': true,
-                    'order': [],
-                    'ajax': {
-                        'url': "<?php echo base_url() . 'ssl_remainder/get_all_data' ?>",
-                        'type': 'POST'
-                    },
-                    'columnDefs': [{
-                        "targets": [7],
-                        "orderable": false,
-                    }],
 
-                })
+                var get_cmp_id = "";
+                var get_cmp_website = "";
+                var get_cmp_id = $('.get_cmp_id').val();
+                var get_cmp_website = $('.get_cmp_website').val();
+                if (get_cmp_id != "" && get_cmp_website != "") {
+                    var dataTable = $('#ssl_remainder_d_table').DataTable({
+                        'processing': true,
+                        'serverSide': true,
+                        'order': [],
+                        'ajax': {
+                            'url': "<?php echo base_url() ?>" + "ssl_remainder/get_all_data?cid=" + get_cmp_id + "&cweb=" + get_cmp_website,
+                            'type': 'POST'
+                        },
+                        'columnDefs': [{
+                            "targets": [7],
+                            "orderable": false,
+                        }],
+
+                    })
+                }
 
                 // Datatable 'length' options
                 $('.datatable-show-all').DataTable({
@@ -535,10 +566,6 @@
                 }
             }
         }();
-
-        document.addEventListener('DOMContentLoaded', function() {
-            DatatableAdvanced.init()
-        });
     </script>
 </body>
 

@@ -15,6 +15,7 @@ $route['ssl-remainder/insert-ssl-remainder']      = 'Ssl_remainder/insert_ssl_re
 $route['ssl-remainder/delete-remainder-fun']      = 'Ssl_remainder/delete_remainder_fun';
 $route['ssl-view']                                = 'Ssl_view';
 $route['ssl-remainder/auto-fill']                 = 'Ssl_remainder/auto_fill';
+// $route['ssl-remainder/auto-fill-ssl-table']       = 'Ssl_remainder/auto_fill_ssl_table';
 $route['master-remainder']                        = 'Master_remainder';
 $route['client-master/delete-client']             = 'Client_master/delete_client';
 $route['client-master/delete-website']            = 'Client_master/delete_website';
