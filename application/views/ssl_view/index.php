@@ -294,21 +294,20 @@
 			});
 		}
 
-      // $(".paid_date").datepicker({
-      //       dateFormat: 'yy-mm-d',
-      //       changeMonth: true,
-      //       changeYear: true,
-      //       showOtherMonths: true,
-      //       yearRange: '1947:2100',
-      //   });
+     
       
       $(document).on('focus', '.paid_date', function () { 
-         $(".paid_date").datepicker({
+         var paid_date= $(this).parent().find('.renewel_date').val();
+         $(this).datepicker({
+            defaultDate: paid_date,
             dateFormat: 'yy-mm-d',
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
-            yearRange: '1947:2100',
+            yearRange: '2010:2100',
+            // onClose: function(selectedDate) {
+            //    $(this).parent().find('.renewel_date').datepicker("option", "minDate", selectedDate);
+            // }
         });
        })
         

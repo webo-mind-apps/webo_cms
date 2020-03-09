@@ -30,8 +30,8 @@ class Ssl_view extends CI_Controller
 				$sub_array[] = $row->type;
                 $sub_array[] = $row->amount_paid;
                 $sub_array[] = $row->renewel_date;
-				$sub_array[] = '<input id="paid_date'.$row->id.'" type="text" name="paid_date'.$row->id.'" 
-				class="form-control paid_date" autocomplete="off">';
+				$sub_array[] = '<div class="check_date"><input id="paid_date'.$row->id.'" type="text" name="paid_date'.$row->id.'" 
+				class="form-control paid_date" autocomplete="off"><input id="renewel'.$row->id.'" class="renewel_date" type="hidden" value="'.$row->renewel_date.'"></div>';
 				$sub_array[] = '<button type="button" id="'.$row->id.'" class="btn bg-primary" onclick="client_paid_date_details(this.id);" >save</button>';
 				$data[] = $sub_array;
 			}
