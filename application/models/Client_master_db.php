@@ -150,7 +150,7 @@ class Client_master_db extends CI_Model
             $this->db->where("company_id",$id);
             if($this->db->delete("company_website"))
             {
-                return ture;
+                return true;
             }
 		}
     }

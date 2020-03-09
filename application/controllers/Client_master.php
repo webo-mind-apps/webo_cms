@@ -190,8 +190,7 @@ class Client_master extends CI_Controller
 	{
         if ($this->client_master->delete_client())
         {
-            $msg = "Deleted successfully";
-            $this->session->set_flashdata('success', $msg);
+           echo "deleted successfully";
         }
         redirect('client-master', 'refresh');
     }

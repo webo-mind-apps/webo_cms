@@ -269,7 +269,8 @@ function delete_master_remainder(id) {
 					id: id
 				},
 				success: function(response) {
-               location.reload();
+               alert(response);
+               $("#remainder_master_d_table").DataTable().ajax.reload();
 				},
 				error: function(xhr, ajaxOptions, thrownError) {}
 			});

@@ -78,8 +78,7 @@ class Master_remainder extends CI_Controller
 		
         if ($this->master_remainder->delete_remainder_master())
         {
-			$msg = "Deleted successfully";
-			$this->session->set_flashdata('success', $msg);
+			echo "Deleted successfully";
         }
         redirect('master-remainder', 'refresh');
 	}
