@@ -78,8 +78,8 @@ class Client_master extends CI_Controller
                                 if($data[0]['website']!='' || !empty($data[0]['website'])){
                                 foreach($data as $row)
                                     {
-                                        
-                                        echo '<tr><td></td><td></td><td><a href="javascript:void(0)" id="'.$row['site_id'].'" onclick="delete_webiste(this.id);"><i class="fa fa-trash bg-danger" style="margin-right:10px;"></i></a>'.ucwords($row['website']).'</td></tr>';
+                                        if($row['status']==1){$checked="";}else{$checked="checked";}
+                                        echo '<tr><td></td><td></td><td><input type="checkbox"  '.$checked.' style="height:18px;width:18px;cursor:pointer " class="checkbox" name="checkbox" id="'. $row['site_id'] .'" value="' .$row['status']. '">';if($row['status']==1){echo '<span class="danger">'.$row['website'].'</span>';}else{echo '<span>'.$row['website'].'</span>';} echo'</span></td></tr>';
                                         $i++;
                                     }
                                 } 
@@ -194,11 +194,11 @@ class Client_master extends CI_Controller
         }
         redirect('client-master', 'refresh');
     }
-    function delete_website()
+    function website_status_change()
 	{
-        if ($this->client_master->delete_website())
+        if ($this->client_master->website_status_change())
         {
-            echo "deleted";
+            echo "1";
         }
         redirect('client-master', 'refresh');
     }

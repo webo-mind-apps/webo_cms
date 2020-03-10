@@ -78,6 +78,9 @@
 			cursor: pointer;
 			border-radius: .1875rem;
 		}
+      .danger {
+      background: #ff7043c9 !important;
+   }
       </style>
    </head>
    <body>
@@ -100,7 +103,7 @@
             <div class="page-header page-header-light">
                <div class="page-header-content header-elements-md-inline">
                   <div class="page-title d-flex">
-                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View Ssl Remainder</span></h4>
+                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View SSL Remainder</span></h4>
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                   
@@ -125,7 +128,7 @@
                         <!-- card-->
                         <div class="card">
                            <div class="card-header header-elements-inline">
-                              <h5 class="card-title">View Ssl Remainder</h5>
+                              <h5 class="card-title">View SSL Remainder</h5>
                               <div class="header-elements">
                                  <div class="list-icons">
                                     <a class="list-icons-item" data-action="collapse"></a>
@@ -138,14 +141,17 @@
                            <!-- <div class="card-body"> -->
                               <table id="ssl_view_d_table" class="table datatable-basic table-bordered table-striped table-hover">
                                  <thead>
+                                
                                     <tr>
                                        <th>Si No</th>
                                        <th>Company Name</th>
                                        <th>Website</th>
                                        <th>Type</th>
                                        <th>Amount</th>
+                                       <th>update Date</th>
                                        <th>Renewal Date</th>
                                        <th>Paid Date</th>
+                                       <th>Paid Amount</th>
                                        <th>Update</th>
                                     </tr>
                                  </thead>
@@ -166,7 +172,13 @@
       <!-- /page content -->
 				
       <script>
-         // DATA TABLES CODE
+      
+       
+         //DATA TABLES CODE
+         var d = new Date(); 
+         var month = d.getMonth()+1;
+         var day = d.getDate();
+         var output =(day<10 ? '0' : '') + day+ '-' +(month<10 ? '0' : '') + month + '-' + d.getFullYear();
 					var DatatableAdvanced = function() {
 
 						// Basic Datatable examples
@@ -210,7 +222,13 @@
 									"targets": [6],
 									"orderable": false,
 								}],
-
+                        createdRow : function(row, data, index){
+                           console.log(data);
+                           
+                           if(data['5'] < output){
+                              $(row).addClass('danger');
+                           }
+                        }
 							})
 
 							// Datatable 'length' options
@@ -273,19 +291,26 @@
 					document.addEventListener('DOMContentLoaded', function() {
 						DatatableAdvanced.init()
 					});
+
+
+         
+
       //   $(".paid_date").click(function(){
 
       //      alert("dsf");
       //   });
       function client_paid_date_details(id) {
          var paid_date=$("#paid_date"+id).val();
+         var paid_amount=$("#paid_amount"+id).val();
 			jQuery.ajax({
 				type: "POST",
 				url: "<?php echo base_url(); ?>" + "ssl_view/client_paid_date_details",
 				datatype: "text",
 				data: {
 					id: id,
-               paid_date:paid_date
+               paid_date:paid_date,
+               paid_amount:paid_amount,
+
 				},
 				success: function(response) {
                location.reload();
@@ -299,18 +324,40 @@
       $(document).on('focus', '.paid_date', function () { 
          var paid_date= $(this).parent().find('.renewel_date').val();
          $(this).datepicker({
-            defaultDate: paid_date,
-            dateFormat: 'yy-mm-d',
+            //defaultDate: paid_date,
+            dateFormat: 'd-mm-yy',
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
-            yearRange: '2010:2100',
+            yearRange: '2000:2100',
             // onClose: function(selectedDate) {
             //    $(this).parent().find('.renewel_date').datepicker("option", "minDate", selectedDate);
             // }
         });
        })
+      //  $(document).on('keypress', '.paid_amount', function (evt) { 
         
+      //        evt = (evt) ? evt : window.event;
+      //        var charCode = (evt.which) ? evt.which : evt.keyCode;
+      //        if (charCode > 31 && (charCode < 48 || charCode > 57))
+      //         { 
+      //          $(this).val('');
+      //         }
+            
+         
+      // })
+      // Numeric validation 
+         function isNumber(evt)
+         {
+             evt = (evt) ? evt : window.event;
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57)) {return false;}
+             return true;
+         }
+
+         $( document ).ready(function() {
+            $('#ssl_view_d_table_filter').append('<label for="month"><span></span><input type="search" name="month" id="month" placeholder="search month..."></label>')
+         });
       </script>
    </body>
 </html>
