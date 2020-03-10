@@ -116,22 +116,13 @@
             <div class="page-header page-header-light">
                <div class="page-header-content header-elements-md-inline">
                   <div class="page-title d-flex">
-                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View SSL Remainder</span></h4>
+                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">This Month renewal</span></h4>
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                   
                </div>
             </div>
-            <?php
-               if ($this->session->flashdata('success')) {
-               ?>
-            <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <span class="text-semibold" id="success-msg"><?php echo $this->session->flashdata('success'); ?></span>
-            </div>
-            <?php
-               }
-               ?>
+           
             <!-- Content area -->
             <div class="content">
                <!-- row -->
@@ -141,7 +132,7 @@
                         <!-- card-->
                         <div class="card">
                            <div class="card-header header-elements-inline">
-                              <h5 class="card-title">View SSL Remainder</h5>
+                              <h5 class="card-title">This Month renewal</h5>
                               <div class="header-elements">
                                  <div class="list-icons">
                                     <a class="list-icons-item" data-action="collapse"></a>
@@ -151,8 +142,6 @@
                               </div>
                            </div>
                            <!-- card-body -->
-                           <div align="right" style="margin-right:20px">
-                           <label for="month"><span>Select Month: </span><select class name="month" id="month" aria-controls="ssl_view_d_table"><option value="">Select Month</option><option value="01">January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select></label></div>
                            <!-- <div class="card-body"> -->
                               <table id="ssl_view_d_table" class="table datatable-basic table-bordered table-striped table-hover">
                                  <thead>
@@ -163,11 +152,7 @@
                                        <th>Website</th>
                                        <th>Type</th>
                                        <th>Amount</th>
-                                       <th>update Date</th>
                                        <th>Renewal Date</th>
-                                       <th>Paid Date</th>
-                                       <th>Paid Amount</th>
-                                       <th>Update</th>
                                     </tr>
                                  </thead>
                               </table>
@@ -195,8 +180,6 @@
          var day = d.getDate();
          var output =(day<10 ? '0' : '') + day+ '-' +(month<10 ? '0' : '') + month + '-' + d.getFullYear();
 
-
-        
 					var DatatableAdvanced = function(month) {
 
 						// Basic Datatable examples
@@ -229,25 +212,17 @@
 							});
                     
                      var month = '';
-                     // $(document).on('change', '#month' , function(){
-
-                     //    month = $('#month').val();
-                     //    alert(month)
-                     // });
-                     // console.log($('#month').val());
-                     
-            
                      
 							var dataTable = $('#ssl_view_d_table').DataTable({
 								'processing': true,
 								'serverSide': true,
 								'order': [],
 								'ajax': {
-									'url': "<?php echo base_url()?>" + "ssl_view/get_all_data?month="+ $('#month').val() ,
+									'url': "<?php echo base_url()?>" + "month_renewal/get_all_data",
 									'type': 'POST'
 								},
 								'columnDefs': [{
-									"targets": [7],
+									"targets": [5],
 									"orderable": false,
 								}],
                         createdRow : function(row, data, index){
@@ -319,80 +294,6 @@
 					document.addEventListener('DOMContentLoaded', function() {
 						DatatableAdvanced.init()
 					});
-
-            
-         
-
-      //   $(".paid_date").click(function(){
-
-      //      alert("dsf");
-      //   });
-      function client_paid_date_details(id) {
-         var paid_date=$("#paid_date"+id).val();
-         var paid_amount=$("#paid_amount"+id).val();
-			jQuery.ajax({
-				type: "POST",
-				url: "<?php echo base_url(); ?>" + "ssl_view/client_paid_date_details",
-				datatype: "text",
-				data: {
-					id: id,
-               paid_date:paid_date,
-               paid_amount:paid_amount,
-
-				},
-				success: function(response) {
-               location.reload();
-				},
-				error: function(xhr, ajaxOptions, thrownError) {}
-			});
-		}
-
-     
-      
-      $(document).on('focus', '.paid_date', function () { 
-         var paid_date= $(this).parent().find('.renewel_date').val();
-         $(this).datepicker({
-            //defaultDate: paid_date,
-            dateFormat: 'dd-mm-yy',
-            changeMonth: true,
-            changeYear: true,
-            showOtherMonths: true,
-            yearRange: '2000:2100',
-            // onClose: function(selectedDate) {
-            //    $(this).parent().find('.renewel_date').datepicker("option", "minDate", selectedDate);
-            // }
-        });
-       })
-      //  $(document).on('keypress', '.paid_amount', function (evt) { 
-        
-      //        evt = (evt) ? evt : window.event;
-      //        var charCode = (evt.which) ? evt.which : evt.keyCode;
-      //        if (charCode > 31 && (charCode < 48 || charCode > 57))
-      //         { 
-      //          $(this).val('');
-      //         }
-            
-         
-      // })
-      // Numeric validation 
-         function isNumber(evt)
-         {
-             evt = (evt) ? evt : window.event;
-             var charCode = (evt.which) ? evt.which : evt.keyCode;
-             if (charCode > 31 && (charCode < 48 || charCode > 57)) {return false;}
-             return true;
-         }
-
-         // function appendFilter() {
-         //    $('#ssl_view_d_table_filter').append('<label for="month"><span></span><select class name="month" id="month" aria-controls="ssl_view_d_table"><option value="">Select Month</option><option value="01">January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November/option><option value="12">December</option></select></label>');
-         // }
-
-        $('#month').change(function(){
-
-         $('#ssl_view_d_table').DataTable().destroy();
-                DatatableAdvanced.init();
-        });
-
         
       </script>
    </body>

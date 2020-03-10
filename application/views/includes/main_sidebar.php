@@ -48,6 +48,23 @@
 				<li class="nav-item-header">
 					<div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i>
 				</li>
+
+				<li class="nav-item">
+					<a href="<?php echo base_url(); ?>dash-board" class="nav-link">
+						<i class="fa fa-user" aria-hidden="true"></i>
+						<span>
+							&nbsp Dashboard
+						</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?php echo base_url(); ?>month-renewal" class="nav-link">
+						<i class="fa fa-user" aria-hidden="true"></i>
+						<span>
+							&nbsp This Month Renewal
+						</span>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a href="<?php echo base_url(); ?>client-master" class="nav-link">
 						<i class="fa fa-users"></i>

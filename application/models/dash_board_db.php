@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');  
-class Ssl_view_db extends CI_Model 
+class Dash_board_db extends CI_Model 
 {  
     function __construct()  
     {
