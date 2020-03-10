@@ -23,15 +23,20 @@ class Ssl_view extends CI_Controller
 			// $status = '<span class="badge bg-blue">Completed</span>';
 			$i = 0;
 			foreach ($fetch_data as $row) {
+				// if($row->renewel_date<date('yy-mm-d')){echo '<style></style>'}
 				$sub_array   = array();
 				$sub_array[] = ++$i;
 				$sub_array[] = $row->company_name; 
 				$sub_array[] = $row->company_website;
 				$sub_array[] = $row->type;
-                $sub_array[] = $row->amount_paid;
-                $sub_array[] = $row->renewel_date;
+				$sub_array[] = $row->amount_paid;
+				$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
+				$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
+				
 				$sub_array[] = '<div class="check_date"><input id="paid_date'.$row->id.'" type="text" name="paid_date'.$row->id.'" 
 				class="form-control paid_date" autocomplete="off"><input id="renewel'.$row->id.'" class="renewel_date" type="hidden" value="'.$row->renewel_date.'"></div>';
+				$sub_array[] = '<div class="check_amount"><input id="paid_amount'.$row->id.'"  type="text" name="paid_amount'.$row->id.'" 
+				class="form-control paid_amount" onkeypress="return isNumber();" autocomplete="off"></div>';
 				$sub_array[] = '<button type="button" id="'.$row->id.'" class="btn bg-primary" onclick="client_paid_date_details(this.id);" >save</button>';
 				$data[] = $sub_array;
 			}

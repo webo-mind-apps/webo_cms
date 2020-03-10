@@ -55,6 +55,7 @@
       {
          padding:15px 20px 15px 20px;
       }
+      .danger{color:red;}
       </style>
    </head>
    <body>
@@ -310,24 +311,7 @@
 			});
          }
 		}
-      function delete_webiste(id) {
-         r = confirm("Are you sure to delete ?");
-			if (r == true) {
-			jQuery.ajax({
-				type: "POST",
-				url: "<?php echo base_url(); ?>client-master/delete-website",
-				datatype: "text",
-				data: {
-					id: id
-				},
-				success: function(response) {
-               alert("website deleted successfully");
-               $("#client_master_d_table").DataTable().ajax.reload();
-				},
-				error: function(xhr, ajaxOptions, thrownError) {}
-			});
-         }
-		}
+      
          
          // document ready function
          $(document).ready(function() {
@@ -346,6 +330,44 @@
                return false;
               
        })
+
+
+
+       $(document).on('change', '.checkbox', function () { 
+         r = confirm("Are you sure to change the status ?");
+			if (r == true) {
+           var id= $(this).attr("id");
+           var change_id=$(this).val();
+          
+           if(change_id==1)
+           {
+              var change_val=0;
+              $(this).parent().find('span').removeClass('danger');
+              $(this).val(0);
+            }
+            else{
+               var change_val=1;
+               $(this).parent().find('span').addClass('danger');
+              $(this).val(1);
+
+                 }
+          
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo base_url(); ?>Client_master/website_status_change",
+				datatype: "text",
+				data: {
+               id:id,
+					change_val: change_val
+				},
+				success: function(response) {
+               
+              
+				},
+				error: function(xhr, ajaxOptions, thrownError) {}
+			});
+         }
+		})
 
 
        $(document).on('focusout', '.website-name', function () { 

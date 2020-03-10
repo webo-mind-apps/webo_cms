@@ -154,11 +154,14 @@ class Client_master_db extends CI_Model
             }
 		}
     }
-    function delete_website()
+    function website_status_change()
 	{
 		$id=$this->input->post('id'); 
+        $change_val=$this->input->post('change_val'); 
+        
+        $data=array('status'=>$change_val);
 		$this->db->where("id",$id);
-        if($this->db->delete("company_website"))
+        if($this->db->update("company_website",$data))
         {
             return true;
 		}

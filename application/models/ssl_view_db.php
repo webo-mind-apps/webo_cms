@@ -9,7 +9,7 @@ class Ssl_view_db extends CI_Model
 
     public function make_query()
 	{ 
-        $order_column = array("a.id","b.company_name","a.company_website","a.type", "a.renewel_date","a.amount_paid");  
+        $order_column = array("a.id","b.company_name","a.company_website","a.type","a.manual_update_date" ,"a.renewel_date","a.amount_paid");  
 		$this->db->select('a.*,b.company_name');
 		$this->db->from('add_ssl_remainder a');
 		$this->db->join('client_master b','b.id=a.company_id','left');
@@ -59,12 +59,13 @@ class Ssl_view_db extends CI_Model
 	public function client_paid_date_details()
 	{
         $id = $this->input->post('id');
-		$paid_date=$this->input->post('paid_date'); 
+		$paid_date=date("Y-m-d",strtotime($this->input->post('paid_date'))); 
+		$paid_amount=$this->input->post('paid_amount'); 
 		$this->db->select('company_id,company_website,type,renewel_date,amount_paid');
         $this->db->where('id', $id);
 		$query=$this->db->get('add_ssl_remainder');
 		$row1=$query->row_array();
-		$row2=array("paid_date"=>$paid_date);
+		$row2=array("paid_date"=>$paid_date,"paid_amount"=>$paid_amount);
 		$row=array_merge($row1, $row2);
 		$this->db->insert('paid_ssl_remainder',$row);
 		if ($this->db->affected_rows() > 0)
