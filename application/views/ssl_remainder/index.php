@@ -167,8 +167,8 @@
 
                                     </div>
 
-                                    <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
-                                        <label>Renewel Method<span style="color:red"> *</span> </label>
+                                    <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1" style="margin-bottom:7px;">
+                                        <label>Renewal Method<span style="color:red"> *</span> </label>
                                         <select name="renewel_method_selected" id="renew_method" class="form-control" required>
                                             <option value="">Select Method</option>
                                             <option value="manual">Manual</option>
@@ -177,9 +177,9 @@
 
                                     </div>
                                     <!-- date pickers -->
-                                    <div class="">
+                                    <div>
                                         <label class="hide_manual_label" style="display:none;float:left;">Update Date </label>
-                                        <label class="hide_manual_label" style="display:none;float:right;">Renewel Date </label>
+                                        <label class="hide_manual_label" style="display:none;float:right;">Renewal Date </label>
                                         <div class="input-group renew_inputs_manual">
 
                                             <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" autocomplete="off" style="display:none" required>
@@ -190,17 +190,28 @@
                                     </div>
 
                                     <div class="">
-                                        <label class="hide_auto_label" style="display:none;float:left;">Renewel Date </label>
+                                        <label class="hide_auto_label" style="display:none;float:left;">Renewal Date </label>
                                         <div class="input-group" id="renew_inputs_auto">
-                                            <input id="auto_ren_datepick" style="margin:0 250px 7px 0;display:none;" type="text" class="form-control" name="auto_renewel_date" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
+                                            <input id="auto_ren_datepick" style="margin:0 250px 0 0;display:none;" type="text" class="form-control" name="auto_renewel_date" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <!-- /date pickers -->
 
-                                    <div class="form-group">
-                                        <label>Amount<span style="color:red"> *</span> </label>
+                                    <div class="form-group" style="margin-top:10px;">
+                                        <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
-                                            <input type="text" id="amount" class="form-control" name="amount_selected" maxlength="7" onkeypress="return isNumber();" required>
+                                            <?php
+                                            // $gst_amt = 2000;
+                                            // $gst_per = 18;
+                                            // $gst_per_amt = ($gst_amt * $gst_per) / 100;
+                                            // $net_amt =  $gst_amt + $gst_per_amt;
+
+                                            ?>
+
+                                            <input type="text" id="amount" class="form-control" name="amount_selected" onkeypress="return isNumber();" maxlength="7" style="width:55%;" required>
+                                            <input type="text" class="form-control gst_amt_input" name="gst_selected" onkeypress="return isNumber();" style="text-align:right;width:25%;background-color:#efeded;">
+                                            <input type="text" id="" class="form-control gst_net_amt_input" name="gst_selected" onkeypress="return isNumber();" style="text-align:right;width:20%;background-color:#efeded;">
+                                            <!-- border-left:none; -->
                                         </div>
                                     </div>
                                     <center>
@@ -225,7 +236,7 @@
                                 <th>Company Name</th>
                                 <th>Company Website</th>
                                 <th>Type</th>
-                                <th>Renewel Date</th>
+                                <th>Renewal Date</th>
                                 <th>Amount Paid</th>
                                 <th>Paid Date</th>
                                 <th class="text-center">Delete</th>
@@ -287,24 +298,40 @@
                             $('#renew_method').val(response.type);
                             renewelMethod();
                             $("#amount").val(response.amount_paid);
+                            //-----------------------------------------------------GST amout calculation
+                            if (response.amount_paid != "" && response.amount_paid != null) {
+                                var capital_amt = parseInt(response.amount_paid);
+                                var gst_per = 18;
+                                var gst_amt = (capital_amt * gst_per) / 100;
+                                var net_amt = gst_amt + capital_amt;
+                                gst_amt = gst_amt.toString(); 
+                                net_amt = net_amt.toString();
+
+                                $(".gst_amt_input").val(gst_amt+"/-");
+                                $(".gst_net_amt_input").val(net_amt+"/-");
+                            } else {
+                                $(".gst_amt_input").val("0/-");
+                                $(".gst_net_amt_input").val("0/-");
+                            }
+                            //-----------------------------------------------------GST amout calculation
                             $("#update_datepick").empty();
                             $("#ren_datepick").empty();
                             $("#auto_ren_datepick").empty();
                             if (response.type == 'manual') {
+
                                 $('#update_datepick').val(response.manual_update_date);
                                 $('#ren_datepick').val(response.renewel_date);
                                 //remove or addd required
                                 $('#auto_ren_datepick').removeAttr('required');
-                                $('#update_datepick').addAttr('required');
-                                $('#ren_datepick').addAttr('required');
+                                $('#update_datepick').attr('required');
+                                $('#ren_datepick').attr('required');
                             } else if (response.type == 'auto') {
 
                                 $('#auto_ren_datepick').val(response.renewel_date);
-
-                                //remove or addd required
+                                // remove or addd required
                                 $('#update_datepick').removeAttr('required');
                                 $('#ren_datepick').removeAttr('required');
-                                $('#auto_ren_datepick').addAttr('required');
+                                $('#auto_ren_datepick').attr('required');
                             } else {
                                 $('#update_datepick').val(response.manual_update_date);
                                 $('#ren_datepick').val(response.renewel_date);
@@ -316,28 +343,13 @@
             });
             //Auto Fill Values------------------------------------------------------
 
-            //Auto Fill view Ssl Remainder Table Values------------------------------------------------------
+            //Auto Fill Ssl Remainder Table Values---------------------------------- 
 
             $(".get_cmp_id,.get_cmp_website").change(function() {
                 $('#ssl_remainder_d_table').DataTable().destroy();
                 DatatableAdvanced.init();
-
-                // var get_cmp_id = "";
-                // var get_cmp_website = "";
-                // var get_cmp_id = $('.get_cmp_id').val();
-                // var get_cmp_website = $('.get_cmp_website').val();
-                // if (get_cmp_id != "" && get_cmp_website != "") {
-                //     jQuery.ajax({
-                //         type: "POST",
-                //         url: "<?php echo base_url(); ?>" + "ssl_remainder/get_all_data?cid=" + get_cmp_id + "&cweb=" + get_cmp_website,
-                //         dataType: 'json',
-                //         success: function(response) {
-
-                //         }
-                //     });
-                // }
             });
-            //Auto Fill view Ssl Remainder Table Values------------------------------------------------------
+            //Auto Fill view Ssl Remainder Table Values------------------------------ 
 
 
             //Hide DATE PICKERS------------------------------------------------------
@@ -405,19 +417,20 @@
 
         //DATE pickers---------------------------------------------------------------
         $("#update_datepick").datepicker({
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd-mm-yy',
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
             minDate: 0,
             yearRange: '2020:2030',
+
             onClose: function(selectedDate) {
                 $("#ren_datepick").datepicker("option", "minDate", selectedDate);
             }
         });
 
         $("#ren_datepick").datepicker({
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd-mm-yy',
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
@@ -429,33 +442,35 @@
         });
 
         $("#auto_ren_datepick").datepicker({
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd-mm-yy',
             minDate: 0,
             changeMonth: true,
             changeYear: true,
-            showOtherMonths: true,
+            showOtherMonths: true
         });
         //DATE pickers-----------------------------------------------------------------
 
         //ADDING and REMOVING required ------------------------------------------------
         $('#update_datepick').change(function() {
             $('#auto_ren_datepick').removeAttr('required');
-            $('#update_datepick').addAttr('required');
-            $('#ren_datepick').addAttr('required');
+            $('#update_datepick').attr('required');
+            $('#ren_datepick').attr('required');
         });
         $('#ren_datepick').change(function() {
             $('#auto_ren_datepick').removeAttr('required');
-            $('#update_datepick').addAttr('required');
-            $('#ren_datepick').addAttr('required');
+            $('#update_datepick').attr('required');
+            $('#ren_datepick').attr('required');
         });
         $('#auto_ren_datepick').change(function() {
             $('#update_datepick').removeAttr('required');
             $('#ren_datepick').removeAttr('required');
-            $('#auto_ren_datepick').addAttr('required');
+            $('#auto_ren_datepick').attr('required');
         });
         //ADDING and REMOVING required 
     </script>
-    <!-- // DATA TABLES CODE ------------------------------------------->
+
+
+    <!------------------------------------------------// DATA TABLES CODE ----------->
     <script>
         var DatatableAdvanced = function() {
 

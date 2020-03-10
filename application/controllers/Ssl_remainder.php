@@ -12,9 +12,6 @@ class Ssl_remainder extends CI_Controller
     function index()
     {
         $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
-        // echo "<pre>";
-        // print_r($data);
-        // exit;
         $this->load->view('ssl_remainder/index', $data);
     }
     function view_ssl_remainder()
@@ -49,29 +46,19 @@ class Ssl_remainder extends CI_Controller
     {
         $get_cmp_id = $this->input->post('get_cmp_id');
         $get_cmp_website = $this->input->post('get_cmp_website');
-        if ($data = $this->Ssl_remainder_db->check_record_db($get_cmp_id, $get_cmp_website)) {
+        if ($data = $this->Ssl_remainder_db->check_record_db($get_cmp_id, $get_cmp_website)) {  
             echo json_encode($data);
-        } else {
-
+        } else { 
             $data = array("manual_update_date" => "", "renewel_date" => "", "amount_paid" => "");
             echo json_encode($data);
         }
     }
-
-    // function auto_fill_ssl_table()
-    // {
-    //     $get_cmp_id = $this->input->post('get_cmp_id');
-    //     $get_cmp_website = $this->input->post('get_cmp_website');
-    //     if ($data = $this->Ssl_remainder_db->make_query($get_cmp_id, $get_cmp_website)) {
-    //     }
-    // }
 
     public function get_all_data($var = null) //created for implementing data tables
     {
 
         $fetch_data = $this->Ssl_remainder_db->make_datatables();
         $data = array();
-        // $status = '<span class="badge bg-blue">Completed</span>';
         $i = 0;
         foreach ($fetch_data as $row) {
             $sub_array   = array();
@@ -104,10 +91,6 @@ class Ssl_remainder extends CI_Controller
             "data" => $data
         );
         echo json_encode($output);
-
-        //     <a href="javascript:void(0)" id=' . $row->id . '
-        //     onclick="client_master_view_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i>abc</a>
-        //    <a a href="javascript:void(0)" id=' . $row->id . '   onclick="client_master_edit(this.id);" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
     }
 
     function delete_remainder_fun()
