@@ -15,16 +15,11 @@ class Ssl_remainder_db extends CI_Model
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
         $this->db->where('c.id', $get_cmp_id);
         $this->db->where('a.company_website', $get_cmp_website);
-        $this->db->order_by("a.id", "desc"); 
+        $this->db->order_by("a.id", "desc");
         $check_record = $this->db->get();
         $num = $check_record->num_rows();
         if ($num) {
             $check_record =  $check_record->row();
-
-            // echo "<pre>";
-            // print_r($check_record);
-            // exit;
-
             return $check_record;
         } else {
             return false;
@@ -127,8 +122,8 @@ class Ssl_remainder_db extends CI_Model
 
             $manual_update_date = $this->input->post('manual_update_date');
             $renewel_date = $this->input->post('manual_renewel_date');
-            $manual_update_date = date("yy-mm-dd", strtotime($manual_update_date));
-            $renewel_date = date("yy-mm-dd", strtotime($renewel_date));
+            $manual_update_date = date("yy-m-d", strtotime($manual_update_date));
+            $renewel_date = date("yy-m-d", strtotime($renewel_date));
             $this->db->select('*');
             $this->db->from('add_ssl_remainder');
 
@@ -153,10 +148,11 @@ class Ssl_remainder_db extends CI_Model
                     return false;
                 }
             }
+            //----------------------------------------IF AUTO RENEWAL MEANS 
         } else if (!empty($_POST['auto_renewel_date'])) {
 
             $renewel_date = $this->input->post('auto_renewel_date');
-            $renewel_date = date("yy-mm-dd", strtotime($renewel_date));
+            $renewel_date = date("yy-m-d", strtotime($renewel_date));
 
             $this->db->select('*');
             $this->db->from('add_ssl_remainder');

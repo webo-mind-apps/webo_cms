@@ -200,17 +200,11 @@
                                     <div class="form-group" style="margin-top:10px;">
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
-                                            <?php
-                                            // $gst_amt = 2000;
-                                            // $gst_per = 18;
-                                            // $gst_per_amt = ($gst_amt * $gst_per) / 100;
-                                            // $net_amt =  $gst_amt + $gst_per_amt;
+                                            <input type="text" id="amount" class="form-control" name="amount_selected" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" required>
 
-                                            ?>
+                                            <input type="text" class="form-control gst_amt_input" name="gst_amt_selected" onkeypress="return isNumber();" style="text-align:right;width:32%;background-color:#efeded;">
 
-                                            <input type="text" id="amount" class="form-control" name="amount_selected" onkeypress="return isNumber();" maxlength="7" style="width:55%;" required>
-                                            <input type="text" class="form-control gst_amt_input" name="gst_selected" onkeypress="return isNumber();" style="text-align:right;width:25%;background-color:#efeded;">
-                                            <input type="text" id="" class="form-control gst_net_amt_input" name="gst_selected" onkeypress="return isNumber();" style="text-align:right;width:20%;background-color:#efeded;">
+                                            <input type="text" id="" class="form-control gst_net_amt_input" name="net_amt_selected" onkeypress="return isNumber();" style="text-align:right;width:25%;background-color:#efeded;">
                                             <!-- border-left:none; -->
                                         </div>
                                     </div>
@@ -278,7 +272,30 @@
         //for delete remainder------------------------------------------------------
 
         $(document).ready(function() {
-            //Auto Fill Values------------------------------------------------------
+            //------------------------------------------------------Default Amt's Fill Values
+            $("#amount").val("0");
+            $(".gst_amt_input").val("GST @ 18% = " + "0/-");
+            $(".gst_net_amt_input").val("Net. = " + "0/-");
+
+            $("#amount").on('keyup change', function() {
+                auto_fill_amout($("#amount").val());
+            });
+
+            function auto_fill_amout(capital_amt) {
+                // var capital_amt = response.amount_paid;
+                capital_amt = parseInt(capital_amt);
+                var gst_per = 18;
+                var gst_amt = (capital_amt * gst_per) / 100;
+                var net_amt = gst_amt + capital_amt;
+                gst_amt = Math.ceil(gst_amt).toString();
+                net_amt = Math.ceil(net_amt).toString();
+
+                $(".gst_amt_input").val("GST @ 18% = " + gst_amt + "/-");
+                $(".gst_net_amt_input").val("Net. = " + net_amt + "/-");
+            }
+            //------------------------------------------------------Default Amt's Fill Values
+
+            //Auto Fill Values------------------------------------------------------  
             $(".get_cmp_id,.get_cmp_website").change(function() {
                 var get_cmp_id = "";
                 var get_cmp_website = "";
@@ -300,18 +317,11 @@
                             $("#amount").val(response.amount_paid);
                             //-----------------------------------------------------GST amout calculation
                             if (response.amount_paid != "" && response.amount_paid != null) {
-                                var capital_amt = parseInt(response.amount_paid);
-                                var gst_per = 18;
-                                var gst_amt = (capital_amt * gst_per) / 100;
-                                var net_amt = gst_amt + capital_amt;
-                                gst_amt = gst_amt.toString(); 
-                                net_amt = net_amt.toString();
-
-                                $(".gst_amt_input").val(gst_amt+"/-");
-                                $(".gst_net_amt_input").val(net_amt+"/-");
+                                auto_fill_amout(response.amount_paid);
                             } else {
-                                $(".gst_amt_input").val("0/-");
-                                $(".gst_net_amt_input").val("0/-");
+                                $("#amount").val("0");
+                                $(".gst_amt_input").val("GST @ 18% = " + "0/-");
+                                $(".gst_net_amt_input").val("Net. = " + "0/-");
                             }
                             //-----------------------------------------------------GST amout calculation
                             $("#update_datepick").empty();
