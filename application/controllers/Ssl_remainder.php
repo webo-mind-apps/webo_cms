@@ -46,9 +46,9 @@ class Ssl_remainder extends CI_Controller
     {
         $get_cmp_id = $this->input->post('get_cmp_id');
         $get_cmp_website = $this->input->post('get_cmp_website');
-        if ($data = $this->Ssl_remainder_db->check_record_db($get_cmp_id, $get_cmp_website)) {  
+        if ($data = $this->Ssl_remainder_db->check_record_db($get_cmp_id, $get_cmp_website)) {
             echo json_encode($data);
-        } else { 
+        } else {
             $data = array("manual_update_date" => "", "renewel_date" => "", "amount_paid" => "");
             echo json_encode($data);
         }
