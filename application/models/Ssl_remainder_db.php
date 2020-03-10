@@ -10,16 +10,17 @@ class Ssl_remainder_db extends CI_Model
     //Check records to auto fill values
     function check_record_db($get_cmp_id, $get_cmp_website)
     {
-        $this->db->select('a.*,c.company_name,c.id');
+        $this->db->select('a.*,c.company_name,c.id,DATE_FORMAT(manual_update_date, "%d-%m-%Y") as manual_update_date,DATE_FORMAT(renewel_date, "%d-%m-%Y") as renewel_date');
         $this->db->from('add_ssl_remainder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
         $this->db->where('c.id', $get_cmp_id);
         $this->db->where('a.company_website', $get_cmp_website);
-        $this->db->order_by("a.id", "desc");
+        $this->db->order_by("a.id", "desc"); 
         $check_record = $this->db->get();
         $num = $check_record->num_rows();
         if ($num) {
             $check_record =  $check_record->row();
+
             // echo "<pre>";
             // print_r($check_record);
             // exit;
@@ -35,10 +36,14 @@ class Ssl_remainder_db extends CI_Model
 
     public function make_query()
     {
+        $get_cmp_id = $this->input->get('cid');
+        $get_cmp_website = $this->input->get('cweb');
         $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.renewel_date", "a.amount_paid", "a.paid_date",);
         $this->db->select('a.*,c.company_name');
         $this->db->from('paid_ssl_remainder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
+        $this->db->where('company_id', $get_cmp_id);
+        $this->db->where('company_website', $get_cmp_website);
         if (isset($_POST["search"]["value"])) {
             $this->db->group_start();
             $this->db->like("a.id", $_POST["search"]["value"]);
@@ -122,13 +127,14 @@ class Ssl_remainder_db extends CI_Model
 
             $manual_update_date = $this->input->post('manual_update_date');
             $renewel_date = $this->input->post('manual_renewel_date');
+            $manual_update_date = date("yy-mm-dd", strtotime($manual_update_date));
+            $renewel_date = date("yy-mm-dd", strtotime($renewel_date));
             $this->db->select('*');
             $this->db->from('add_ssl_remainder');
 
             $this->db->where('company_id', $company_id);
             $this->db->where('company_website', $company_website_selected);
-            // $this->db->where('manual_update_date', $manual_update_date);
-            // $this->db->where('renewel_date', $renewel_date);
+
             $amount_selected = $this->input->post('amount_selected');
             $query = $this->db->get();
             if ($query->num_rows() > 0) {
@@ -150,9 +156,10 @@ class Ssl_remainder_db extends CI_Model
         } else if (!empty($_POST['auto_renewel_date'])) {
 
             $renewel_date = $this->input->post('auto_renewel_date');
+            $renewel_date = date("yy-mm-dd", strtotime($renewel_date));
+
             $this->db->select('*');
             $this->db->from('add_ssl_remainder');
-            // $this->db->where('renewel_date', $renewel_date);
             $this->db->where('company_id', $company_id);
             $this->db->where('company_website', $company_website_selected);
             $query = $this->db->get();
