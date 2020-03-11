@@ -176,6 +176,7 @@
                                         </select>
 
                                     </div>
+
                                     <!-- date pickers -->
                                     <div>
                                         <label class="hide_manual_label" style="display:none;float:left;">Update Date </label>
@@ -196,6 +197,17 @@
                                         </div>
                                     </div>
                                     <!-- /date pickers -->
+
+                                    <!-- Active and Inactive -->
+                                    <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1" style="margin-top:10px;">
+                                        <label>Status<span style="color:red"> *</span> </label>
+                                        <select name="ssl_status_selected" id="ssl_status" class="form-control" required>
+                                            <option value="">Select Method</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <!-- Active and Inactive -->
 
                                     <div class="form-group" style="margin-top:10px;">
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
@@ -327,17 +339,22 @@
                             get_cmp_website: get_cmp_website
                         },
                         success: function(response) {
+                            //renew auto or manual code
                             var option = $('#renew_method').find('option');
                             $('#renew_method').val(response.type);
                             renewelMethod();
+                            //renew auto or manual code
+
+                            var option = $('#ssl_status').find('option');
+                            $('#ssl_status').val(response.ssl_status);
                             $("#amount").val(response.amount_paid);
                             //-----------------------------------------------------GST amount calculation
                             if (response.amount_paid != "" && response.amount_paid != null) {
                                 auto_fill_amount(response.amount_paid);
                             } else {
                                 $("#amount").val("0");
-                                $(".gst_amt_input").val("GST @ 18% = " + "0");
-                                $(".gst_net_amt_input").val("Net. = " + "0");
+                                $(".gst_amt_input").val("0");
+                                $(".gst_net_amt_input").val("0");
                             }
                             //-----------------------------------------------------GST amount calculation
                             $("#update_datepick").empty();
