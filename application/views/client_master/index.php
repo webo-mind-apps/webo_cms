@@ -146,7 +146,13 @@
       </div>
       <!-- /page content -->
       <!-- content area -->
-				
+      <div id="modal_theme_primary" class="modal fade" tabindex="-1">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content" id="client_details">
+
+						</div>
+					</div>
+				</div>
       <script>
          
          // DATA TABLES CODE

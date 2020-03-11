@@ -71,26 +71,46 @@ class Client_master extends CI_Controller
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-8"> 
+                        <div class="row">
+                        <div class="col-sm-4"> 
                         <table class="mod-table">
                                 <tr><td>Company Name</td><td>:</td><td>'.ucwords($data[0]['company_name']).'</td></tr>
-                                <tr><td>Client Name</td><td>:</td><td>'.ucwords($data[0]['client_name']).'</td></tr>
-                                <tr><td>Phone No.</td><td>:</td><td>'.ucwords($data[0]['phone']).'</td></tr>
-                                <tr><td>Email Id</td><td>:</td><td>'.ucwords($data[0]['email']).'</td></tr>
-                                <tr><td>Website Name</td><td>:</td><td></td></tr>';
-                                if($data[0]['website']!='' || !empty($data[0]['website'])){
-                                foreach($data as $row)
-                                    {
-                                        if($row['status']==1){$checked="";}else{$checked="checked";}
-                                        echo '<tr><td></td><td></td><td><input type="checkbox"  '.$checked.' style="height:18px;width:18px;cursor:pointer " class="checkbox" name="checkbox" id="'. $row['site_id'] .'" value="' .$row['status']. '">';if($row['status']==1){echo '<span class="danger">'.$row['website'].'</span>';}else{echo '<span>'.$row['website'].'</span>';} echo'</span></td></tr>';
-                                        $i++;
-                                    }
-                                } 
-                                    echo '
                             </table>
                         </div>
-                        <div class="col-sm-2"></div>
+                      
+                        <div class="col-sm-4"> 
+                        <table class="mod-table">
+                                <tr><td>Client Name</td><td>:</td><td>'.ucwords($data[0]['client_name']).'</td></tr>
+                               
+                            </table>
+                        </div>
+                        <div class="col-sm-4"> 
+                        <table class="mod-table">
+                                <tr><td>Phone&nbspNo.</td><td>:</td><td>'.ucwords($data[0]['phone']).'</td></tr>
+                            </table>
+                        </div>
+                       </div>
+
+
+                       <div class="row">
+                       <div class="col-sm-4"> 
+                       <table class="mod-table">
+                                <tr><td>Email Id</td><td>:</td><td>'.ucwords($data[0]['alt_phone']).'</td></tr>
+                           </table>
+                       </div>
+                     
+                       <div class="col-sm-4"> 
+                       <table class="mod-table">
+                               <tr><td>Client Name</td><td>:</td><td>'.ucwords($data[0]['email']).'</td></tr>
+                              
+                           </table>
+                       </div>
+                       <div class="col-sm-4"> 
+                       <table class="mod-table">
+                               <tr><td>Phone&nbspNo.</td><td>:</td><td>'.ucwords($data[0]['alt_email']).'</td></tr>
+                           </table>
+                       </div>
+                      </div>
 						
 					</div>
 					<div class="modal-footer">
