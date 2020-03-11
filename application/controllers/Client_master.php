@@ -1,4 +1,4 @@
- 
+
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 class Client_master extends CI_Controller
@@ -42,8 +42,8 @@ class Client_master extends CI_Controller
 						 <div class="dropdown-menu dropdown-menu-right">
                              <a href="javascript:void(0)" id=' . $row->id . '
                               onclick="client_master_view_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
-							 <a href="javascript:void(0)" id=' . $row->id . '   onclick="client_master_edit(this.id);" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
-							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_client_master(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+							 <a href="client-master/client-master-edit-details/'.$row->id.'"  class="dropdown-item edit"><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_master_delete(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
 						 </div>
 					 </div>
 				 </div>
@@ -100,8 +100,14 @@ class Client_master extends CI_Controller
     //save the index page form value to the database
     function save_client_master()
     {
-        if($this->client_master->save_client_master())
+        $status=$this->client_master->save_client_master();
+        if($status == "update")
         {
+            $msg = "updated successfully";
+            $this->session->set_flashdata('success', $msg);
+            redirect('client-master', 'refresh');
+        }
+        else if($status == "true"){
             $exist=0;
             $insert=0;
             $website=$this->input->post('website_name');
@@ -136,63 +142,11 @@ class Client_master extends CI_Controller
         }  
         redirect('client-master', 'refresh');
     }
-    function edit_client_master()
-    {
-        if($this->client_master->edit_client_master())
-        {
-             $msg = "Updated successfully";
-             $this->session->set_flashdata('success', $msg);
-        }
-        redirect('client-master', 'refresh');
-    }
     
-    function edit_client()
-    {
-        $id = $this->input->post('id');
-        $data = $this->client_master->client_master_view_details($id);
-        $i=0;
-		echo '<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
-     </div>
-     <div class="content">
-        <form method="post" id="frm" action="'.base_url().'client-master/edit-client-master">
-           <div class="modal-body">
-              <div class="form-group">
-                 <label class="down">Company Name</label>
-                 <div class="input-group">
-                    <input type="text" id="company-name" class="form-control"  name="company_name" minlength="3" maxlength="100" value="'.$data[0]['company_name'].'" required>
-                 </div>
-              </div>
-              <div class="form-group">
-                 <label class="down">Client Name</label>
-                 <div class="input-group">
-                    <input type="text" id="client-name" class="form-control" name="client_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="'.$data[0]['client_name'].'" required>
-                 </div>
-              </div>
-              <div class="form-group">
-                 <label class="down">Phone No.</label>
-                 <div class="input-group">
-                    <input type="text" id="phone1" class="form-control" name="phone" maxlength="10" minlength="10" onkeypress="return isNumber();" onfocusout="phone_length();" value="'.$data[0]['phone'].'" required>
-                 </div>
-              </div>
-              <div class="form-group">
-                 <label class="down">Email Id</label>
-                 <div class="input-group">
-                    <input type="email" id="email1" class="form-control"  name="email"  
-                       onfocusout="email_validation();" value="'.$data[0]['email'].'" required>
-                 </div>
-              </div>
-                <input type="hidden" name="id" value="'.$id.'">
-           </div>
-           <div class="modal-footer down">
-              <button  type="submit" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
-           </div>
-        </form> 
-     </div>';
-    }
-    // onclick="edit_client_master();"
-    function delete_client()
+    
+    function client_master_delete()
 	{
-        if ($this->client_master->delete_client())
+        if ($this->client_master->client_master_delete())
         {
            echo "deleted successfully";
         }
@@ -205,6 +159,15 @@ class Client_master extends CI_Controller
             echo "1";
         }
         redirect('client-master', 'refresh');
+    }
+
+    function client_master_edit_details($id)
+	{
+        
+        $data['data'] = $this->client_master->client_master_edit_details($id);
+        $this->load->view('client_master/add_new',$data);
+        
+      
     }
 }
 ?>

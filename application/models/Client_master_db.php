@@ -64,6 +64,7 @@ class Client_master_db extends CI_Model
         $alt_email=$this->input->post('alt_email'); 
         $gst=$this->input->post('gst'); 
         $address=$this->input->post('address'); 
+        $client_id=$this->input->post('client_id'); 
         $data = array(
             "company_name"	=> $company_name,
             "client_name"	=> $client_name,
@@ -74,20 +75,36 @@ class Client_master_db extends CI_Model
             "gst"			=> $gst,
             "address"		=> $address,
         );
-        $this->db->where('company_name', $company_name);
-		$query = $this->db->get("client_master");
-		if ($query->num_rows() <= 0)
-		{
-            $this->db->insert('client_master',$data);
-            if ($this->db->affected_rows() > 0)
+        if($client_id=='' || empty($client_id)){
+            $this->db->where('company_name', $company_name);
+            $query = $this->db->get("client_master");
+            if ($query->num_rows() <= 0)
             {
-                return true;
+                $this->db->insert('client_master',$data);
+                if ($this->db->affected_rows() > 0)
+                {
+                    return "true";
+                }
             }
+            else
+            {
+                return "true";
+            }
+        }else{
+            $this->db->where('id', $client_id);
+            $this->db->update('client_master',$data);
+            return "update";
+
         }
-        else
-        {
-            return true;
-        }
+    }
+    function client_master_edit_details($id)
+    {  
+		// $id=$this->input->post('id');
+        $this->db->where('id', $id);
+        $query = $this->db->get("client_master");
+        $q=$query->row_array();
+        return $q;
+        
     }
     public function edit_client_master()
 	{
@@ -149,7 +166,8 @@ class Client_master_db extends CI_Model
 		$q=$query->row_array();
 		return $q;
     }
-    function delete_client()
+
+    function client_master_delete()
 	{
 		$id=$this->input->post('id'); 
 		$this->db->where("id",$id);

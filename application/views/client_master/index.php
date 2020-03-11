@@ -255,7 +255,26 @@
 
 					document.addEventListener('DOMContentLoaded', function() {
 						DatatableAdvanced.init()
-					});
+               });
+               
+               function client_master_delete(id) {
+                    r = confirm("Are you sure to delete ?");
+                        if (r == true) {
+                        jQuery.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url(); ?>client_master/client_master_delete",
+                            datatype: "text",
+                            data: {
+                                id: id
+                            },
+                            success: function(response) {
+                        
+                        $("#client_master_d_table").DataTable().ajax.reload();
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {}
+                        });
+                    }
+                    }
       </script>
    </body>
 </html>
