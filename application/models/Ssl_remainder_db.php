@@ -109,76 +109,49 @@ class Ssl_remainder_db extends CI_Model
 
     function insert_ssl_remainder_db()
     {
-        $company_id = "";
-        $company_website_selected = "";
-        $renewel_method_selected = "";
+        $company_id = $company_website_selected = $renewel_method_selected = $gst_amt_selected = $net_amt_selected = "";
+
         $company_id = $this->input->post('company_id_selected');
         $company_website_selected = $this->input->post('company_website_selected');
         $renewel_method_selected = $this->input->post('renewel_method_selected');
-        $manual_update_date = "";
-        $renewel_date = "";
-        //CHECKING UPDATE AND RENEWAL DATES DIFFERECE---------------------------------------------------/
-        if (!empty($_POST['manual_update_date'])) {
+        $amount_selected = $this->input->post('amount_selected');
+        $gst_amt_selected = $this->input->post('gst_amt_selected');
+        $gst_amt_selected = (int) (substr($gst_amt_selected, 12));
+        $net_amt_selected = $this->input->post('net_amt_selected');
+        $net_amt_selected = (int) (substr($net_amt_selected, 7));
 
+
+        if (!empty($_POST['manual_update_date'])) {
+            $manual_update_date = $renewel_date = "";
             $manual_update_date = $this->input->post('manual_update_date');
             $renewel_date = $this->input->post('manual_renewel_date');
             $manual_update_date = date("yy-m-d", strtotime($manual_update_date));
             $renewel_date = date("yy-m-d", strtotime($renewel_date));
-            $this->db->select('*');
-            $this->db->from('add_ssl_remainder');
-
-            $this->db->where('company_id', $company_id);
-            $this->db->where('company_website', $company_website_selected);
-
-            $amount_selected = $this->input->post('amount_selected');
-            $query = $this->db->get();
-            if ($query->num_rows() > 0) {
-                $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected);
-                $this->db->where('company_id', $company_id);
-                $this->db->where('company_website', $company_website_selected);
-                $this->db->update("add_ssl_remainder", $field);
-
-                $this->session->set_flashdata('ssl_remainder_updated', 'ssl_remainder_updated');
-                return false;
-            } else {
-                $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected);
-                if ($this->db->insert("add_ssl_remainder", $field)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            //----------------------------------------IF AUTO RENEWAL MEANS 
         } else if (!empty($_POST['auto_renewel_date'])) {
-
+            $manual_update_date = "";
             $renewel_date = $this->input->post('auto_renewel_date');
             $renewel_date = date("yy-m-d", strtotime($renewel_date));
+        }
 
-            $this->db->select('*');
-            $this->db->from('add_ssl_remainder');
+        //SQL_QUERY
+        $this->db->where('company_id', $company_id);
+        $this->db->where('company_website', $company_website_selected);
+        $query = $this->db->get('add_ssl_remainder');
+
+        if ($query->num_rows() > 0) {
+            //UPDATE CODE---------------------------------------------------/  
+            $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected, 'gst_amt' => $gst_amt_selected, 'net_amt' => $net_amt_selected);
             $this->db->where('company_id', $company_id);
             $this->db->where('company_website', $company_website_selected);
-            $query = $this->db->get();
-            $amount_selected = $this->input->post('amount_selected');
-            if ($query->num_rows() > 0) {
-                $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected);
-                $this->db->where('company_id', $company_id);
-                $this->db->where('company_website', $company_website_selected);
-                $this->db->update("add_ssl_remainder", $field);
-                $this->session->set_flashdata('ssl_remainder_updated', 'ssl_remainder_updated');
-                return false;
-            } else {
-                $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected);
-                if ($this->db->insert("add_ssl_remainder", $field)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+            $this->db->update("add_ssl_remainder", $field);
+            return "ssl_updated";
         }
-        //CHECKING UPDATE AND RENEWAL DATES DIFFERECE---------------------------------------------------/
 
-
+        //INSERT CODE---------------------------------------------------/
+        $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected, 'gst_amt' => $gst_amt_selected, 'net_amt' => $net_amt_selected);
+        if ($this->db->insert("add_ssl_remainder", $field)) {
+            return "ssl_inserted";
+        }
     }
 
     function delete_remainder_db()
@@ -189,16 +162,4 @@ class Ssl_remainder_db extends CI_Model
             return true;
         }
     }
-    // function update_new_user_record()
-    // {
-    //     $name = $this->input->post('doctor_username');
-    //     $password = $this->input->post('doctor_password');
-    //     $password = hash('sha512', $password);
-    //     $id = $this->input->post('update_new_created_user_id');
-    //     $field = array('user_name' => $name, '	user_password' => $password);
-    //     $this->db->where('id', $id);
-    //     if ($this->db->update('user_master', $field)) {
-    //         return true;
-    //     }
-    // }
 }

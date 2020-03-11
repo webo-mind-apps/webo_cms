@@ -399,10 +399,10 @@
                         <div class="content">
                           <!-- <b>Dear <?php //echo $remainder_name 
                                         ?>,</b> -->
-                          <p style="margin-top:15px;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A letter of a reminder of pending payment is a kind notification to a client or customer who has not made a payment as expected. This letter is used to request the company or individual to release the pending payment.</p>
+                          <p style="margin-top:15px;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reminder of pending Renewal payment is a kind notification to a client who has not made a payment as expected. This notification is to request the company or individual to release the pending renewal payment on before renewal date xx-xx-xxxx.</p>
 
                           <p>Thanks,</p>
-                          <p>WebOmind Apps Team.</p>
+                          <p>Webomindapps Team.</p>
                         </div>
                       </div>
 
@@ -423,7 +423,7 @@
                 <tr>
                   <td class="content-block">
 
-                    <span class="apple-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&reg; WebOmind Apps Pvt Ltd <?php echo date('Y') ?></span>
+                    <span class="apple-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&reg; Webomindapps Pvt Ltd <?php echo date('Y') ?></span>
                   </td>
                 </tr>
                 <tr>
