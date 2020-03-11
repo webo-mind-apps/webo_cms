@@ -128,14 +128,8 @@
 			);
 			echo json_encode($output);
 		}
-		$output = array(
-			"draw"                =>     intval($_POST["draw"]),
-			"recordsTotal"        =>     $this->master_remainder->get_all_data(),
-			"recordsFiltered"     =>     $this->master_remainder->get_filtered_data(),
-			"data" => $data
-		);
-		echo json_encode($output);
-	}
+		
+	
 	function save_master_remainder()
 	{
 		$insert_status = $this->master_remainder->save_master_remainder();
