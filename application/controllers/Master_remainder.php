@@ -11,7 +11,7 @@
 
 		public function index()
 		{
-			$this->notify();
+			// $this->notify();
 
 			// // $remainder_name['remainder_name'] = "fdafa";
 			// // $this->load->view('master_remainder/mail_format',$remainder_name); 
@@ -24,6 +24,7 @@
 		}
 		function notify()
 		{
+			exit;
 			$data['notify_master_remainder_db'] = $this->master_remainder->notify_master_remainder_db();
 			$data['notify_client_remainder_db'] = $this->master_remainder->notify_client_remainder_db();
 
@@ -46,7 +47,7 @@
 				try {
 					$curl = curl_init();
 					$message = "Reminder of pending SSL Renewal payment Kindly release the pending payment within final renewal date xx-xx-xxxx.
-					
+
 					Thanks,
 					Webomindapps Team.
 					";
