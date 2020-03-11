@@ -36,8 +36,10 @@ class Ssl_remainder extends CI_Controller
 
     function insert_ssl_remainder()
     {
-        if ($data['insert_ssl_datas_db'] = $this->Ssl_remainder_db->insert_ssl_remainder_db()) {
+        if ("ssl_inserted" == $this->Ssl_remainder_db->insert_ssl_remainder_db()) {
             $this->session->set_flashdata('ssl_remainder_added', 'ssl_remainder_added');
+        } else {
+            $this->session->set_flashdata('ssl_remainder_updated', 'ssl_remainder_updated');
         }
         redirect('ssl_remainder/');
     }
