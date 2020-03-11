@@ -275,6 +275,25 @@
                         });
                     }
                     }
+
+                    function client_master_view_details(id) {
+                        $("div#divLoading").addClass('show');
+                        jQuery.ajax({
+                           type: "POST",
+                           url: "<?php echo base_url(); ?>" + "client_master/client_master_view_details",
+                           datatype: "text",
+                           data: {
+                              id: id
+                           },
+                           success: function(response) {
+                              $('#client_details').empty();
+                              $('#client_details').append(response);
+                              $("div#divLoading").removeClass('show');
+                              $('#modal_theme_primary').modal('show');
+                           },
+                           error: function(xhr, ajaxOptions, thrownError) {}
+                        });
+                     }
       </script>
    </body>
 </html>

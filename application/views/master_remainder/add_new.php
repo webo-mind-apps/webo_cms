@@ -115,7 +115,7 @@
                                              <input type="email" id="email" class="form-control"  name="email"  
                                              onfocusout="email_validation();" value="<?php echo empty($data['email'])?'':$data['email'] ?>" required>
                                           </div>
-                                          <input type="hidden" name="change_id" id="change-id" >
+                                         
                                        </div>
                                        <div class="form-group">
                                           <label class="down">Phone No.</label>
@@ -123,18 +123,26 @@
                                              <input type="text"  id="phone" class="form-control" name="phone" onkeypress="return isNumber();" value="<?php echo empty($data['phone'])?'':$data['phone'] ?>" required>
                                           </div>
                                        </div>
+                                       <?php 
+                                       if($data['remainder_name']="" || empty($data['remainder_name'])){
+
+                                       ?>
                                        <div class="form-group">
                                           <label class="down">Password</label>
                                           <div class="input-group">
-                                             <input type="password"  id="pass" class="form-control" name="pass" value="<?php echo empty($data['password'])?'':$data['password'] ?>" required>
+                                             <input type="password"  id="pass" class="form-control" name="pass" value="" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label class="down">Conform Password</label>
                                           <div class="input-group">
-                                             <input type="password"  id="cpass" class="form-control" name="cpass" value="<?php echo empty($data['password'])?'':$data['password'] ?>"  required>
+                                             <input type="password"  id="cpass" class="form-control" name="cpass" value=""  required>
                                           </div>
                                        </div>
+                                       <?php 
+                                       }
+                                       ?>
+                                        <input type="hidden" name="change_id" id="change-id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">  
                                        <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary down" >Submit<i class="icon-paperplane ml-2"></i></button>
                                     </form>
                                     <!-- /form -->

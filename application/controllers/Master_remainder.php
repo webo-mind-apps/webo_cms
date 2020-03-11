@@ -132,9 +132,24 @@
 	
 	function save_master_remainder()
 	{
+		$to_email = $this->input->post('email');
 		$insert_status = $this->master_remainder->save_master_remainder();
 		if ($insert_status == "insert") {
 			$msg = "Inserted successfully";
+
+			$this->load->config('email');
+			$this->load->library('email');
+			$subject = "welcome";
+			$message = "From now you are admin";
+			$from = $this->config->item('smtp_user');
+			$to =$to_email;
+			$this->email->set_newline("\r\n");
+			$this->email->from($from, 'Webomindapps');
+			$this->email->to($to);
+			$this->email->subject($subject);
+			$this->email->message($message);
+			$this->email->send();
+
 		} else if ($insert_status == "exist") {
 			$msg = "Email already exist";
 		} else if ($insert_status == "update") {
@@ -143,7 +158,7 @@
 			$msg = "Your passwrod and conformation password mismatched";
 		}
 		$this->session->set_flashdata('success', $msg);
-		redirect('Master_remainder', 'refresh');
+		redirect('master-remainder', 'refresh');
 	}
 	function edit_remainder_master()
 	{
@@ -166,7 +181,11 @@
 	}
 	function master_remainder_edit_details($id)
     {
-        $data['data'] = $this->master_remainder->master_remainder_edit_details($id);
+		$data['data'] = $this->master_remainder->master_remainder_edit_details($id);
+		$pass="iyappan";
+		
+
+
         $this->load->view('master_remainder/add_new',$data);
       
     }
