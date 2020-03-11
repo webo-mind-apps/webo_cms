@@ -263,7 +263,7 @@
                }],
                createdRow: function(row, data, index) {
 
-                  if (new Date(data['6']) < new Date(output)) {
+                  if (new Date(data['5']) < new Date(output)) {
                      $(row).addClass('danger');
                   }
                }
