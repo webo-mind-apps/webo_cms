@@ -190,12 +190,8 @@
       
        
          //DATA TABLES CODE
-         var d = new Date(); 
-         var month = d.getMonth()+1;
-         var day = d.getDate();
-         var output =(day<10 ? '0' : '') + day+ '-' +(month<10 ? '0' : '') + month + '-' + d.getFullYear();
-
-
+         
+        var output= $.datepicker.formatDate('dd-mm-yy',new Date())
         
 					var DatatableAdvanced = function(month) {
 
@@ -251,7 +247,8 @@
 									"orderable": false,
 								}],
                         createdRow : function(row, data, index){
-                           if(data['5'] < output){
+                         
+                           if(new Date(data['6']) < new Date(output)){
                               $(row).addClass('danger');
                            }
                         }
