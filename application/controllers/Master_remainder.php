@@ -1,5 +1,4 @@
- 
-<?php
+ <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 class Master_remainder extends CI_Controller
 {
@@ -16,7 +15,10 @@ class Master_remainder extends CI_Controller
 		// exit;
 		$this->load->view('master_remainder/index');
 	}
-
+	function add_new()
+    {
+        $this->load->view('master_remainder/add_new');
+    }
 	function notify()
 	{
 		$this->load->config('email');

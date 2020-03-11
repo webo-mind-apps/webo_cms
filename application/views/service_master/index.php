@@ -51,10 +51,14 @@
 			right: 0;
 			top: 0;
 		}
+      .mod-table td
+      {
+         padding:15px 20px 15px 20px;
+      }
+      .danger{color:red;}
       </style>
    </head>
    <body>
-
       <!-- Main navbar  -->
       <?php
          $this->load->view('includes/main_navbar');
@@ -74,26 +78,26 @@
             <div class="page-header page-header-light">
                <div class="page-header-content header-elements-md-inline">
                   <div class="page-title d-flex">
-                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Master</span></h4>
+                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Service Master</span></h4>
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                   <div class="right text-center ">
-                  <a href="<?php echo base_url(); ?>master-remainder/add-new">
-                     <button type="button" class="btn btn-labeled btn-labeled-right bg-primary" data-toggle="modal" data-target="#fetchData">Add New <b><i class="fa fa-plus" aria-hidden="true"></i></b></button>
-                  </a>
+                     <a href="<?php echo base_url(); ?>service-master/add-new">
+                     <button type="button" class="btn btn-labeled btn-labeled-right bg-primary">Add New <b><i class="fa fa-plus" aria-hidden="true"></i></b></button></a>
+                    
                   </div>
                </div>
             </div>
-            <?php
-               if ($this->session->flashdata('success')) {
-               ?>
-            <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <span class="text-semibold"><?php echo $this->session->flashdata('success'); ?></span>
-            </div>
-            <?php
-               }
-               ?>
+                <?php
+                if ($this->session->flashdata('success')) {
+                ?>
+                <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span class="text-semibold"><?php echo $this->session->flashdata('success'); ?></span>
+                </div>
+                <?php
+                }
+                ?>
             <!-- Content area -->
             <div class="content">
                <!-- row -->
@@ -103,7 +107,7 @@
                         <!-- card-->
                         <div class="card">
                            <div class="card-header header-elements-inline">
-                              <h5 class="card-title">Admin Master</h5>
+                              <h5 class="card-title">Service Master</h5>
                               <div class="header-elements">
                                  <div class="list-icons">
                                     <a class="list-icons-item" data-action="collapse"></a>
@@ -114,13 +118,12 @@
                            </div>
                            <!-- card-body -->
                            <!-- <div class="card-body"> -->
-                              <table id="remainder_master_d_table" class="table datatable-basic table-bordered table-striped table-hover">
+                              <table id="service_master_d_table" class="table datatable-basic table-bordered table-striped table-hover">
                                  <thead>
                                     <tr>
                                        <th>Si No</th>
-                                       <th>Remainder Name</th>
-                                       <th>Phone No.</th>
-                                       <th>Email Id</th>
+                                       <th>Service Name</th>
+                                       <th>HSN Code</th>
                                        <th class="text-center">Actions</th>
                                     </tr>
                                  </thead>
@@ -140,7 +143,6 @@
          <!-- /content wrapper -->
       </div>
       <!-- /page content -->
-     
       <script>
 
          // DATA TABLES CODE
@@ -175,16 +177,16 @@
 								}
 							});
 
-							var dataTable = $('#remainder_master_d_table').DataTable({
+							var dataTable = $('#service_master_d_table').DataTable({
 								'processing': true,
 								'serverSide': true,
 								'order': [],
 								'ajax': {
-									'url': "<?php echo base_url() . 'master_remainder/get_all_data' ?>",
+									'url': "<?php echo base_url() . 'service_master/get_all_data' ?>",
 									'type': 'POST'
 								},
 								'columnDefs': [{
-									"targets": [4],
+									"targets": [2],
 									"orderable": false,
 								}],
 
@@ -237,7 +239,9 @@
 							});
 
 						};
-						
+						//
+						// Return objects assigned to module
+						//
 						return {
 							init: function() {
 								_componentDatatableAdvanced();
@@ -248,6 +252,27 @@
 					document.addEventListener('DOMContentLoaded', function() {
 						DatatableAdvanced.init()
 					});
+
+
+                   
+                function service_master_delete(id) {
+                    r = confirm("Are you sure to delete ?");
+                        if (r == true) {
+                        jQuery.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url(); ?>service_master/service_master_delete",
+                            datatype: "text",
+                            data: {
+                                id: id
+                            },
+                            success: function(response) {
+                        
+                        $("#service_master_d_table").DataTable().ajax.reload();
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {}
+                        });
+                    }
+                    }
       </script>
    </body>
 </html>

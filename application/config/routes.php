@@ -22,5 +22,11 @@ $route['master-remainder/save-master-remainder']  = 'Master_remainder/save_maste
 $route['master-remainder/edit-remainder-master']  = 'Master_remainder/edit_remainder_master';
 $route['master-remainder/delete-remainder-master'] = 'Master_remainder/delete_remainder_master';
 $route['month-renewal']                            = 'Month_renewal';
-$route['dash-board']                            = 'Dash_board';
+$route['dashboard']                            = 'Dashboard';
+$route['service-master']                            = 'Service_master';
+$route['service-master/add-new']                    = 'Service_master/add_new';
+$route['master-remainder/add-new']                    = 'Master_remainder/add_new';
+$route['master-remainder']                    = 'Master_remainder';
+$route['service-master/save-service-master']        = 'Service_master/save_service_master';
+$route['service-master/service-master-edit-details/(:any)']        = 'Service_master/service_master_edit_details/$1';
 

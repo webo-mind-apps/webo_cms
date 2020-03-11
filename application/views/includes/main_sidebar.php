@@ -57,14 +57,29 @@
 						</span>
 					</a>
 				</li>
-				<li class="nav-item">
+
+				<li class="nav-item nav-item-submenu">
+							<a href="" class="nav-link">
+								<i class="icon-stack2"></i> <span>Masters</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+									<li class="nav-item">
+										<a href="<?php echo base_url(); ?>service-master" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Service Master</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?php echo base_url(); ?>master-remainder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Admin Master</a>
+									</li>
+									
+								</ul>
+					</li>
+
+				<!-- <li class="nav-item">
 					<a href="<?php echo base_url(); ?>month-renewal" class="nav-link">
 						<i class="fa fa-user" aria-hidden="true"></i>
 						<span>
 							&nbsp This Month Renewal
 						</span>
 					</a>
-				</li>
+				</li> -->
 				<li class="nav-item">
 					<a href="<?php echo base_url(); ?>client-master" class="nav-link">
 						<i class="fa fa-users"></i>
@@ -73,6 +88,27 @@
 						</span>
 					</a>
 				</li>
+
+				<li class="nav-item nav-item-submenu">
+							<a href="" class="nav-link">
+								<i class="icon-stack2"></i> <span>SSL</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+									<li class="nav-item">
+										<a href="<?php echo base_url(); ?>ssl-remainder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Add SSL</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?php echo base_url(); ?>ssl-view" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>View SSL Renewal</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?php echo base_url(); ?>master-remainder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>View SSL Updates</a>
+									</li>
+									
+								</ul>
+					</li>
+
+
+
+<!-- 
 				<li class="nav-item">
 					<a href="<?php echo base_url(); ?>ssl-remainder" class="nav-link">
 						<i class="fa fa-user"></i>
@@ -98,7 +134,7 @@
 							&nbsp Master Remainder
 						</span>
 					</a>
-				</li>
+				</li> -->
 
 
 				<!-- /main -->
