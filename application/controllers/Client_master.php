@@ -71,46 +71,34 @@ class Client_master extends CI_Controller
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
+                    <div class="row">
+                    <div class="col-sm-1"> </div>
+                    <table class="mod-table">
+                            <tr><th>Company Name</th><td>:</td><td>'.ucwords($data[0]['company_name']).'</td></tr>
+                            <tr><th>Client Name</th><td>:</td><td>'.ucwords($data[0]['client_name']).'</td></tr>
+                            <tr><th>Phone No.</th><td>:</td><td>'.ucwords($data[0]['phone']).'</td></tr>
+                            <tr><th>Alter Phone No.</th><td>:</td><td>'.ucwords($data[0]['alt_phone']).'</td></tr>
+                            <tr><th>Email Id</th><td>:</td><td>'.ucwords($data[0]['email']).'</td></tr>
+                            <tr><th>Alter Email Id</th><td>:</td><td>'.ucwords($data[0]['alt_email']).'</td></tr>
+                            <tr><th>Address</th><td>:</td><td>'.ucwords($data[0]['address']).'</td></tr>
+                        </table>
+                        </div>
                         <div class="row">
-                        <div class="col-sm-4"> 
+                    <div class="col-sm-1"> </div>
                         <table class="mod-table">
-                                <tr><td>Company Name</td><td>:</td><td>'.ucwords($data[0]['company_name']).'</td></tr>
+                            <tr><th><u>Website Name</u></th></tr>';
+                                if($data[0]['website']!='' || !empty($data[0]['website'])){
+                                foreach($data as $row)
+                                    {
+                                        if($row['status']==1){$checked="";}else{$checked="checked";}
+                                        echo '<tr><td><input type="checkbox"  '.$checked.' style="cursor:pointer " class="checkbox" name="checkbox" id="'. $row['site_id'] .'" value="' .$row['status']. '">';if($row['status']==1){echo '<span class="danger">'.$row['website'].'</span>';}else{echo '<span>'.$row['website'].'</span>';} echo'</span></td></tr>';
+                                        $i++;
+                                    }
+                                } 
+                                    echo '
                             </table>
-                        </div>
-                      
-                        <div class="col-sm-4"> 
-                        <table class="mod-table">
-                                <tr><td>Client Name</td><td>:</td><td>'.ucwords($data[0]['client_name']).'</td></tr>
-                               
-                            </table>
-                        </div>
-                        <div class="col-sm-4"> 
-                        <table class="mod-table">
-                                <tr><td>Phone&nbspNo.</td><td>:</td><td>'.ucwords($data[0]['phone']).'</td></tr>
-                            </table>
-                        </div>
-                       </div>
-
-
-                       <div class="row">
-                       <div class="col-sm-4"> 
-                       <table class="mod-table">
-                                <tr><td>Email Id</td><td>:</td><td>'.ucwords($data[0]['alt_phone']).'</td></tr>
-                           </table>
-                       </div>
-                     
-                       <div class="col-sm-4"> 
-                       <table class="mod-table">
-                               <tr><td>Client Name</td><td>:</td><td>'.ucwords($data[0]['email']).'</td></tr>
-                              
-                           </table>
-                       </div>
-                       <div class="col-sm-4"> 
-                       <table class="mod-table">
-                               <tr><td>Phone&nbspNo.</td><td>:</td><td>'.ucwords($data[0]['alt_email']).'</td></tr>
-                           </table>
-                       </div>
-                      </div>
+                        </table>
+                    </div>
 						
 					</div>
 					<div class="modal-footer">

@@ -133,6 +133,7 @@
 	function save_master_remainder()
 	{
 		$to_email = $this->input->post('email');
+		$pass = $this->input->post('pass');
 		$insert_status = $this->master_remainder->save_master_remainder();
 		if ($insert_status == "insert") {
 			$msg = "Inserted successfully";
@@ -154,6 +155,24 @@
 			$msg = "Email already exist";
 		} else if ($insert_status == "update") {
 			$msg = "Updated successfully";
+			if($pass!='' || !empty($pass))
+			{
+				$this->load->config('email');
+				$this->load->library('email');
+				$subject = "welcome";
+				$message = "Some one change your password(password:".$pass.")";
+				$from = $this->config->item('smtp_user');
+				$to =$to_email;
+				$this->email->set_newline("\r\n");
+				$this->email->from($from, 'Webomindapps');
+				$this->email->to($to);
+				$this->email->subject($subject);
+				$this->email->message($message);
+				$this->email->send();
+
+			}
+
+
 		}else if ($insert_status == "pass_wrong") {
 			$msg = "Your passwrod and conformation password mismatched";
 		}

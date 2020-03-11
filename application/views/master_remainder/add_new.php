@@ -123,25 +123,20 @@
                                              <input type="text"  id="phone" class="form-control" name="phone" onkeypress="return isNumber();" value="<?php echo empty($data['phone'])?'':$data['phone'] ?>" required>
                                           </div>
                                        </div>
-                                       <?php 
-                                       if($data['remainder_name']="" || empty($data['remainder_name'])){
-
-                                       ?>
+                                      
                                        <div class="form-group">
                                           <label class="down">Password</label>
                                           <div class="input-group">
-                                             <input type="password"  id="pass" class="form-control" name="pass" value="" required>
+                                             <input type="password"  id="pass" class="form-control pass" name="pass" value=""  required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label class="down">Conform Password</label>
                                           <div class="input-group">
-                                             <input type="password"  id="cpass" class="form-control" name="cpass" value=""  required>
+                                             <input type="password"  id="cpass" class="form-control pass" name="cpass" value="" required>
                                           </div>
                                        </div>
-                                       <?php 
-                                       }
-                                       ?>
+                                       
                                         <input type="hidden" name="change_id" id="change-id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">  
                                        <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary down" >Submit<i class="icon-paperplane ml-2"></i></button>
                                     </form>
@@ -205,9 +200,54 @@
                  $("#email1").val("");
              }
          }
+         $(document).on('focusout', '.pass', function () {
+         var number_count=0;
+         var small_letter_count=0;
+         var capital_letter_count=0;
+         var special_count=0;
+         var i=0;
+         var number=/[0-9]/;
+         var small_letter=/[a-z]/;
+         var capital_letter=/[A-z]/;
+         var special=/[_~\-!@#\$%\^&\*\(\)]/;
          
+         var s=$(this).val();
+       var s_len=s.length;
+         for(i;i<s_len;i++)
+         {
+       	  if(number.test(s[i]))
+       	  {
+       		  number_count++;
+       	  }
+       	 
+       	  else if(small_letter.test(s[i]))
+       	  {
+            small_letter_count++;
+       	  }
+            else if(capital_letter.test(s[i]))
+       	  {
+            capital_letter_count++;
+       	  }
+       	  
+       	  else if(special.test(s[i]))
+       	  {
+       		  special_count++;
+       	  }
+       	 
+         }
+      if(s_len<8 || number_count== 0 || small_letter_count==0 || capital_letter_count==0 || special_count==0) 
+        {
+            $(this).val('');
+       	}
+       
+      });
       
 
+      if($("#remainder-name").val() != "")
+      {
+         $("#pass").removeAttr("required");
+         $("#cpass").removeAttr("required");
+      }
       
       </script>
    </body>

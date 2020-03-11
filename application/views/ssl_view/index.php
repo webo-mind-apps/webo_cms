@@ -405,6 +405,7 @@
          $('#ssl_view_d_table').DataTable().destroy();
          DatatableAdvanced.init();
       });
+
    </script>
 </body>
 
