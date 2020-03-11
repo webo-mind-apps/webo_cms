@@ -199,8 +199,8 @@
 
                                     <div class="form-group" style="margin-top:10px;">
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:155px;">GST @ 18%<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:80px;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:31.3%;">GST @ 18%<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:16.1%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
                                             <input type="text" id="amount" class="form-control" name="amount_selected" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
 
