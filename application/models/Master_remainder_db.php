@@ -72,29 +72,40 @@ class Master_remainder_db extends CI_Model
         $phone = $this->input->post('phone');
         $email = $this->input->post('email');
         $id = $this->input->post('change_id');
-        $this->db->select('*');
-        $this->db->where('email', $email);
-        $query = $this->db->get('remainder_master');
-        if ($query->num_rows() <= 0) {
-            $data = array(
-                'remainder_name' => $remainder_name,
-                'phone' => $phone,
-                'email' => $email,
-            );
-            if (empty($id) || $id == '') {
-                $this->db->insert('remainder_master', $data);
-                if ($this->db->affected_rows() > 0) {
-                    return "insert";
+        $pass = $this->input->post('pass');
+        $cpass = $this->input->post('cpass');
+        if($pass==$cpass)
+        {
+            $hashed = hash('sha512', $pass);
+
+            $this->db->select('*');
+            $this->db->where('email', $email);
+            $query = $this->db->get('remainder_master');
+            if ($query->num_rows() <= 0) {
+                $data = array(
+                    'remainder_name' => $remainder_name,
+                    'phone' => $phone,
+                    'email' => $email,
+                    'password'=>$hashed,
+                );
+                if (empty($id) || $id == '') {
+                    $this->db->insert('remainder_master', $data);
+                    if ($this->db->affected_rows() > 0) {
+                        return "insert";
+                    }
+                } else if (!empty($id) || $id != '') {
+                    $this->db->where('id', $id);
+                    $this->db->update('remainder_master', $data);
+                    if ($this->db->affected_rows() > 0) {
+                        return "update";
+                    }
                 }
-            } else if (!empty($id) || $id != '') {
-                $this->db->where('id', $id);
-                $this->db->update('remainder_master', $data);
-                if ($this->db->affected_rows() > 0) {
-                    return "update";
-                }
+            } else {
+                return "exist";
             }
-        } else {
-            return "exist";
+        }
+        else{
+            return "pass_wrong";
         }
     }
     public function edit_remainder_master()
@@ -105,12 +116,21 @@ class Master_remainder_db extends CI_Model
         $q = $query->row_array();
         return $q;
     }
-    function delete_remainder_master()
+    function master_remainder_delete()
     {
         $id = $this->input->post('id');
         $this->db->where("id", $id);
         if ($this->db->delete("remainder_master")) {
             return true;
         }
+    }
+    function master_remainder_edit_details($id)
+    {  
+		// $id=$this->input->post('id');
+        $this->db->where('id', $id);
+        $query = $this->db->get("remainder_master");
+        $q=$query->row_array();
+        return $q;
+        
     }
 }

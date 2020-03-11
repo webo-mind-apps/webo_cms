@@ -59,12 +59,20 @@ class Client_master_db extends CI_Model
 		$company_name=$this->input->post('company_name'); 
 		$client_name=$this->input->post('client_name'); 
 		$phone=$this->input->post('phone'); 
+		$alt_phone=$this->input->post('alt_phone'); 
         $email=$this->input->post('email'); 
+        $alt_email=$this->input->post('alt_email'); 
+        $gst=$this->input->post('gst'); 
+        $address=$this->input->post('address'); 
         $data = array(
             "company_name"	=> $company_name,
             "client_name"	=> $client_name,
             "phone"			=> $phone,
+            "alt_phone"		=> $alt_phone,
             "email"			=> $email,
+            "alt_email"		=> $alt_email,
+            "gst"			=> $gst,
+            "address"		=> $address,
         );
         $this->db->where('company_name', $company_name);
 		$query = $this->db->get("client_master");

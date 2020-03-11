@@ -112,8 +112,8 @@
 							 <i class="icon-menu9"></i>
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
-							 <a href="javascript:void(0)" id="' . $row->id . '"  class="dropdown-item" onclick="edit_master_remainder(this.id);" data-toggle="modal" data-target="#fetchData"><i class="fa fa-pencil"></i> Edit</a>
-							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_master_remainder(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+							 <a href="master-remainder/master-remainder-edit-details/'.$row->id.'"  class="dropdown-item"  ><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="master_remainder_delete(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
 						 </div>
 					 </div>
 				 </div>
@@ -128,31 +128,39 @@
 			);
 			echo json_encode($output);
 		}
-		function save_master_remainder()
-		{
-			$insert_status = $this->master_remainder->save_master_remainder();
-			if ($insert_status == "insert") {
-				$msg = "Inserted successfully";
-			} else if ($insert_status == "exist") {
-				$msg = "Email already exist";
-			} else if ($insert_status == "update") {
-				$msg = "Updated successfully";
-			}
-			$this->session->set_flashdata('success', $msg);
-			redirect('Master_remainder', 'refresh');
+		$output = array(
+			"draw"                =>     intval($_POST["draw"]),
+			"recordsTotal"        =>     $this->master_remainder->get_all_data(),
+			"recordsFiltered"     =>     $this->master_remainder->get_filtered_data(),
+			"data" => $data
+		);
+		echo json_encode($output);
+	}
+	function save_master_remainder()
+	{
+		$insert_status = $this->master_remainder->save_master_remainder();
+		if ($insert_status == "insert") {
+			$msg = "Inserted successfully";
+		} else if ($insert_status == "exist") {
+			$msg = "Email already exist";
+		} else if ($insert_status == "update") {
+			$msg = "Updated successfully";
+		}else if ($insert_status == "pass_wrong") {
+			$msg = "Your passwrod and conformation password mismatched";
 		}
-		function edit_remainder_master()
-		{
-			$data = $this->master_remainder->edit_remainder_master();
-			echo json_encode($data);
-		}
-		function delete_remainder_master()
-		{
+		$this->session->set_flashdata('success', $msg);
+		redirect('Master_remainder', 'refresh');
+	}
+	function edit_remainder_master()
+	{
+		$data = $this->master_remainder->edit_remainder_master();
+		echo json_encode($data);
+	}
+	function master_remainder_delete()
+	{
 
-			if ($this->master_remainder->delete_remainder_master()) {
-				echo "Deleted successfully";
-			}
-			redirect('master-remainder', 'refresh');
+		if ($this->master_remainder->master_remainder_delete()) {
+			echo "Deleted successfully";
 		}
 
 		function arr_op($arr)
@@ -162,4 +170,11 @@
 			exit;
 		}
 	}
-	?>
+	function master_remainder_edit_details($id)
+    {
+        $data['data'] = $this->master_remainder->master_remainder_edit_details($id);
+        $this->load->view('master_remainder/add_new',$data);
+      
+    }
+}
+?>
