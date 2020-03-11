@@ -15,6 +15,10 @@ class Client_master extends CI_Controller
     {
         $this->load->view('client_master/index');
     }
+    function add_new()
+    {
+        $this->load->view('client_master/add_new');
+    }
 
     public function get_all_data($var = null) //created for implementing data tables
 	{
@@ -101,7 +105,7 @@ class Client_master extends CI_Controller
             $exist=0;
             $insert=0;
             $website=$this->input->post('website_name');
-            $company_name=$this->input->post('company_name'); 
+            $company_name=$this->input->post('company_name');
             foreach($website as $key =>$row)
             {
                 $company_id=$this->client_master->get_client_master_company_id($company_name);

@@ -107,8 +107,8 @@ class Master_remainder extends CI_Controller
 							 <i class="icon-menu9"></i>
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
-							 <a href="javascript:void(0)" id="' . $row->id . '"  class="dropdown-item" onclick="edit_master_remainder(this.id);" data-toggle="modal" data-target="#fetchData"><i class="fa fa-pencil"></i> Edit</a>
-							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_master_remainder(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+							 <a href="master-remainder/master-remainder-edit-details/'.$row->id.'"  class="dropdown-item"  ><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="master_remainder_delete(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
 						 </div>
 					 </div>
 				 </div>
@@ -132,6 +132,8 @@ class Master_remainder extends CI_Controller
 			$msg = "Email already exist";
 		} else if ($insert_status == "update") {
 			$msg = "Updated successfully";
+		}else if ($insert_status == "pass_wrong") {
+			$msg = "Your passwrod and conformation password mismatched";
 		}
 		$this->session->set_flashdata('success', $msg);
 		redirect('Master_remainder', 'refresh');
@@ -141,10 +143,10 @@ class Master_remainder extends CI_Controller
 		$data = $this->master_remainder->edit_remainder_master();
 		echo json_encode($data);
 	}
-	function delete_remainder_master()
+	function master_remainder_delete()
 	{
 
-		if ($this->master_remainder->delete_remainder_master()) {
+		if ($this->master_remainder->master_remainder_delete()) {
 			echo "Deleted successfully";
 		}
 		redirect('master-remainder', 'refresh');
@@ -156,5 +158,11 @@ class Master_remainder extends CI_Controller
 		print_r($arr);
 		exit;
 	}
+	function master_remainder_edit_details($id)
+    {
+        $data['data'] = $this->master_remainder->master_remainder_edit_details($id);
+        $this->load->view('master_remainder/add_new',$data);
+      
+    }
 }
 ?>

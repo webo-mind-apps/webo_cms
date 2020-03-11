@@ -82,9 +82,61 @@
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                   <div class="right text-center ">
-                  <a href="<?php echo base_url(); ?>client-master/add-new">
                      <button type="button" class="btn btn-labeled btn-labeled-right bg-primary" data-toggle="modal" data-target="#fetchData">Add New <b><i class="fa fa-plus" aria-hidden="true"></i></b></button>
-                  </a>
+                     <div class="modal fade" role="dialog" id="fetchData">
+                        <div class="modal-dialog modal-md">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              </div>
+                              <div class="content">
+                                 <form method="post" action="<?php echo base_url(); ?>client-master/save-client-master" >
+                                    <div class="modal-body">
+                                       <div class="form-group">
+                                          <label class="down">Company Name</label>
+                                          <div class="input-group">
+                                             <input type="text" id="company-name" class="form-control"  name="company_name" minlength="3" maxlength="100" required>
+                                          </div>
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="down">Client Name</label>
+                                          <div class="input-group">
+                                             <input type="text" id="client-name" class="form-control" name="client_name" minlength="3" maxlength="25" onkeypress="return isalpha();" required>
+                                          </div>
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="down">Phone No.</label>
+                                          <div class="input-group">
+                                             <input type="text" id="phone" class="form-control" name="phone" maxlength="10" minlength="10" onkeypress="return isNumber();" onfocusout="phone_length();" required>
+                                          </div>
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="down">Email Id</label>
+                                          <div class="input-group">
+                                             <input type="email" id="email" class="form-control"  name="email"  
+                                                onfocusout="email_validation();" required>
+                                          </div>
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="down">Website Name</label>
+                                          <div class="input-group">
+                                             <input type="text" class="form-control website-name"  name="website_name[]" maxlength="100" onfocusout="website_validation();" placeholder="eg:www.google.com" required>
+                                          </div>
+                                          </div>
+                                          <div class="form-group" id="append-web" style="margin-top:10px;"></div>
+                                          <div  style="color:blue;text-align:right;margin-top:5px;">
+                                          <!-- <span id="remove" style="margin-right:15px;"><i class="icon-cross" style="margin-right:3px;"></i>Remove</span> -->
+                                          <span id="add-new"><i class="fas fa-plus" style="margin-right:3px;"></i>Add new</span></div>
+                                       </div>
+                                    
+                                    <div class="modal-footer down">
+                                       <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
+                                    </div>
+                                 </form> 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>
@@ -148,7 +200,184 @@
       <!-- content area -->
 				
       <script>
+         //Alphapet validation
+         function isalpha(evt) 
+         {
+             evt = (evt) ? evt : window.event;
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             if (charCode == 32) {return true;} 
+             else if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) || charCode == 13) {return false;}
          
+         }
+         // Numeric validation 
+         function isNumber(evt)
+         {
+             evt = (evt) ? evt : window.event;
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57)) {return false;}
+             return true;
+         }
+          // phone length check
+          function phone_length()
+         {
+            if($("#phone").val().length!=10)
+            {
+             $("#phone").val("");
+            }
+            if($("#phone1").val().length!=10)
+            {
+             $("#phone1").val("");
+            }
+         }
+         // email validation
+         function email_validation()
+         {
+             var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;
+             var email=$("#email").val();
+             var email1=$("#email1").val();
+             if(!regex.test(email)) 
+             {
+                 $("#email").val("");
+             }
+             if(!regex.test(email1)) 
+             {
+                 $("#email1").val("");
+             }
+         }
+         
+         function client_master_view_details(id) {
+			$("div#divLoading").addClass('show');
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo base_url(); ?>" + "client_master/client_master_view_details",
+				datatype: "text",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('#client_details').empty();
+					$('#client_details').append(response);
+					$("div#divLoading").removeClass('show');
+					$('#modal_theme_primary').modal('show');
+				},
+				error: function(xhr, ajaxOptions, thrownError) {}
+			});
+		}
+      function client_master_edit(id) {
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo base_url(); ?>client-master/edit-client",
+				datatype: "text",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('#client_details1').empty();
+					$('#client_details1').append(response);
+					$('#modal_theme_primary1').modal('show');
+				},
+				error: function(xhr, ajaxOptions, thrownError) {}
+			});
+		}
+      function delete_client_master(id) {
+         r = confirm("Are you sure to delete ?");
+			if (r == true) {
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo base_url(); ?>client-master/delete-client",
+				datatype: "text",
+				data: {
+					id: id
+				},
+				success: function(response) {
+               alert(response);
+               $("#client_master_d_table").DataTable().ajax.reload();
+				},
+				error: function(xhr, ajaxOptions, thrownError) {}
+			});
+         }
+		}
+      
+         
+         // document ready function
+         $(document).ready(function() {
+             $('#add-new').css('cursor', 'pointer');
+             $('#remove').css('cursor', 'pointer');
+             $("#add-new").click(function(){
+                 $("#append-web").append('<div class="input-group" style="margin-top:15px;"><input type="text" class="form-control website-name"  name="website_name[]" maxlength="100"  required><i class="icon-cross remove" style="margin:10px 0px 3px 3px;color:red;font-size:20px;cursor:pointer"></i></div>'); 
+             });
+
+             $(document).on('click', '.remove', function () { 
+              var val = $(this).parent().find('input').val();
+              if(val == ''){
+                  $(this).parent().remove()
+              }
+               
+               return false;
+              
+       })
+
+
+
+       $(document).on('change', '.checkbox', function () { 
+         r = confirm("Are you sure to change the status ?");
+			if (r == true) {
+           var id= $(this).attr("id");
+           var change_id=$(this).val();
+          
+           if(change_id==1)
+           {
+              var change_val=0;
+              $(this).parent().find('span').removeClass('danger');
+              $(this).val(0);
+            }
+            else{
+               var change_val=1;
+               $(this).parent().find('span').addClass('danger');
+              $(this).val(1);
+
+                 }
+          
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo base_url(); ?>Client_master/website_status_change",
+				datatype: "text",
+				data: {
+               id:id,
+					change_val: change_val
+				},
+				success: function(response) {
+               
+              
+				},
+				error: function(xhr, ajaxOptions, thrownError) {}
+			});
+         }
+		})
+
+
+       $(document).on('focusout', '.website-name', function () { 
+              // website validation
+        
+          var regex = /^([wW]{3})+\.(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;
+             var website=$(this).val();
+             if(!regex.test(website)) 
+             {
+                 $(this).val("");
+             }
+         
+              
+       })
+             
+             $('#button').click(function() {
+               //e.preventDefault();
+                if ($('#company-name').val()) {
+                   $('#fetchData').modal('toggle'); //or  $('#IDModal').modal('hide'); 
+                }
+         });
+         
+         });
+
          // DATA TABLES CODE
 					var DatatableAdvanced = function() {
 

@@ -247,7 +247,26 @@
 
 					document.addEventListener('DOMContentLoaded', function() {
 						DatatableAdvanced.init()
-					});
+               });
+               
+               function master_remainder_delete(id) {
+                    r = confirm("Are you sure to delete ?");
+                        if (r == true) {
+                        jQuery.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url(); ?>master_remainder/master_remainder_delete",
+                            datatype: "text",
+                            data: {
+                                id: id
+                            },
+                            success: function(response) {
+                        
+                        $("#remainder_master_d_table").DataTable().ajax.reload();
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {}
+                        });
+                    }
+                    }
       </script>
    </body>
 </html>

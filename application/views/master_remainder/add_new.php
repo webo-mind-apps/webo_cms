@@ -106,33 +106,33 @@
                                        <div class="form-group">
                                           <label class="down">Name</label>
                                           <div class="input-group">
-                                             <input type="text"  id="remainder-name" class="form-control" name="remainder_name" minlength="3" maxlength="25" onkeypress="return isalpha();" required>
+                                             <input type="text"  id="remainder-name" class="form-control" name="remainder_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data['remainder_name'])?'':$data['remainder_name'] ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label class="down">Email Id</label>
                                           <div class="input-group">
                                              <input type="email" id="email" class="form-control"  name="email"  
-                                             onfocusout="email_validation();" required>
+                                             onfocusout="email_validation();" value="<?php echo empty($data['email'])?'':$data['email'] ?>" required>
                                           </div>
                                           <input type="hidden" name="change_id" id="change-id" >
                                        </div>
                                        <div class="form-group">
                                           <label class="down">Phone No.</label>
                                           <div class="input-group">
-                                             <input type="text"  id="phone" class="form-control" name="phone" onkeypress="return isNumber();" required>
+                                             <input type="text"  id="phone" class="form-control" name="phone" onkeypress="return isNumber();" value="<?php echo empty($data['phone'])?'':$data['phone'] ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label class="down">Password</label>
                                           <div class="input-group">
-                                             <input type="password"  id="pass" class="form-control" name="pass" onkeypress="return isNumber();" required>
+                                             <input type="password"  id="pass" class="form-control" name="pass" value="<?php echo empty($data['password'])?'':$data['password'] ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label class="down">Conform Password</label>
                                           <div class="input-group">
-                                             <input type="password"  id="cpass" class="form-control" name="cpass" onkeypress="return isNumber();" required>
+                                             <input type="password"  id="cpass" class="form-control" name="cpass" value="<?php echo empty($data['password'])?'':$data['password'] ?>"  required>
                                           </div>
                                        </div>
                                        <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary down" >Submit<i class="icon-paperplane ml-2"></i></button>
