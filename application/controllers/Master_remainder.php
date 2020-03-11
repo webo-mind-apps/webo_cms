@@ -12,7 +12,7 @@ class Master_remainder extends CI_Controller
 
 	public function index()
 	{
-		$this->notify();
+		// $this->notify();
 		// // $remainder_name['remainder_name'] = "fdafa";
 		// // $this->load->view('master_remainder/mail_format',$remainder_name);
 
@@ -36,60 +36,55 @@ class Master_remainder extends CI_Controller
 			$remainder_emails[] = $row['email'];
 			$remainder_phones[] = $row['phone'];
 		}
-		// echo "<pre>";
-		// print_r($remainder_company_names);
-		// exit;
-		// for ($i = 0; $i <= count($remainder_names); $i++) {
-		$remainder_names[] 			= $row['remainder_name'];
-		$remainder_company_names[]  = $row['company_name'];
-		$remainder_emails[]         = $row['email'];
-		$remainder_phones[]         = $row['phone'];
 
-		//----------------------------------------------------------SMS CODE 
-		try {
-			$curl = curl_init();
-			$message = "hi madhu working";
-			$message = urlencode($message);
-			$number = $remainder_phones[$i];
+		for ($i = 0; $i <= count($remainder_names); $i++) {
 
-			$number = urlencode($number);
-			curl_setopt_array($curl, array(
-				CURLOPT_URL => "http://mindappssms.in/submitsms.jsp?user=webomind&key=ca93e6230aXX&mobile=" . $number . "&message=" . $message . "&senderid=NOTIFY&accusage=1",
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => "",
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 0,
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => "GET",
-			));
+			$this->arr_op($remainder_company_names);
+			//----------------------------------------------------------SMS CODE 
+			// try {
+			// 	$curl = curl_init();
+			// 	$message = "hi madhu working";
+			// 	$message = urlencode($message);
+			// 	$number = $remainder_phones[$i];
 
-			$response = curl_exec($curl);
+			// 	$number = urlencode($number);
+			// 	curl_setopt_array($curl, array(
+			// 		CURLOPT_URL => "http://mindappssms.in/submitsms.jsp?user=webomind&key=ca93e6230aXX&mobile=" . $number . "&message=" . $message . "&senderid=NOTIFY&accusage=1",
+			// 		CURLOPT_RETURNTRANSFER => true,
+			// 		CURLOPT_ENCODING => "",
+			// 		CURLOPT_MAXREDIRS => 10,
+			// 		CURLOPT_TIMEOUT => 0,
+			// 		CURLOPT_FOLLOWLOCATION => true,
+			// 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			// 		CURLOPT_CUSTOMREQUEST => "GET",
+			// 	));
 
-			curl_close($curl);
-			// echo $response;
-		} catch (Exception $e) {
-			// throw new Exception("Invalid URL",0,$e);
+			// 	$response = curl_exec($curl);
+
+			// 	curl_close($curl);
+			// 	// echo $response;
+			// } catch (Exception $e) {
+			// 	// throw new Exception("Invalid URL",0,$e);
+			// }
+			//----------------------------------------------------------SMS CODE END
+
+
+			//----------------------------------------------------------MAIL CODE
+			// $this->load->config('email');
+			// $this->load->library('email');
+			// $from = $this->config->item('smtp_user');
+			// $this->email->set_newline("\r\n");
+			// $this->email->from($from, 'WebOmind Apps');
+			// $this->email->to($remainder_emails[$i]);
+			// $subject = "Renewal Date";
+			// $this->email->subject($subject);
+			// $message = $this->load->view('master_remainder/mail_format', $data, TRUE);
+			// $this->email->message($message);
+			// if ($this->email->send()) {
+			// 	//echo "<script>alert('Remainder Sent')</script>";
+			// }
+			//----------------------------------------------------------MAIL CODE END
 		}
-		//----------------------------------------------------------SMS CODE END
-
-
-		//----------------------------------------------------------MAIL CODE
-		$this->load->config('email');
-		$this->load->library('email');
-		$from = $this->config->item('smtp_user');
-		$this->email->set_newline("\r\n");
-		$this->email->from($from, 'WebOmind Apps');
-		$this->email->to($remainder_emails[$i]);
-		$subject = "Renewal Date";
-		$this->email->subject($subject);
-		$message = $this->load->view('master_remainder/mail_format', $data, TRUE);
-		$this->email->message($message);
-		if ($this->email->send()) {
-			//echo "<script>alert('Remainder Sent')</script>";
-		}
-		//----------------------------------------------------------MAIL CODE END
-		// }
 	}
 	public function get_all_data($var = null) //created for implementing data tables
 	{
@@ -151,6 +146,13 @@ class Master_remainder extends CI_Controller
 			echo "Deleted successfully";
 		}
 		redirect('master-remainder', 'refresh');
+	}
+
+	function arr_op($arr)
+	{
+		echo "<pre>";
+		print_r($arr);
+		exit;
 	}
 }
 ?>
