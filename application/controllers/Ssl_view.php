@@ -23,13 +23,17 @@ class Ssl_view extends CI_Controller
 		$data = array();
 		// $status = '<span class="badge bg-blue">Completed</span>';
 		$i = 0;
+		// echo "<pre>";
+		// print_r($fetch_data);
+		// exit;
 		foreach ($fetch_data as $row) {
-			// if($row->renewel_date<date('yy-mm-d')){echo '<style></style>'}
+			//++$i;
+			//if($row->status==1){$j=$i.'<i class="fa fa-pencil"></i>';}else{$j=$i;}
 			$sub_array   = array();
 			$sub_array[] = ++$i;
 			$sub_array[] = $row->company_name;
 			$sub_array[] = $row->company_website; 
-			$sub_array[] = $row->amount_paid;
+			$sub_array[] = $row->net_amt;
 			$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
 

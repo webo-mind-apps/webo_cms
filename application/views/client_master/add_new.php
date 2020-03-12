@@ -164,7 +164,7 @@
                               <div class="form-group">
                                  <label class="down">GST</label>
                                  <div class="input-group">
-                                    <input type="text" id="gst" class="form-control"  name="gst" value="<?php echo empty($data['gst'])?'':$data['gst'] ?>"  required>
+                                    <input type="text" id="gst" class="form-control"  onkeypress="return isNumber();" name="gst" value="<?php echo empty($data['gst'])?'':$data['gst'] ?>"  required>
                                  </div>
                               </div>
                               <?php 

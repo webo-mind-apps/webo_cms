@@ -46,14 +46,22 @@ class Ssl_remainder extends CI_Controller
 
     function auto_fill()
     {
-        $get_cmp_id = $this->input->post('get_cmp_id');
-        $get_cmp_website = $this->input->post('get_cmp_website');
-        if ($data = $this->Ssl_remainder_db->check_record_db($get_cmp_id, $get_cmp_website)) {
-            echo json_encode($data);
+        
+        if ($data = $this->Ssl_remainder_db->check_record_db()) {
+            //echo json_encode($data);
         } else {
             $data = array("manual_update_date" => "", "renewel_date" => "", "amount_paid" => "");
-            echo json_encode($data);
+                echo json_encode($data);
         }
+      
+    }
+    function auto_fill_gst()
+    {
+        
+        if ($data = $this->Ssl_remainder_db->auto_fill_gst()) {
+            echo json_encode($data);
+        } 
+      
     }
 
     public function get_all_data($var = null) //created for implementing data tables
@@ -69,7 +77,7 @@ class Ssl_remainder extends CI_Controller
             $sub_array[] = $row->company_website;
             $sub_array[] = $row->type;
             $sub_array[] = $row->renewel_date;
-            $sub_array[] = $row->amount_paid;
+            $sub_array[] = $row->net_amt;
             $sub_array[] = $row->paid_date;
             $sub_array[] = '
 					 <div class="list-icons">

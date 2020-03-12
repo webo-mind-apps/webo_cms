@@ -13,10 +13,11 @@ class Ssl_view_db extends CI_Model
 		$year = date("Y");
 		$date_from=$year."-".$month."-01";
 		$date_to=$year."-".$month."-31";
-        $order_column = array("a.id","b.company_name","a.company_website","a.manual_update_date" ,"a.renewel_date","a.amount_paid");  
+        $order_column = array("a.id","b.company_name","a.company_website","a.manual_update_date" ,"a.renewel_date","a.net_amt",);  
 		$this->db->select('a.*,b.company_name');
 		$this->db->from('add_ssl_remainder a');
 		$this->db->join('client_master b','b.id=a.company_id','left');
+		// $this->db->join('company_website c','c.website=a.company_website','left');
 		if(!empty($month)){
 			$this->db->where("a.renewel_date>=",$date_from );  
 			$this->db->where("a.renewel_date<=",$date_to );  
@@ -29,7 +30,8 @@ class Ssl_view_db extends CI_Model
 				$this->db->or_like("a.type", $_POST["search"]["value"]);
 				$this->db->or_like("a.manual_update_date", $_POST["search"]["value"]);
 				$this->db->or_like("a.renewel_date", $_POST["search"]["value"]); 
-				$this->db->or_like("a.amount_paid", $_POST["search"]["value"]); 
+				$this->db->or_like("a.net_amt", $_POST["search"]["value"]); 
+				// $this->db->or_like("c.status", $_POST["search"]["value"]); 
             $this->db->group_end();
 		}
 		if(isset($_POST["order"]))  
@@ -70,7 +72,7 @@ class Ssl_view_db extends CI_Model
         $id = $this->input->post('id');
 		$paid_date=date("Y-m-d",strtotime($this->input->post('paid_date'))); 
 		$paid_amount=$this->input->post('paid_amount'); 
-		$this->db->select('company_id,company_website,type,renewel_date,amount_paid');
+		$this->db->select('company_id,company_website,type,renewel_date,net_amt');
         $this->db->where('id', $id);
 		$query=$this->db->get('add_ssl_remainder');
 		$row1=$query->row_array();

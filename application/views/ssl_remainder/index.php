@@ -211,7 +211,7 @@
 
                                     <div class="form-group" style="margin-top:10px;">
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:31.3%;">GST @ 18%<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:31.3%;">GST @ <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <label style="margin-left:16.1%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
                                             <input type="text" id="amount" class="form-control" name="amount_selected" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
@@ -222,6 +222,7 @@
                                             <!-- border-left:none; -->
                                         </div>
                                     </div>
+                                    <input type="hidden" id="gst-amt">
                                     <center>
                                         <button type="submit" class="btn btn-success">Save</button>
                                     </center>
@@ -306,7 +307,7 @@
 
             function auto_fill_amount(capital_amt) {
                 capital_amt = parseFloat(capital_amt);
-                var gst_per = 18;
+                var gst_per = $("#gst-amt").val();
                 var gst_amt = (capital_amt * gst_per) / 100;
                 var net_amt = gst_amt + capital_amt;
                 // gst_amt = Math.ceil(gst_amt).toString();
@@ -339,6 +340,9 @@
                             get_cmp_website: get_cmp_website
                         },
                         success: function(response) {
+
+                            $("#gst-d").append(response.gst);
+
                             //renew auto or manual code
                             var option = $('#renew_method').find('option');
                             $('#renew_method').val(response.type);
@@ -385,6 +389,31 @@
                 }
             });
             //Auto Fill Values------------------------------------------------------
+
+
+             //Auto Fill Values------------------------------------------------------  
+             $(".get_cmp_id").change(function() {
+                var get_cmp_id = "";
+                var get_cmp_id = $('.get_cmp_id').val();
+                if (get_cmp_id != "") {
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + "ssl_remainder/auto_fill_gst",
+                        dataType: 'json',
+                        data: {
+                            get_cmp_id: get_cmp_id,
+                        },
+                        success: function(response) {
+
+                            $("#gst-d").text(response.gst);
+                            $("#gst-amt").val(response.gst)
+
+                        }
+                    });
+                }
+            });
+            //Auto Fill Values------------------------------------------------------
+
 
             //Auto Fill Ssl Remainder Table Values---------------------------------- 
 

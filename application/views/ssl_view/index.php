@@ -255,7 +255,7 @@
                   'type': 'POST'
                },
                'columnDefs': [{
-                  "targets": [6],
+                  "targets": [7],
                   "orderable": false,
                }],
                createdRow: function(row, data, index) {
