@@ -55,14 +55,14 @@ class Ssl_remainder extends CI_Controller
         }
       
     }
-    function auto_fill_gst()
-    {
+    // function auto_fill_gst()
+    // {
         
-        if ($data = $this->Ssl_remainder_db->auto_fill_gst()) {
-            echo json_encode($data);
-        } 
+    //     if ($data = $this->Ssl_remainder_db->auto_fill_gst()) {
+    //         echo json_encode($data);
+    //     } 
       
-    }
+    // }
 
     function view_ssl_details()
     {

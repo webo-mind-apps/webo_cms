@@ -160,7 +160,7 @@
 					$this->load->config('email');
 					$this->load->library('email');
 					$subject = "welcome";
-					$message = "Some one change your password(password:".$pass.")";
+					$message = "Some one change your webomindapsps admin password";
 					$from = $this->config->item('smtp_user');
 					$to =$to_email;
 					$this->email->set_newline("\r\n");

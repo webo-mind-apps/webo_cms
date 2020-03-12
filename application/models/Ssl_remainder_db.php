@@ -12,11 +12,19 @@ class Ssl_remainder_db extends CI_Model
     {
         $get_cmp_id = $this->input->post('get_cmp_id');
         $get_cmp_website = $this->input->post('get_cmp_website');
+        $id = $this->input->post('id');
         $this->db->select('a.*,c.company_name,c.id,c.gst,DATE_FORMAT(manual_update_date, "%d-%m-%Y") as manual_update_date,DATE_FORMAT(renewel_date, "%d-%m-%Y") as renewel_date');
         $this->db->from('add_ssl_remainder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
-        $this->db->where('c.id', $get_cmp_id);
+        if($id=="" || empty($id))
+        {
+        $this->db->where('a.company_id', $get_cmp_id);
         $this->db->where('a.company_website', $get_cmp_website);
+        }
+        else if($id!="" || !empty($id))
+        {
+        $this->db->where('a.id', $id);
+        }
         $this->db->order_by("a.id", "desc");
         $check_record = $this->db->get();
         $num = $check_record->num_rows();
@@ -29,23 +37,23 @@ class Ssl_remainder_db extends CI_Model
     }
     //CHECK RECORDS TO AUTO FILL VALUES
 
-    //fetch client master gst
-    function auto_fill_gst()
-    {
-        $get_cmp_id = $this->input->post('get_cmp_id');
-        $this->db->select('gst');
-        $this->db->from('client_master');
-        $this->db->where('id', $get_cmp_id);
-        $check_record = $this->db->get();
-        $num = $check_record->num_rows();
-        if ($num) {
-            $check_record =  $check_record->row_array();
-            return $check_record;
-        } else {
-            return false;
-        }
-    }
-       //fetch client master gst
+    // //fetch client master gst
+    // function auto_fill_gst()
+    // {
+    //     $get_cmp_id = $this->input->post('get_cmp_id');
+    //     $this->db->select('gst');
+    //     $this->db->from('client_master');
+    //     $this->db->where('id', $get_cmp_id);
+    //     $check_record = $this->db->get();
+    //     $num = $check_record->num_rows();
+    //     if ($num) {
+    //         $check_record =  $check_record->row_array();
+    //         return $check_record;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    //    //fetch client master gst
 
     public function fetch_company_names()
     {

@@ -104,6 +104,14 @@ class Ssl_view_db extends CI_Model
 				// $this->db->or_like("c.status", $_POST["search"]["value"]); 
             $this->db->group_end();
 		}
+		if(isset($_POST["order"]))  
+        {  
+             $this->db->order_by($order_column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);  
+        }  
+        else  
+        {  
+             $this->db->order_by('renewel_date', 'ASC');  
+        }  	
 	}
 
 	function get_all_data()
@@ -130,16 +138,18 @@ class Ssl_view_db extends CI_Model
 		return $query->result();
 	}
 
-	public function client_paid_date_details()
+	public function save_paid_details()
 	{
-        $id = $this->input->post('id');
+        $id = $this->input->post('paid_id');
 		$paid_date=date("Y-m-d",strtotime($this->input->post('paid_date'))); 
 		$paid_amount=$this->input->post('paid_amount'); 
+		$gst=$this->input->post('gst'); 
+		$net_amt=$this->input->post('net_amt'); 
 		$this->db->select('company_id,company_website,type,renewel_date,net_amt');
         $this->db->where('id', $id);
 		$query=$this->db->get('add_ssl_remainder');
 		$row1=$query->row_array();
-		$row2=array("paid_date"=>$paid_date,"paid_amount"=>$paid_amount);
+		$row2=array("paid_date"=>$paid_date,"paid_amount"=>$paid_amount,"paid_gst"=>$gst,"paid_net_amount"=>$net_amt);
 		$row=array_merge($row1, $row2);
 		$this->db->insert('paid_ssl_remainder',$row);
 		if ($this->db->affected_rows() > 0)
@@ -151,4 +161,14 @@ class Ssl_view_db extends CI_Model
             return false;
 		}
 	}
+	public function fetch_paid_details()
+    {
+		$id = $this->input->post('id');
+		$this->db->select('id,amount_paid,gst_amt,net_amt');
+        $this->db->where('id', $id);
+        $query = $this->db->get('add_ssl_remainder');
+        $q = $query->row_array();
+        return $q;
+	}
+	
 }
