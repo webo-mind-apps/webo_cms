@@ -242,16 +242,6 @@
                }
             });
 
-            var month = '';
-            // $(document).on('change', '#month' , function(){
-
-            //    month = $('#month').val();
-            //    alert(month)
-            // });
-            // console.log($('#month').val());
-
-
-
             var dataTable = $('#ssl_view_d_table').DataTable({
                'processing': true,
                'serverSide': true,
