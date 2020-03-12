@@ -33,4 +33,4 @@ $route['master-remainder/add-new']                    = 'Master_remainder/add_ne
 $route['master-remainder']                    = 'Master_remainder';
 $route['service-master/save-service-master']        = 'Service_master/save_service_master';
 $route['service-master/service-master-edit-details/(:any)']        = 'Service_master/service_master_edit_details/$1';
-
+$route['ssl-view/ssl-view-edit-details/(:any)']        = 'ssl_view/ssl_view_edit_details/$1';

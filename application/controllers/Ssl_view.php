@@ -16,6 +16,11 @@ class Ssl_view extends CI_Controller
 		$this->load->view('ssl_view/index');
 	}
 
+	function ssl_view_edit_details($id)
+	{
+		// $data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
+		$this->load->view('ssl_view/edit_data');
+	}
 	public function get_all_data($var = null) //created for implementing data tables
 	{
 		$fetch_data = $this->ssl_view->make_datatables();
@@ -27,7 +32,7 @@ class Ssl_view extends CI_Controller
 			$sub_array   = array();
 			$sub_array[] = ++$i;
 			$sub_array[] = $row->company_name;
-			$sub_array[] = $row->company_website; 
+			$sub_array[] = $row->company_website;
 			$sub_array[] = $row->amount_paid;
 			$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
@@ -43,7 +48,7 @@ class Ssl_view extends CI_Controller
 							 <i class="icon-menu9"></i>
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
-							 <a href="service-master/service-master-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="ssl-view/ssl-view-edi-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
 
 							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
 						 </div>

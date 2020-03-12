@@ -211,8 +211,8 @@
 
                                     <div class="form-group" style="margin-top:10px;">
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:31.3%;">GST @ 18%<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:16.1%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:32.3%;">GST @ 18%<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:17.6%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
                                             <input type="text" id="amount" class="form-control" name="amount_selected" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
 
@@ -287,38 +287,48 @@
 
         $(document).ready(function() {
             //------------------------------------------------------Default Amt's Fill Values
-            $("#amount").val("0");
-            $(".gst_amt_input").val("0");
-            $(".gst_net_amt_input").val("0");
+            $("#amount").val(0);
+            $(".gst_amt_input").val(0);
+            $(".gst_net_amt_input").val(0);
 
             $("#amount").on('keyup change', function() {
-                var capital_amt = "";
+                var capital_amt = 0;
                 capital_amt = $("#amount").val();
                 auto_fill_amount(capital_amt);
             });
 
             $(".gst_amt_input").on('keyup change', function() {
-                var gst_amt = "";
+                var gst_amt = 0;
                 capital_amt = $("#amount").val();
                 gst_amt = $(".gst_amt_input").val();
                 auto_fill_net_amount(gst_amt, capital_amt);
             });
 
             function auto_fill_amount(capital_amt) {
+                if (capital_amt == "") {
+                    capital_amt = 0;
+                }
+
+                // console.log(capital_amt);
                 capital_amt = parseFloat(capital_amt);
                 var gst_per = 18;
+
                 var gst_amt = (capital_amt * gst_per) / 100;
                 var net_amt = gst_amt + capital_amt;
-                // gst_amt = Math.ceil(gst_amt).toString();
-                // net_amt = Math.ceil(net_amt).toString();
+
 
                 $(".gst_amt_input").val(gst_amt);
                 $(".gst_net_amt_input").val(net_amt);
             }
 
             function auto_fill_net_amount(gst_amt, capital_amt) {
+                if (capital_amt == "") {
+                    capital_amt = 0;
+                }
+                if (gst_amt == "") {
+                    gst_amt = 0;
+                }
                 var net_amt = parseFloat(gst_amt) + parseFloat(capital_amt);
-                // net_amt = Math.ceil(net_amt).toString();
                 $(".gst_net_amt_input").val(net_amt);
             }
             //------------------------------------------------------Default Amt's Fill Values
