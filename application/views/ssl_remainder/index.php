@@ -248,7 +248,7 @@
                                 <th>Renewal Date</th>
                                 <th>Amount Paid</th>
                                 <th>Paid Date</th>
-                                <th class="text-center">Delete</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                     </table>
@@ -262,7 +262,14 @@
         <!-- /content wrapper -->
     </div>
     <!-- /page content -->
-
+    <!-- view details code -->
+    <div id="modal_theme_primary" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="ssl_view_details">
+            </div>
+        </div>
+    </div>
+    <!-- view details code -->
 
     <script>
         //For delete remainder------------------------------------------------------
@@ -288,38 +295,47 @@
 
         $(document).ready(function() {
             //------------------------------------------------------Default Amt's Fill Values
-            $("#amount").val("0");
-            $(".gst_amt_input").val("0");
-            $(".gst_net_amt_input").val("0");
+            $("#amount").val(0);
+            $(".gst_amt_input").val(0);
+            $(".gst_net_amt_input").val(0);
 
             $("#amount").on('keyup change', function() {
-                var capital_amt = "";
+                var capital_amt = 0;
                 capital_amt = $("#amount").val();
                 auto_fill_amount(capital_amt);
             });
 
             $(".gst_amt_input").on('keyup change', function() {
-                var gst_amt = "";
+                var gst_amt = 0;
                 capital_amt = $("#amount").val();
                 gst_amt = $(".gst_amt_input").val();
                 auto_fill_net_amount(gst_amt, capital_amt);
             });
 
             function auto_fill_amount(capital_amt) {
+                if (capital_amt == "") {
+                    capital_amt = 0;
+                }
+
+                // console.log(capital_amt);
                 capital_amt = parseFloat(capital_amt);
                 var gst_per = $("#gst-amt").val();
                 var gst_amt = (capital_amt * gst_per) / 100;
                 var net_amt = gst_amt + capital_amt;
-                // gst_amt = Math.ceil(gst_amt).toString();
-                // net_amt = Math.ceil(net_amt).toString();
+
 
                 $(".gst_amt_input").val(gst_amt);
                 $(".gst_net_amt_input").val(net_amt);
             }
 
             function auto_fill_net_amount(gst_amt, capital_amt) {
+                if (capital_amt == "") {
+                    capital_amt = 0;
+                }
+                if (gst_amt == "") {
+                    gst_amt = 0;
+                }
                 var net_amt = parseFloat(gst_amt) + parseFloat(capital_amt);
-                // net_amt = Math.ceil(net_amt).toString();
                 $(".gst_net_amt_input").val(net_amt);
             }
             //------------------------------------------------------Default Amt's Fill Values
@@ -539,6 +555,27 @@
             $('#auto_ren_datepick').attr('required');
         });
         //ADDING and REMOVING required 
+
+        //View Details Code----------------------
+        function view_ssl_details(id) {
+            $("div#divLoading").addClass('show');
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>" + "ssl_remainder/view_ssl_details",
+                datatype: "text",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    $('#ssl_view_details').empty();
+                    $('#ssl_view_details').append(response);
+                    $("div#divLoading").removeClass('show');
+                    $('#modal_theme_primary').modal('show');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {}
+            });
+        }
+        //View Details Code----------------------
     </script>
 
 

@@ -64,6 +64,45 @@ class Ssl_remainder extends CI_Controller
       
     }
 
+    function view_ssl_details()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Ssl_remainder_db->view_ssl_details_db($id);
+        $i = 0;
+        $count = count($data); 
+        echo '
+            <div class="modal-header bg-primary">
+                <h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-1">
+                    </div>
+                    <table class="mod-table">
+                            <tr><th>Client Name</th><td>:</td><td>' . ucwords($data[0]['client_name']) . '</td></tr>
+                            <tr><th>Company Name</th><td>:</td><td>' . ucwords($data[0]['company_name']) . '</td></tr>
+                            <tr><th>Company website</th><td>:</td><td>' . ucwords($data[0]['company_website']) . '</td></tr>
+                            <tr><th>Update Method</th><td>:</td><td>' . ucwords($data[0]['type']) . '</td></tr>
+                            <tr><th>Amout Pay</th><td>:</td><td>' . ucwords($data[0]['amount_paid']) . '</td></tr>
+                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords($data[0]['renewel_date']) . '</td></tr>
+                            <tr><th>Paid Date</th><td>:</td><td>' . ucwords($data[0]['paid_date']) . '</td></tr>
+                            <tr><th>Paid Amount</th><td>:</td><td>' . ucwords($data[0]['paid_amount']) . '</td></tr>
+                            
+                            <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr>
+                            
+                            <tr><th>Email Id</th><td>:</td><td>' . ucwords($data[0]['email']) . '</td></tr> 
+                            
+                    </table>
+                </div>
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-primary" data-dismiss="modal">Close</button>
+            </div>';
+    }
+
     public function get_all_data($var = null) //created for implementing data tables
     {
 
@@ -86,7 +125,8 @@ class Ssl_remainder extends CI_Controller
 							 <i class="icon-menu9"></i>
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
-                            
+                         <a href="javascript:void(0)" id=' . $row->id . '
+                         onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
 							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_remainder(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
 						 </div>
 					 </div>
@@ -108,6 +148,12 @@ class Ssl_remainder extends CI_Controller
         if ($this->Ssl_remainder_db->delete_remainder_db()) {
             //$this->session->set_flashdata('ssl_deleted', 'ssl_deleted');
         }
+    }
+    function arr_op($arr)
+    {
+        echo "<pre>";
+        print_r($arr);
+        exit;
     }
 }
 

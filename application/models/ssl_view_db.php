@@ -1,14 +1,84 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');  
-class Ssl_view_db extends CI_Model 
-{  
-    function __construct()  
-    {
-        parent::__construct();
-    }
+defined('BASEPATH') or exit('No direct script access allowed');
+class Ssl_view_db extends CI_Model
+{
+	function __construct()
+	{
+		parent::__construct();
+	}
 
-    public function make_query()
-	{ 
+	public function update_ssl_view_db()
+	{
+		$id = $this->input->post('view_ssl_rec_id');
+		$company_id = $this->input->post('company_id');
+		$company_website = $this->input->post('company_website');
+		$ssl_type_selected = $this->input->post('ssl_type_selected');
+		$ssl_status_selected = $this->input->post('ssl_status_selected');
+		$manual_update_date = $this->input->post('manual_update_date');
+		$renewal_update_date = $this->input->post('renewal_update_date');
+		$amount_paid = $this->input->post('amount_paid');
+		$gst_amount = $this->input->post('gst_amount');
+		$net_amount = $this->input->post('net_amount');
+		$data = array(
+			"company_id"		=> $company_id,
+			"company_website"	=> $company_website,
+			"type"				=> $ssl_type_selected,
+			"ssl_status	"		=> $ssl_status_selected,
+			"manual_update_date" => $manual_update_date,
+			"renewel_date"		=> $renewal_update_date,
+			"amount_paid"		=> $amount_paid,
+			"gst_amt"			=> $gst_amount,
+			"net_amt"			=> $net_amount,
+		);
+		// echo "<pre>";
+		// print_r($id);
+		// print_r($data);
+		// exit;
+		if ($id != '' || !empty($id)) {
+			$this->db->where('id', $id);
+			if ($this->db->update('add_ssl_remainder', $data)) {
+				return "update";
+			} else {
+				return "not_update";
+			}
+		}
+	}
+
+	function view_ssl_details_db($id)
+	{
+		$this->db->select('a.*,b.*');
+		$this->db->from('add_ssl_remainder a');
+		$this->db->join('client_master b', 'a.company_id=b.id', 'left');
+
+		$this->db->where('a.id', $id);
+		$query = $this->db->get();
+		$q = $query->result_array();
+		// $q[0]['paid_date'] = $this->getPaidDate($q[0]['company_id'], $q[0]['company_website']);
+		return $q;
+	}
+	function ssl_view_edit_details_db($id)
+	{
+		$this->db->select('a.*,b.company_name');
+		$this->db->from('add_ssl_remainder a');
+		$this->db->join('client_master b', 'a.company_id=b.id', 'left');
+		$this->db->where('a.id', $id);
+		$query = $this->db->get();
+		$q = $query->row_array();
+		return $q;
+	}
+
+	// function getPaidDate($company_id = null, $company_website = null)
+	// {
+	// 	$this->db->select('paid_date,paid_amount');
+	// 	$this->db->where('company_id', $company_id);
+	// 	$this->db->where('company_website', $company_website);
+	// 	$query = $this->db->get('paid_ssl_remainder')->result();
+
+	// 	return $query;
+	// }
+
+	public function make_query()
+	{
 		$month = $this->input->get('month');
 		$year = date("Y");
 		$date_from=$year."-".$month."-01";
@@ -34,37 +104,30 @@ class Ssl_view_db extends CI_Model
 				// $this->db->or_like("c.status", $_POST["search"]["value"]); 
             $this->db->group_end();
 		}
-		if(isset($_POST["order"]))  
-        {  
-             $this->db->order_by($order_column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);  
-        }  
-        else  
-        {  
-             $this->db->order_by('a.renewel_date', 'ASC');  
-        }  	
 	}
 
-	function get_all_data()  
-    {  
-           $this->db->select("*");
-           $this->db->from('add_ssl_remainder');  
-           return $this->db->count_all_results();  
+	function get_all_data()
+	{
+		$this->db->select("*");
+		$this->db->from('add_ssl_remainder');
+		return $this->db->count_all_results();
 	}
-	
-	function get_filtered_data(){  
-		$this->make_query();  
-		$query = $this->db->get();  
-		return $query->num_rows();  
-	} 
 
-	function make_datatables(){  
-        $this->make_query();   
-		if($_POST["length"] != -1)  
-		{  
-			 $this->db->limit($_POST['length'], $_POST['start']);  
-		}  
-		$query = $this->db->get();  
-		return $query->result();  
+	function get_filtered_data()
+	{
+		$this->make_query();
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	function make_datatables()
+	{
+		$this->make_query();
+		if ($_POST["length"] != -1) {
+			$this->db->limit($_POST['length'], $_POST['start']);
+		}
+		$query = $this->db->get();
+		return $query->result();
 	}
 
 	public function client_paid_date_details()
@@ -87,10 +150,5 @@ class Ssl_view_db extends CI_Model
         {
             return false;
 		}
-
-
-       
-    }
-   
+	}
 }
-

@@ -16,6 +16,89 @@ class Ssl_view extends CI_Controller
 		$this->load->view('ssl_view/index');
 	}
 
+	function ssl_view_edit_details($id)
+	{
+
+		$data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
+		// $this->arr_op($data['data']);
+
+		$this->load->view('ssl_view/edit_data', $data);
+	}
+
+	function update_ssl_view()
+	{
+		$output = $this->ssl_view->update_ssl_view_db();
+		if ($output == "update") {
+			$this->session->set_flashdata('updated_ssl_view', 'updated successfully');
+			redirect('ssl-view');
+		} else {
+			echo "not updated";
+		}
+		// else if ($status == "true") {
+		//     $exist = 0;
+		//     $insert = 0;
+		//     $website = $this->input->post('website_name');
+		//     $company_name = $this->input->post('company_name');
+		//     foreach ($website as $key => $row) {
+		//         $company_id = $this->client_master->get_client_master_company_id($company_name);
+		//         $datas = array(
+		//             "company_id"            => $company_id['id'],
+		//             "website"                => $row,
+		//         );
+		//         $insert_status = $this->client_master->save_website($datas);
+		//         if ($insert_status == "insert") {
+		//             $insert++;
+		//         } else if ($insert_status == "exist") {
+		//             $exist++;
+		//         }
+		//     }
+		//     if ($exist != 0 && $insert != 0) {
+		//         $msg = "Inserted successfully<br>" . $exist . " website already exist";
+		//     } else {
+		//         $msg = "Inserted successfully";
+		//     }
+		//     $this->session->set_flashdata('success', $msg);
+		//     redirect('client-master', 'refresh');
+		// }
+		// redirect('client-master', 'refresh');
+	}
+
+	function view_ssl_details()
+	{
+		$id = $this->input->post('id');
+		$data = $this->ssl_view->view_ssl_details_db($id);
+		$i = 0;
+		$count = count($data);
+
+		echo '
+            <div class="modal-header bg-primary">
+                <h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-1">
+                    </div>
+                    <table class="mod-table">
+                            <tr><th>Client Name</th><td>:</td><td>' . ucwords($data[0]['client_name']) . '</td></tr>
+                            <tr><th>Company Name</th><td>:</td><td>' . ucwords($data[0]['company_name']) . '</td></tr>
+                            <tr><th>Company website</th><td>:</td><td>' . ucwords($data[0]['company_website']) . '</td></tr>
+                            <tr><th>Update Method</th><td>:</td><td>' . ucwords($data[0]['type']) . '</td></tr>
+							<tr><th>Amout Pay</th><td>:</td><td>' . ucwords($data[0]['amount_paid']) . '</td></tr>
+							<tr><th>Status</th><td>:</td><td>' . ucwords($data[0]['ssl_status'] ? "Active" : "InActive") . '</td></tr>
+							<tr><th>Update Date</th><td>:</td><td>' . ucwords($data[0]['manual_update_date']) . '</td></tr>
+                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords($data[0]['renewel_date']) . '</td></tr> 
+                            <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr> 
+                            <tr><th>Email Id</th><td>:</td><td>' . ucwords($data[0]['email']) . '</td></tr>  
+                    </table>
+                </div>
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-primary" data-dismiss="modal">Close</button>
+            </div>';
+	}
 
 	public function get_all_data($var = null) //created for implementing data tables
 	{
@@ -48,7 +131,10 @@ class Ssl_view extends CI_Controller
 							 <i class="icon-menu9"></i>
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
-							 <a href="service-master/service-master-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
+							<a href="javascript:void(0)" id=' . $row->id . '
+							onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
+							
+							 <a href="ssl-view/ssl-view-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
 
 							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
 						 </div>
@@ -74,6 +160,13 @@ class Ssl_view extends CI_Controller
 			$this->session->set_flashdata('success', $msg);
 		}
 		redirect('Ssl_view', 'refresh');
+	}
+
+	function arr_op($arr)
+	{
+		echo "<pre>";
+		print_r($arr);
+		exit;
 	}
 }
 ?>

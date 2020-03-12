@@ -72,6 +72,17 @@ class Ssl_remainder_db extends CI_Model
         }
     }
 
+    function view_ssl_details_db($id)
+    {
+        $this->db->select('a.*,b.*');
+        $this->db->from('paid_ssl_remainder a');
+        $this->db->join('client_master b', 'a.company_id=b.id', 'left');
+        $this->db->where('a.id', $id);
+        $query = $this->db->get();
+        $q = $query->result_array();
+        return $q;
+    }
+
     function insert_ssl_remainder_db()
     {
         $company_id = $company_website_selected = $renewel_method_selected = $gst_amt_selected = $net_amt_selected = "";
