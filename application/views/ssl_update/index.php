@@ -85,6 +85,9 @@
          background: red !important;
          color:white;
       }
+      .danger1 {
+         background: yellow !important;
+      }
 
       select {
          outline: 0;
@@ -206,7 +209,6 @@
       //DATA TABLES CODE
 
       var output = $.datepicker.formatDate('dd-mm-yy', new Date())
-      console.log(output);
 
       var DatatableAdvanced = function(month) {
 
@@ -254,10 +256,24 @@
                   "orderable": false,
                }],
                createdRow: function(row, data, index) {
-                console.log(data['4'])
-                  if (new Date(data['4']) < new Date(output)) {
-                     $(row).addClass('danger');
-                  }
+                    var today_date = output.split("-");
+                    var db_date = data['4'].split("-");
+                    if(db_date[2]<today_date[2])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]<today_date[1])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]<today_date[0])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]==today_date[0])
+                    {
+                        $(row).addClass('danger1');
+                    }
                }
             })
 

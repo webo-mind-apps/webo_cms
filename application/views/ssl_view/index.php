@@ -82,9 +82,12 @@
       }
 
       .danger {
-         background: #ff7043c9 !important;
+         background: red !important;
+         color:white;
       }
-
+      .danger1 {
+         background: yellow !important;
+      }
       select {
          outline: 0;
          width: 10rem;
@@ -262,10 +265,24 @@
                   "orderable": false,
                }],
                createdRow: function(row, data, index) {
-
-                  if (new Date(data['5']) < new Date(output)) {
-                     $(row).addClass('danger');
-                  }
+                  var today_date = output.split("-");
+                    var db_date = data['5'].split("-");
+                    if(db_date[2]<today_date[2])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]<today_date[1])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]<today_date[0])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]==today_date[0])
+                    {
+                        $(row).addClass('danger1');
+                    }
                }
             })
 

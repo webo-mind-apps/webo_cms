@@ -34,9 +34,9 @@ class Ssl_view extends CI_Controller
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
 
 			$sub_array[] = '<div class="check_date"><input id="paid_date' . $row->id . '" type="text" name="paid_date' . $row->id . '" 
-				class="form-control paid_date" autocomplete="off"><input id="renewel' . $row->id . '" class="renewel_date" type="hidden" value="' . $row->renewel_date . '"></div>';
+				class="form-control paid_date" autocomplete="off" style="padding:3px 0px 3px 0px;"><input id="renewel' . $row->id . '" class="renewel_date" type="hidden" value="' . $row->renewel_date . '"></div>';
 			$sub_array[] = '<div class="check_amount"><input id="paid_amount' . $row->id . '"  type="text" name="paid_amount' . $row->id . '" 
-				class="form-control paid_amount" onkeypress="return isNumber();" autocomplete="off"></div>';
+				class="form-control paid_amount" onkeypress="return isNumber();" autocomplete="off" style="padding:3px 0px 3px 0px;"></div>';
 			$sub_array[] = '
 					 <div class="list-icons">
 					 <div class="dropdown">
