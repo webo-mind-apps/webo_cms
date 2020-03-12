@@ -56,8 +56,7 @@ class Client_master extends CI_Controller
 				"recordsFiltered"     =>     $this->client_master->get_filtered_data(),
 				"data" => $data
 			);
-			echo json_encode($output);  
-		
+			echo json_encode($output);
     }
     function client_master_view_details()
 	{
@@ -150,8 +149,6 @@ class Client_master extends CI_Controller
         }  
         redirect('client-master', 'refresh');
     }
-    
-    
     function client_master_delete()
 	{
         if ($this->client_master->client_master_delete())
@@ -168,14 +165,10 @@ class Client_master extends CI_Controller
         }
         redirect('client-master', 'refresh');
     }
-
     function client_master_edit_details($id)
 	{
-        
         $data['data'] = $this->client_master->client_master_edit_details($id);
         $this->load->view('client_master/add_new',$data);
-        
-      
     }
 }
 ?>

@@ -137,11 +137,6 @@ class Master_remainder_db extends CI_Model
                 }
         }
     }
-
-
-
-
-    
     public function edit_remainder_master()
     {
         $id = $this->input->post('id');
@@ -165,6 +160,5 @@ class Master_remainder_db extends CI_Model
         $query = $this->db->get("remainder_master");
         $q=$query->row_array();
         return $q;
-        
     }
 }

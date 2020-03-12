@@ -6,7 +6,7 @@ class Service_master_db extends CI_Model
     {
         parent::__construct();
     }
-
+    //data tables................................................................................................................
     public function make_query()
 	{ 
         $order_column = array("id","service_name","hsn_code");  
@@ -51,6 +51,7 @@ class Service_master_db extends CI_Model
 		$query = $this->db->get();  
 		return $query->result();  
 	}
+    ///data tables................................................................................................................
     
     function save_service_master()
     {  
@@ -87,7 +88,6 @@ class Service_master_db extends CI_Model
                 }
         }
     }
-    
     function service_master_edit_details($id)
     {  
 		// $id=$this->input->post('id');
@@ -95,9 +95,7 @@ class Service_master_db extends CI_Model
         $query = $this->db->get("service_master");
         $q=$query->row_array();
         return $q;
-        
     }
-    
     function service_master_delete()
     {  
 		$id=$this->input->post('id');
@@ -106,8 +104,6 @@ class Service_master_db extends CI_Model
         {
             return true;
         }
-
-        
 	}
     
 }
