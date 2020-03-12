@@ -247,7 +247,7 @@
                                 <th>Renewal Date</th>
                                 <th>Amount Paid</th>
                                 <th>Paid Date</th>
-                                <th class="text-center">Delete</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                     </table>
@@ -261,7 +261,14 @@
         <!-- /content wrapper -->
     </div>
     <!-- /page content -->
-
+    <!-- view details code -->
+    <div id="modal_theme_primary" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="ssl_view_details">
+            </div>
+        </div>
+    </div>
+    <!-- view details code -->
 
     <script>
         //For delete remainder------------------------------------------------------
@@ -520,6 +527,27 @@
             $('#auto_ren_datepick').attr('required');
         });
         //ADDING and REMOVING required 
+
+        //View Details Code----------------------
+        function view_ssl_details(id) {
+            $("div#divLoading").addClass('show');
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>" + "ssl_remainder/view_ssl_details",
+                datatype: "text",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    $('#ssl_view_details').empty();
+                    $('#ssl_view_details').append(response);
+                    $("div#divLoading").removeClass('show');
+                    $('#modal_theme_primary').modal('show');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {}
+            });
+        }
+        //View Details Code----------------------
     </script>
 
 

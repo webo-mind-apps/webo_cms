@@ -7,12 +7,33 @@ class Ssl_view_db extends CI_Model
 		parent::__construct();
 	}
 
+	function view_ssl_details_db($id)
+	{
+		$this->db->select('a.*,b.*');
+		$this->db->from('add_ssl_remainder a');
+		$this->db->join('client_master b', 'a.company_id=b.id', 'left');
+
+		$this->db->where('a.id', $id);
+		$query = $this->db->get();
+		$q = $query->result_array();
+		// $q[0]['paid_date'] = $this->getPaidDate($q[0]['company_id'], $q[0]['company_website']);
+		return $q;
+	}
 	// function ssl_view_edit_details_db($id)
 	// {
 	// 	$this->db->where('id', $id);
 	// 	$query = $this->db->get("service_master");
 	// 	$q = $query->row_array();
 	// 	return $q;
+	// }
+	// function getPaidDate($company_id = null, $company_website = null)
+	// {
+	// 	$this->db->select('paid_date,paid_amount');
+	// 	$this->db->where('company_id', $company_id);
+	// 	$this->db->where('company_website', $company_website);
+	// 	$query = $this->db->get('paid_ssl_remainder')->result();
+
+	// 	return $query;
 	// }
 
 	public function make_query()

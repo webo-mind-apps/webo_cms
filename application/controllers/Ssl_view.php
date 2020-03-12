@@ -16,15 +16,49 @@ class Ssl_view extends CI_Controller
 		$this->load->view('ssl_view/index');
 	}
 
-<<<<<<< HEAD
 	function ssl_view_edit_details($id)
 	{
 		// $data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
 		$this->load->view('ssl_view/edit_data');
 	}
-=======
 
->>>>>>> 433bb22390e84f83d03d1b6f1587123a1d70a35d
+	function view_ssl_details()
+	{
+		$id = $this->input->post('id');
+		$data = $this->ssl_view->view_ssl_details_db($id);
+		$i = 0;
+		$count = count($data);
+
+		echo '
+            <div class="modal-header bg-primary">
+                <h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-1">
+                    </div>
+                    <table class="mod-table">
+                            <tr><th>Client Name</th><td>:</td><td>' . ucwords($data[0]['client_name']) . '</td></tr>
+                            <tr><th>Company Name</th><td>:</td><td>' . ucwords($data[0]['company_name']) . '</td></tr>
+                            <tr><th>Company website</th><td>:</td><td>' . ucwords($data[0]['company_website']) . '</td></tr>
+                            <tr><th>Update Method</th><td>:</td><td>' . ucwords($data[0]['type']) . '</td></tr>
+							<tr><th>Amout Pay</th><td>:</td><td>' . ucwords($data[0]['amount_paid']) . '</td></tr>
+							<tr><th>Status</th><td>:</td><td>' . ucwords($data[0]['ssl_status'] ? "Active" : "InActive") . '</td></tr>
+							<tr><th>Update Date</th><td>:</td><td>' . ucwords($data[0]['manual_update_date']) . '</td></tr>
+                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords($data[0]['renewel_date']) . '</td></tr> 
+                            <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr> 
+                            <tr><th>Email Id</th><td>:</td><td>' . ucwords($data[0]['email']) . '</td></tr>  
+                    </table>
+                </div>
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-primary" data-dismiss="modal">Close</button>
+            </div>';
+	}
+
 	public function get_all_data($var = null) //created for implementing data tables
 	{
 		$fetch_data = $this->ssl_view->make_datatables();
@@ -52,6 +86,9 @@ class Ssl_view extends CI_Controller
 							 <i class="icon-menu9"></i>
 						 </a>
 						 <div class="dropdown-menu dropdown-menu-right">
+							<a href="javascript:void(0)" id=' . $row->id . '
+							onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
+							
 							 <a href="ssl-view/ssl-view-edi-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
 
 							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
@@ -78,6 +115,13 @@ class Ssl_view extends CI_Controller
 			$this->session->set_flashdata('success', $msg);
 		}
 		redirect('Ssl_view', 'refresh');
+	}
+
+	function arr_op($arr)
+	{
+		echo "<pre>";
+		print_r($arr);
+		exit;
 	}
 }
 ?>

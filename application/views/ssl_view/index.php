@@ -203,6 +203,36 @@
    </div>
    <!-- /page content -->
 
+   <!-- view details code -->
+   <div id="modal_theme_primary" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content" id="ssl_view_details">
+         </div>
+      </div>
+   </div>
+   <!-- view details code -->
+   <script>
+      //View Details Code----------------------
+      function view_ssl_details(id) {
+         $("div#divLoading").addClass('show');
+         jQuery.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>" + "ssl_view/view_ssl_details",
+            datatype: "text",
+            data: {
+               id: id
+            },
+            success: function(response) {
+               $('#ssl_view_details').empty();
+               $('#ssl_view_details').append(response);
+               $("div#divLoading").removeClass('show');
+               $('#modal_theme_primary').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {}
+         });
+      }
+      //View Details Code----------------------
+   </script>
    <script>
       //DATA TABLES CODE
 
@@ -405,7 +435,6 @@
          $('#ssl_view_d_table').DataTable().destroy();
          DatatableAdvanced.init();
       });
-
    </script>
 </body>
 
