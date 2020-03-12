@@ -1,3 +1,12 @@
+<?php
+
+// echo "<pre>";
+// print_r($data);
+// exit;
+// $ssl_status = $data['ssl_status'];
+// echo $ssl_status;
+// exit;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,10 +61,6 @@
          right: 0;
          top: 0;
       }
-
-      .mod-table td {
-         padding: 15px 20px 15px 20px;
-      }
    </style>
 </head>
 
@@ -79,59 +84,176 @@
          <div class="page-header page-header-light">
             <div class="page-header-content header-elements-md-inline">
                <div class="page-title d-flex">
-                  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Add Service Master</span></h4>
+                  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View SSL Remainder
+                     </span></h4>
                   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                </div>
             </div>
          </div>
-
          <!-- Content area -->
          <div class="content">
-            <!-- row -->
-            <div class="row">
-               <!-- column -->
-               <div class="col-lg-6">
-                  <!-- card-->
-                  <div class="card">
+            <!-- card -->
+            <div class="card">
+               <div class="card-header header-elements-inline">
+                  <h5 class="card-title">Edit SSL Remainder
+                  </h5>
+                  <div class="header-elements">
+                     <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="reload"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                     </div>
+                  </div>
+               </div>
 
-                     <div class="card-header header-elements-inline">
-                        <h5 class="card-title">Add Service Master</h5>
-                        <div class="header-elements">
-                           <div class="list-icons">
-                              <a class="list-icons-item" data-action="collapse"></a>
-                              <a class="list-icons-item" data-action="reload"></a>
-                              <a class="list-icons-item" data-action="remove"></a>
+               <!-- Card body-->
+               <div class="card-body">
+                  <!-- form -->
+                  <form method="post" action="<?php echo base_url(); ?>ssl-view/update-ssl-view">
+                     <input type="hidden" value="<?php echo empty($data['id']) ? '' : $data['id'] ?>" name="view_ssl_rec_id">
+                     <input type="hidden" value="<?php echo empty($data['company_id']) ? '' : $data['company_id'] ?>" name="company_id">
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">Company Name</label>
+                              <div class="input-group">
+                                 <input type="text" id="company-name" class="form-control" name="company_name" onkeypress="return isalpha();" minlength="3" maxlength="30" value="<?php echo empty($data['company_name']) ? '' : $data['company_name'] ?>" readonly required>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">Company Website</label>
+                              <div class="input-group">
+                                 <input type="text" class="company-website form-control" name="company_website" minlength="8" maxlength="40" value="<?php echo empty($data['company_website']) ? '' : $data['company_website'] ?>" readonly required>
+                              </div>
                            </div>
                         </div>
                      </div>
-                     <div class="card-body">
 
-                        <form method="post" action="<?php echo base_url(); ?>service-master/save-service-master">
-
+                     <div class="row">
+                        <div class="col-lg-6">
                            <div class="form-group">
-                              <label class="down">Service Name</label>
+                              <label>Update Type<span style="color:red"> *</span> </label>
                               <div class="input-group">
-                                 <input type="text" id="service-name" class="form-control" name="service_name" onkeypress="return isalpha();" value="<?php echo empty($data['service_name']) ? '' : $data['service_name'] ?>" required>
+                                 <select onkeypress="return isalpha();" name="ssl_type_selected" id="ssl_status" class="form-control" minlength="4" maxlength="6" required>
+                                    <option value="">Select Method</option>
+                                    <option <?php echo (($data['type'] == 'manual') ? 'selected' : '') ?> value='manual'>Manual</option>
+                                    <option <?php echo (($data['type'] == 'auto') ? 'selected' : '') ?> value='auto'>Auto</option>
+                                 </select>
                               </div>
                            </div>
+                        </div>
 
+                        <div class="col-lg-6">
                            <div class="form-group">
-                              <label class="down">HSN Code</label>
+                              <label>Status<span style="color:red"> *</span> </label>
                               <div class="input-group">
-                                 <input type="text" id="hsn-code" class="form-control" name="hsn_code" value="<?php echo empty($data['hsn_code']) ? '' : $data['hsn_code'] ?>" required>
+                                 <select name="ssl_status_selected" id="ssl_status" class="form-control" minlength="10" maxlength="10" required>
+                                    <option value="">Select Method</option>
+                                    <option <?php echo (($data['ssl_status'] == 1) ? 'selected' : '') ?> value='1'>Active</option>
+                                    <option <?php echo (($data['ssl_status'] == 0) ? 'selected' : '') ?> value='0'>Inactive</option>
+                                 </select>
                               </div>
-                              <input type="hidden" name="service_id" value="<?php echo empty($data['id']) ? '' : $data['id'] ?>">
                            </div>
-                           <button type="submit" id="button" name="insert_button" class="insert btn btn-primary">Submit<i class="icon-paperplane ml-2"></i></button>
-
-                        </form>
+                        </div>
                      </div>
-                  </div>
-                  <!-- /card -->
+
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">Manual Update Date</label>
+                              <div class="input-group">
+                                 <input type="text" id="type" class="form-control" name="manual_update_date" minlength="10" maxlength="15" value="<?php echo empty($data['manual_update_date']) ? '' : $data['manual_update_date'] ?>" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">Renewal Date</label>
+                              <div class="input-group">
+                                 <input type="text" id="type" class="form-control" name="renewal_update_date" minlength="10" maxlength="15" value="<?php echo empty($data['renewel_date']) ? '' : $data['renewel_date'] ?>" required>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">Amount Paid</label>
+                              <div class="input-group">
+                                 <input type="text" id="type" class="form-control" name="amount_paid" maxlength="7" onkeypress="return isNumber();" value="<?php echo empty($data['amount_paid']) ? '' : $data['amount_paid'] ?>" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">GST Amount</label>
+                              <div class="input-group">
+                                 <input type="text" id="type" class="form-control" name="gst_amount" maxlength="7" onkeypress="return isNumber();" value="<?php echo empty($data['gst_amt']) ? '' : $data['gst_amt'] ?>" required>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">Net Amount</label>
+                              <div class="input-group">
+                                 <input type="text" id="type" class="form-control" name="net_amount" maxlength="7" onkeypress="return isNumber();" value="<?php echo empty($data['net_amt']) ? '' : $data['net_amt'] ?>" required>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">Address</label>
+                              <div class="input-group">
+                                 <textarea name="address" id="address" cols="30" rows="5" class="form-control" required><?php echo empty($data['address']) ? '' : $data['address'] ?></textarea>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label class="down">GST</label>
+                              <div class="input-group">
+                                 <input type="text" id="gst" class="form-control" name="gst" value="<?php echo empty($data['gst']) ? '' : $data['gst'] ?>" required>
+                              </div>
+                           </div>
+                           <?php
+                           $check = empty($data['company_name']) ? '' : $data['company_name'];
+                           if ($check == '' || empty($check)) {
+                           ?>
+                              <div class="website" style="display:block">
+                                 <div class="form-group">
+                                    <label class="down">Website Name</label>
+                                    <div class="input-group">
+                                       <input type="text" class="form-control website-name" name="website_name[]" maxlength="100" onfocusout="website_validation();" placeholder="eg:www.google.com" required>
+                                    </div>
+                                 </div>
+                                 <div class="form-group" id="append-web" style="margin-top:10px;"></div>
+                                 <div style="color:blue;text-align:right;margin-top:5px;">
+                                    <span id="add-new"><i class="fas fa-plus" style="margin-right:3px;"></i>Add new</span>
+                                 </div>
+                              </div>
+                           <?php
+                           }
+                           ?>
+                        </div>
+                     </div> -->
+
+                     <button type="submit" id="button" name="update_ssl_remainder_button" class="insert btn btn-primary">Update<i class="icon-paperplane ml-2"></i></button>
+                  </form>
+                  <!-- /form -->
                </div>
-               <!-- /column -->
+               <!-- /Card body-->
             </div>
-            <!-- /row -->
+            <!-- /card -->
          </div>
          <!-- /content area -->
       </div>
@@ -151,6 +273,42 @@
          }
 
       }
+      // Numeric validation 
+      function isNumber(evt) {
+         evt = (evt) ? evt : window.event;
+         var charCode = (evt.which) ? evt.which : evt.keyCode;
+         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+         }
+         return true;
+      }
+
+
+      // document ready function
+      $(document).ready(function() {
+         $('#add-new').css('cursor', 'pointer');
+         $('#remove').css('cursor', 'pointer');
+         $("#add-new").click(function() {
+            $("#append-web").append('<div class="input-group" style="margin-top:15px;"><input type="text" class="form-control website-name"  name="website_name[]" maxlength="100"  required><i class="icon-cross remove" style="margin:10px 0px 3px 3px;color:red;font-size:20px;cursor:pointer"></i></div>');
+         });
+      });
+
+      $(document).on('click', '.remove', function() {
+         var val = $(this).parent().find('input').val();
+         if (val == '') {
+            $(this).parent().remove()
+         }
+         return false;
+      })
+
+      $(document).on('focusout', '.website-name', function() {
+
+         var regex = /^([wW]{3})+\.(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;
+         var website = $(this).val();
+         if (!regex.test(website)) {
+            $(this).val("");
+         }
+      })
    </script>
 </body>
 

@@ -7,6 +7,43 @@ class Ssl_view_db extends CI_Model
 		parent::__construct();
 	}
 
+	public function update_ssl_view_db()
+	{
+		$id = $this->input->post('view_ssl_rec_id');
+		$company_id = $this->input->post('company_id');
+		$company_website = $this->input->post('company_website');
+		$ssl_type_selected = $this->input->post('ssl_type_selected');
+		$ssl_status_selected = $this->input->post('ssl_status_selected');
+		$manual_update_date = $this->input->post('manual_update_date');
+		$renewal_update_date = $this->input->post('renewal_update_date');
+		$amount_paid = $this->input->post('amount_paid');
+		$gst_amount = $this->input->post('gst_amount');
+		$net_amount = $this->input->post('net_amount');
+		$data = array(
+			"company_id"		=> $company_id,
+			"company_website"	=> $company_website,
+			"type"				=> $ssl_type_selected,
+			"ssl_status	"		=> $ssl_status_selected,
+			"manual_update_date" => $manual_update_date,
+			"renewel_date"		=> $renewal_update_date,
+			"amount_paid"		=> $amount_paid,
+			"gst_amt"			=> $gst_amount,
+			"net_amt"			=> $net_amount,
+		);
+		// echo "<pre>";
+		// print_r($id);
+		// print_r($data);
+		// exit;
+		if ($id != '' || !empty($id)) {
+			$this->db->where('id', $id);
+			if ($this->db->update('add_ssl_remainder', $data)) {
+				return "update";
+			} else {
+				return "not_update";
+			}
+		}
+	}
+
 	function view_ssl_details_db($id)
 	{
 		$this->db->select('a.*,b.*');
@@ -19,13 +56,17 @@ class Ssl_view_db extends CI_Model
 		// $q[0]['paid_date'] = $this->getPaidDate($q[0]['company_id'], $q[0]['company_website']);
 		return $q;
 	}
-	// function ssl_view_edit_details_db($id)
-	// {
-	// 	$this->db->where('id', $id);
-	// 	$query = $this->db->get("service_master");
-	// 	$q = $query->row_array();
-	// 	return $q;
-	// }
+	function ssl_view_edit_details_db($id)
+	{
+		$this->db->select('a.*,b.company_name');
+		$this->db->from('add_ssl_remainder a');
+		$this->db->join('client_master b', 'a.company_id=b.id', 'left');
+		$this->db->where('a.id', $id);
+		$query = $this->db->get();
+		$q = $query->row_array();
+		return $q;
+	}
+
 	// function getPaidDate($company_id = null, $company_website = null)
 	// {
 	// 	$this->db->select('paid_date,paid_amount');

@@ -18,8 +18,49 @@ class Ssl_view extends CI_Controller
 
 	function ssl_view_edit_details($id)
 	{
-		// $data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
-		$this->load->view('ssl_view/edit_data');
+
+		$data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
+		// $this->arr_op($data['data']);
+
+		$this->load->view('ssl_view/edit_data', $data);
+	}
+
+	function update_ssl_view()
+	{
+		$output = $this->ssl_view->update_ssl_view_db();
+		if ($output == "update") {
+			$this->session->set_flashdata('updated_ssl_view', 'updated successfully');
+			redirect('ssl-view');
+		} else {
+			echo "not updated";
+		}
+		// else if ($status == "true") {
+		//     $exist = 0;
+		//     $insert = 0;
+		//     $website = $this->input->post('website_name');
+		//     $company_name = $this->input->post('company_name');
+		//     foreach ($website as $key => $row) {
+		//         $company_id = $this->client_master->get_client_master_company_id($company_name);
+		//         $datas = array(
+		//             "company_id"            => $company_id['id'],
+		//             "website"                => $row,
+		//         );
+		//         $insert_status = $this->client_master->save_website($datas);
+		//         if ($insert_status == "insert") {
+		//             $insert++;
+		//         } else if ($insert_status == "exist") {
+		//             $exist++;
+		//         }
+		//     }
+		//     if ($exist != 0 && $insert != 0) {
+		//         $msg = "Inserted successfully<br>" . $exist . " website already exist";
+		//     } else {
+		//         $msg = "Inserted successfully";
+		//     }
+		//     $this->session->set_flashdata('success', $msg);
+		//     redirect('client-master', 'refresh');
+		// }
+		// redirect('client-master', 'refresh');
 	}
 
 	function view_ssl_details()
@@ -89,7 +130,7 @@ class Ssl_view extends CI_Controller
 							<a href="javascript:void(0)" id=' . $row->id . '
 							onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
 							
-							 <a href="ssl-view/ssl-view-edi-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="ssl-view/ssl-view-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
 
 							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
 						 </div>

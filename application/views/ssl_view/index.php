@@ -83,11 +83,13 @@
 
       .danger {
          background: red !important;
-         color:white;
+         color: white;
       }
+
       .danger1 {
          background: yellow !important;
       }
+
       select {
          outline: 0;
          width: 10rem;
@@ -129,6 +131,18 @@
 
             </div>
          </div>
+
+         <?php
+         if ($this->session->flashdata('updated_ssl_view', 'updated successfully')) {
+         ?>
+            <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <span class="text-semibold" id="success-msg">Updated SSL View</span>
+            </div>
+         <?php
+         }
+         ?>
+
          <?php
          if ($this->session->flashdata('success')) {
          ?>
@@ -276,8 +290,8 @@
                'processing': true,
                'serverSide': true,
                lengthMenu: [
-                  [25, 50, 75,100, -1],
-                  [25, 50, 75,100, "All"]
+                  [25, 50, 75, 100, -1],
+                  [25, 50, 75, 100, "All"]
                ],
                'order': [],
                'ajax': {
@@ -290,23 +304,19 @@
                }],
                createdRow: function(row, data, index) {
                   var today_date = output.split("-");
-                    var db_date = data['5'].split("-");
-                    if(db_date[2]<today_date[2])
-                    {
-                        $(row).addClass('danger');
-                    }
-                    if(db_date[2]==today_date[2] && db_date[1]<today_date[1])
-                    {
-                        $(row).addClass('danger');
-                    }
-                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]<today_date[0])
-                    {
-                        $(row).addClass('danger');
-                    }
-                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]==today_date[0])
-                    {
-                        $(row).addClass('danger1');
-                    }
+                  var db_date = data['5'].split("-");
+                  if (db_date[2] < today_date[2]) {
+                     $(row).addClass('danger');
+                  }
+                  if (db_date[2] == today_date[2] && db_date[1] < today_date[1]) {
+                     $(row).addClass('danger');
+                  }
+                  if (db_date[2] == today_date[2] && db_date[1] == today_date[1] && db_date[0] < today_date[0]) {
+                     $(row).addClass('danger');
+                  }
+                  if (db_date[2] == today_date[2] && db_date[1] == today_date[1] && db_date[0] == today_date[0]) {
+                     $(row).addClass('danger1');
+                  }
                }
             })
 
