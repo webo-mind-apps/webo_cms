@@ -247,8 +247,8 @@
                'processing': true,
                'serverSide': true,
                lengthMenu: [
-                  [25, 50, 75, -1],
-                  [25, 50, 75, "All"]
+                  [25, 50, 75,100, -1],
+                  [25, 50, 75,100, "All"]
                ],
                'order': [],
                'ajax': {
@@ -355,9 +355,9 @@
          return true;
       }
 
-      function appendFilter() {
-         $('#ssl_view_d_table_filter').append('<label for="month"><span></span><select class name="month" id="month" aria-controls="ssl_view_d_table"><option value="">Select Month</option><option value="01">January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November/option><option value="12">December</option></select></label>');
-      }
+    //   function appendFilter() {
+    //      $('#ssl_view_d_table_filter').append('<label for="month"><span></span><select class name="month" id="month" aria-controls="ssl_view_d_table"><option value="">Select Month</option><option value="01">January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November/option><option value="12">December</option></select></label>');
+    //   }
 
       $('#month').change(function() {
 

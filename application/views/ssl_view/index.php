@@ -245,6 +245,10 @@
             var dataTable = $('#ssl_view_d_table').DataTable({
                'processing': true,
                'serverSide': true,
+               lengthMenu: [
+                  [25, 50, 75,100, -1],
+                  [25, 50, 75,100, "All"]
+               ],
                'order': [],
                'ajax': {
                   'url': "<?php echo base_url() ?>" + "ssl_view/get_all_data?month=" + $('#month').val(),
