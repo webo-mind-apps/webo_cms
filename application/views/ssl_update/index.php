@@ -82,7 +82,8 @@
       }
 
       .danger {
-         background: #ff7043c9 !important;
+         background: red !important;
+         color:white;
       }
 
       select {
@@ -205,6 +206,7 @@
       //DATA TABLES CODE
 
       var output = $.datepicker.formatDate('dd-mm-yy', new Date())
+      console.log(output);
 
       var DatatableAdvanced = function(month) {
 
@@ -248,11 +250,11 @@
                   'type': 'POST'
                },
                'columnDefs': [{
-                  "targets": [5],
+                  "targets": [6],
                   "orderable": false,
                }],
                createdRow: function(row, data, index) {
-
+                console.log(data['4'])
                   if (new Date(data['4']) < new Date(output)) {
                      $(row).addClass('danger');
                   }

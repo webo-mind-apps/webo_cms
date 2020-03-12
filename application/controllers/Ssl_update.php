@@ -23,7 +23,6 @@ class Ssl_update extends CI_Controller
 		// $status = '<span class="badge bg-blue">Completed</span>';
 		$i = 0;
 		foreach ($fetch_data as $row) {
-			// if($row->renewel_date<date('yy-mm-d')){echo '<style></style>'}
 			$sub_array   = array();
 			$sub_array[] = ++$i;
 			$sub_array[] = $row->company_name;
