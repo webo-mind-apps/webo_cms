@@ -38,24 +38,23 @@
          float: left;
          }
          #divLoading.show {
-			display: block;
-			position: fixed;
-			z-index: 100;
-			background-image: url('<?php echo base_url(); ?>admin_assets/3.gif');
-			background-color: #666;
-			opacity: 0.4;
-			background-repeat: no-repeat;
-			background-position: center;
-			left: 0;
-			bottom: 0;
-			right: 0;
-			top: 0;
-		}
-      .mod-table td
-      {
+         display: block;
+         position: fixed;
+         z-index: 100;
+         background-image: url('<?php echo base_url(); ?>admin_assets/3.gif');
+         background-color: #666;
+         opacity: 0.4;
+         background-repeat: no-repeat;
+         background-position: center;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         top: 0;
+         }
+         .mod-table td
+         {
          padding:15px 20px 15px 20px;
-      }
-      
+         }
       </style>
    </head>
    <body>
@@ -72,7 +71,7 @@
             ?>
          <!-- /main sidebar -->
          <div id="divLoading">
-		   </div>
+         </div>
          <!-- content wrapper -->
          <div class="content-wrapper">
             <div class="page-header page-header-light">
@@ -83,50 +82,46 @@
                   </div>
                </div>
             </div>
-           
             <!-- Content area -->
             <div class="content">
                <!-- row -->
                <div class="row">
                   <!-- column -->
                   <div class="col-lg-6">
-                        <!-- card-->
-                        <div class="card">
-                      
-                            <div class="card-header header-elements-inline">
-                                <h5 class="card-title">Add Service Master</h5>
-                                <div class="header-elements">
-                                    <div class="list-icons">
-                                        <a class="list-icons-item" data-action="collapse"></a>
-                                        <a class="list-icons-item" data-action="reload"></a>
-                                        <a class="list-icons-item" data-action="remove"></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-
-                                <form method="post" action="<?php echo base_url(); ?>service-master/save-service-master" >
-                                   
-                                       <div class="form-group">
-                                          <label class="down">Service Name</label>
-                                          <div class="input-group">
-                                             <input type="text" id="service-name" class="form-control"  name="service_name" onkeypress="return isalpha();" value="<?php echo empty($data['service_name'])?'':$data['service_name'] ?>" required>
-                                          </div>
-                                       </div>
-                                       
-                                       <div class="form-group">
-                                          <label class="down">HSN Code</label>
-                                          <div class="input-group">
-                                             <input type="text" id="hsn-code" class="form-control" name="hsn_code" value="<?php echo empty($data['hsn_code'])?'':$data['hsn_code'] ?>" required>
-                                          </div>
-                                          <input type="hidden" name="service_id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">
-                                       </div>
-                                       <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
-                                   
-                                </form> 
-                                </div>
+                     <!-- card-->
+                     <div class="card">
+                        <div class="card-header header-elements-inline">
+                           <h5 class="card-title">Add Service Master</h5>
+                           <div class="header-elements">
+                              <div class="list-icons">
+                                 <a class="list-icons-item" data-action="collapse"></a>
+                                 <a class="list-icons-item" data-action="reload"></a>
+                                 <a class="list-icons-item" data-action="remove"></a>
+                              </div>
+                           </div>
                         </div>
-                        <!-- /card -->
+                        <!-- card body-->
+                        <div class="card-body">
+                           <form method="post" action="<?php echo base_url(); ?>service-master/save-service-master" >
+                              <div class="form-group">
+                                 <label class="down">Service Name</label>
+                                 <div class="input-group">
+                                    <input type="text" id="service-name" class="form-control"  name="service_name" onkeypress="return isalpha();" value="<?php echo empty($data['service_name'])?'':$data['service_name'] ?>" required>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label class="down">HSN Code</label>
+                                 <div class="input-group">
+                                    <input type="text" id="hsn-code" class="form-control" name="hsn_code" value="<?php echo empty($data['hsn_code'])?'':$data['hsn_code'] ?>" required>
+                                 </div>
+                                 <input type="hidden" name="service_id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">
+                              </div>
+                              <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
+                           </form>
+                        </div>
+                        <!-- /card body-->
+                     </div>
+                     <!-- /card -->
                   </div>
                   <!-- /column -->
                </div>
@@ -137,7 +132,6 @@
          <!-- /content wrapper -->
       </div>
       <!-- /page content -->
-      
       <script>
          //Alphapet validation
          function isalpha(evt) 
@@ -146,9 +140,7 @@
              var charCode = (evt.which) ? evt.which : evt.keyCode;
              if (charCode == 32) {return true;} 
              else if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) || charCode == 13) {return false;}
-         
          }
-        
       </script>
    </body>
 </html>

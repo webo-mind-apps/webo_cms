@@ -100,7 +100,7 @@
 										<a href="<?php echo base_url(); ?>ssl-view" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>View SSL Renewal</a>
 									</li>
 									<li class="nav-item">
-										<a href="<?php echo base_url(); ?>master-remainder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>View SSL Updates</a>
+										<a href="<?php echo base_url(); ?>ssl-update" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>View SSL Updates</a>
 									</li>
 									
 								</ul>

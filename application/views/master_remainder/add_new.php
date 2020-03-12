@@ -38,23 +38,22 @@
          float: left;
          }
          #divLoading.show {
-			display: block;
-			position: fixed;
-			z-index: 100;
-			background-image: url('<?php echo base_url(); ?>admin_assets/3.gif');
-			background-color: #666;
-			opacity: 0.4;
-			background-repeat: no-repeat;
-			background-position: center;
-			left: 0;
-			bottom: 0;
-			right: 0;
-			top: 0;
-		}
+         display: block;
+         position: fixed;
+         z-index: 100;
+         background-image: url('<?php echo base_url(); ?>admin_assets/3.gif');
+         background-color: #666;
+         opacity: 0.4;
+         background-repeat: no-repeat;
+         background-position: center;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         top: 0;
+         }
       </style>
    </head>
    <body>
-
       <!-- Main navbar  -->
       <?php
          $this->load->view('includes/main_navbar');
@@ -68,87 +67,78 @@
             ?>
          <!-- /main sidebar -->
          <div id="divLoading">
-		   </div>
+         </div>
          <!-- content wrapper -->
          <div class="content-wrapper">
-         <div class="page-header page-header-light">
+            <div class="page-header page-header-light">
                <div class="page-header-content header-elements-md-inline">
                   <div class="page-title d-flex">
                      <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Master</span></h4>
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                </div>
-            </div>     
-            
-             <!-- Content area -->
-             <div class="content">
+            </div>
+            <!-- Content area -->
+            <div class="content">
                <!-- row -->
                <div class="row">
                   <!-- column -->
                   <div class="col-lg-6">
-                        <!-- card-->
-                        <div class="card">
-                      
-                            <div class="card-header header-elements-inline">
-                                <h5 class="card-title">Add Service Master</h5>
-                                <div class="header-elements">
-                                    <div class="list-icons">
-                                        <a class="list-icons-item" data-action="collapse"></a>
-                                        <a class="list-icons-item" data-action="reload"></a>
-                                        <a class="list-icons-item" data-action="remove"></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-
-                                 <!-- form -->
-                                 <form method="post" action="<?php echo base_url(); ?>master-remainder/save-master-remainder" >
-                                       <div class="form-group">
-                                          <label class="down">Name</label>
-                                          <div class="input-group">
-                                             <input type="text"  id="remainder-name" class="form-control" name="remainder_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data['remainder_name'])?'':$data['remainder_name'] ?>" required>
-                                          </div>
-                                       </div>
-                                       <div class="form-group">
-                                          <label class="down">Email Id</label>
-                                          <div class="input-group">
-                                             <input type="email" id="email" class="form-control"  name="email"  
-                                             onfocusout="email_validation();" value="<?php echo empty($data['email'])?'':$data['email'] ?>" required>
-                                          </div>
-                                         
-                                       </div>
-                                       <div class="form-group">
-                                          <label class="down">Phone No.</label>
-                                          <div class="input-group">
-                                             <input type="text"  id="phone" class="form-control" name="phone" onkeypress="return isNumber();" value="<?php echo empty($data['phone'])?'':$data['phone'] ?>" required>
-                                          </div>
-                                       </div>
-                                       <?php 
-                                       if($data['remainder_name']="" || empty($data['remainder_name'])){
-
-                                       ?>
-                                       <div class="form-group">
-                                          <label class="down">Password</label>
-                                          <div class="input-group">
-                                             <input type="password"  id="pass" class="form-control" name="pass" value="" required>
-                                          </div>
-                                       </div>
-                                       <div class="form-group">
-                                          <label class="down">Conform Password</label>
-                                          <div class="input-group">
-                                             <input type="password"  id="cpass" class="form-control" name="cpass" value=""  required>
-                                          </div>
-                                       </div>
-                                       <?php 
-                                       }
-                                       ?>
-                                        <input type="hidden" name="change_id" id="change-id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">  
-                                       <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary down" >Submit<i class="icon-paperplane ml-2"></i></button>
-                                    </form>
-                                    <!-- /form -->
-                                </div>
+                     <!-- card-->
+                     <div class="card">
+                        <div class="card-header header-elements-inline">
+                           <h5 class="card-title">Add Service Master</h5>
+                           <div class="header-elements">
+                              <div class="list-icons">
+                                 <a class="list-icons-item" data-action="collapse"></a>
+                                 <a class="list-icons-item" data-action="reload"></a>
+                                 <a class="list-icons-item" data-action="remove"></a>
+                              </div>
+                           </div>
                         </div>
-                        <!-- /card -->
+                         <!-- card body-->
+                        <div class="card-body">
+                           <!-- form -->
+                           <form method="post" action="<?php echo base_url(); ?>master-remainder/save-master-remainder" >
+                              <div class="form-group">
+                                 <label class="down">Name</label>
+                                 <div class="input-group">
+                                    <input type="text"  id="remainder-name" class="form-control" name="remainder_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data['remainder_name'])?'':$data['remainder_name'] ?>" required>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label class="down">Email Id</label>
+                                 <div class="input-group">
+                                    <input type="email" id="email" class="form-control"  name="email"  
+                                       onfocusout="email_validation();" value="<?php echo empty($data['email'])?'':$data['email'] ?>" required>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label class="down">Phone No.</label>
+                                 <div class="input-group">
+                                    <input type="text"  id="phone" class="form-control" name="phone" onkeypress="return isNumber();" value="<?php echo empty($data['phone'])?'':$data['phone'] ?>" required>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label class="down">Password</label>
+                                 <div class="input-group">
+                                    <input type="password"  id="pass" class="form-control pass" name="pass" value=""  required>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label class="down">Conform Password</label>
+                                 <div class="input-group">
+                                    <input type="password"  id="cpass" class="form-control pass" name="cpass" value="" required>
+                                 </div>
+                              </div>
+                              <input type="hidden" name="change_id" id="change-id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">  
+                              <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary down" >Submit<i class="icon-paperplane ml-2"></i></button>
+                           </form>
+                           <!-- /form -->
+                        </div>
+                         <!-- /card body-->
+                     </div>
+                     <!-- /card -->
                   </div>
                   <!-- /column -->
                </div>
@@ -159,7 +149,6 @@
          <!-- /content wrapper -->
       </div>
       <!-- /page content -->
-     
       <script>
          //Alphapet validation
          function isalpha(evt) 
@@ -205,10 +194,52 @@
                  $("#email1").val("");
              }
          }
+         $(document).on('focusout', '.pass', function () {
+         var number_count=0;
+         var small_letter_count=0;
+         var capital_letter_count=0;
+         var special_count=0;
+         var i=0;
+         var number=/[0-9]/;
+         var small_letter=/[a-z]/;
+         var capital_letter=/[A-z]/;
+         var special=/[_~\-!@#\$%\^&\*\(\)]/;
          
-      
-
-      
+         var s=$(this).val();
+         var s_len=s.length;
+         for(i;i<s_len;i++)
+         {
+          if(number.test(s[i]))
+          {
+           number_count++;
+          }
+         
+          else if(small_letter.test(s[i]))
+          {
+            small_letter_count++;
+          }
+            else if(capital_letter.test(s[i]))
+          {
+            capital_letter_count++;
+          }
+          
+          else if(special.test(s[i]))
+          {
+           special_count++;
+          }
+         
+         }
+         if(s_len<8 || number_count== 0 || small_letter_count==0 || capital_letter_count==0 || special_count==0) 
+         {
+            $(this).val('');
+         }
+         
+         });
+         if($("#remainder-name").val() != "")
+         {
+         $("#pass").removeAttr("required");
+         $("#cpass").removeAttr("required");
+         }
       </script>
    </body>
 </html>

@@ -38,23 +38,22 @@
          float: left;
          }
          #divLoading.show {
-			display: block;
-			position: fixed;
-			z-index: 100;
-			background-image: url('<?php echo base_url(); ?>admin_assets/3.gif');
-			background-color: #666;
-			opacity: 0.4;
-			background-repeat: no-repeat;
-			background-position: center;
-			left: 0;
-			bottom: 0;
-			right: 0;
-			top: 0;
-		}
+         display: block;
+         position: fixed;
+         z-index: 100;
+         background-image: url('<?php echo base_url(); ?>admin_assets/3.gif');
+         background-color: #666;
+         opacity: 0.4;
+         background-repeat: no-repeat;
+         background-position: center;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         top: 0;
+         }
       </style>
    </head>
    <body>
-
       <!-- Main navbar  -->
       <?php
          $this->load->view('includes/main_navbar');
@@ -68,7 +67,7 @@
             ?>
          <!-- /main sidebar -->
          <div id="divLoading">
-		   </div>
+         </div>
          <!-- content wrapper -->
          <div class="content-wrapper">
             <div class="page-header page-header-light">
@@ -78,9 +77,9 @@
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                   <div class="right text-center ">
-                  <a href="<?php echo base_url(); ?>master-remainder/add-new">
+                     <a href="<?php echo base_url(); ?>master-remainder/add-new">
                      <button type="button" class="btn btn-labeled btn-labeled-right bg-primary" data-toggle="modal" data-target="#fetchData">Add New <b><i class="fa fa-plus" aria-hidden="true"></i></b></button>
-                  </a>
+                     </a>
                   </div>
                </div>
             </div>
@@ -100,36 +99,35 @@
                <div class="row">
                   <!-- column -->
                   <div class="col-lg-12">
-                        <!-- card-->
-                        <div class="card">
-                           <div class="card-header header-elements-inline">
-                              <h5 class="card-title">Admin Master</h5>
-                              <div class="header-elements">
-                                 <div class="list-icons">
-                                    <a class="list-icons-item" data-action="collapse"></a>
-                                    <a class="list-icons-item" data-action="reload"></a>
-                                    <a class="list-icons-item" data-action="remove"></a>
-                                 </div>
+                     <!-- card-->
+                     <div class="card">
+                        <div class="card-header header-elements-inline">
+                           <h5 class="card-title">Admin Master</h5>
+                           <div class="header-elements">
+                              <div class="list-icons">
+                                 <a class="list-icons-item" data-action="collapse"></a>
+                                 <a class="list-icons-item" data-action="reload"></a>
+                                 <a class="list-icons-item" data-action="remove"></a>
                               </div>
                            </div>
-                           <!-- card-body -->
-                           <!-- <div class="card-body"> -->
-                              <table id="remainder_master_d_table" class="table datatable-basic table-bordered table-striped table-hover">
-                                 <thead>
-                                    <tr>
-                                       <th>Si No</th>
-                                       <th>Remainder Name</th>
-                                       <th>Phone No.</th>
-                                       <th>Email Id</th>
-                                       <th class="text-center">Actions</th>
-                                    </tr>
-                                 </thead>
-                              </table>
-
-                           <!-- </div> -->
-                           <!-- /card-body -->
                         </div>
-                        <!-- /card -->
+                        <!-- card-body -->
+                        <!-- <div class="card-body"> -->
+                        <table id="remainder_master_d_table" class="table datatable-basic table-bordered table-striped table-hover">
+                           <thead>
+                              <tr>
+                                 <th>Si No</th>
+                                 <th>Remainder Name</th>
+                                 <th>Phone No.</th>
+                                 <th>Email Id</th>
+                                 <th class="text-center">Actions</th>
+                              </tr>
+                           </thead>
+                        </table>
+                        <!-- </div> -->
+                        <!-- /card-body -->
+                     </div>
+                     <!-- /card -->
                   </div>
                   <!-- /column -->
                </div>
@@ -140,133 +138,131 @@
          <!-- /content wrapper -->
       </div>
       <!-- /page content -->
-     
       <script>
-
          // DATA TABLES CODE
-					var DatatableAdvanced = function() {
-
-						// Basic Datatable examples
-						var _componentDatatableAdvanced = function() {
-							if (!$().DataTable) {
-								console.warn('Warning - datatables.min.js is not loaded.');
-								return;
-							}
-
-							// Setting datatable defaults
-							$.extend($.fn.dataTable.defaults, {
-								autoWidth: false,
-								columnDefs: [{
-									orderable: false,
-									width: 100,
-									targets: [5]
-								}],
-								dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-								language: {
-									search: '<span>Filter:</span> _INPUT_',
-									searchPlaceholder: 'Type to filter...',
-									lengthMenu: '<span>Show:</span> _MENU_',
-									paginate: {
-										'first': 'First',
-										'last': 'Last',
-										'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;',
-										'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;'
-									}
-								}
-							});
-
-							var dataTable = $('#remainder_master_d_table').DataTable({
-								'processing': true,
-								'serverSide': true,
-								'order': [],
-								'ajax': {
-									'url': "<?php echo base_url() . 'master_remainder/get_all_data' ?>",
-									'type': 'POST'
-								},
-								'columnDefs': [{
-									"targets": [4],
-									"orderable": false,
-								}],
-
-							})
-
-							// Datatable 'length' options
-							$('.datatable-show-all').DataTable({
-								lengthMenu: [
-									[10, 25, 50, -1],
-									[10, 25, 50, "All"]
-								]
-							});
-
-							// DOM positioning
-							$('.datatable-dom-position').DataTable({
-								dom: '<"datatable-header length-left"lp><"datatable-scroll"t><"datatable-footer info-right"fi>',
-							});
-
-							// Highlighting rows and columns on mouseover
-							var lastIdx = null;
-							var table = $('.datatable-highlight').DataTable();
-
-							$('.datatable-highlight tbody').on('mouseover', 'td', function() {
-								var colIdx = table.cell(this).index().column;
-
-								if (colIdx !== lastIdx) {
-									$(table.cells().nodes()).removeClass('active');
-									$(table.column(colIdx).nodes()).addClass('active');
-								}
-							}).on('mouseleave', function() {
-								$(table.cells().nodes()).removeClass('active');
-							});
-
-							// Columns rendering
-							$('.datatable-columns').dataTable({
-								columnDefs: [{
-										// The `data` parameter refers to the data for the cell (defined by the
-										// `data` option, which defaults to the column being worked with, in
-										// this case `data: 0`.
-										render: function(data, type, row) {
-											return data + ' (' + row[3] + ')';
-										},
-										targets: 0
-									},
-									{
-										visible: false,
-										targets: [3]
-									}
-								]
-							});
-
-						};
-						
-						return {
-							init: function() {
-								_componentDatatableAdvanced();
-							}
-						}
-					}();
-
-					document.addEventListener('DOMContentLoaded', function() {
-						DatatableAdvanced.init()
+         var DatatableAdvanced = function() {
+         
+         // Basic Datatable examples
+         var _componentDatatableAdvanced = function() {
+         if (!$().DataTable) {
+         console.warn('Warning - datatables.min.js is not loaded.');
+         return;
+         }
+         
+         // Setting datatable defaults
+         $.extend($.fn.dataTable.defaults, {
+         autoWidth: false,
+         columnDefs: [{
+         orderable: false,
+         width: 100,
+         targets: [5]
+         }],
+         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+         language: {
+         search: '<span>Filter:</span> _INPUT_',
+         searchPlaceholder: 'Type to filter...',
+         lengthMenu: '<span>Show:</span> _MENU_',
+         paginate: {
+         	'first': 'First',
+         	'last': 'Last',
+         	'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;',
+         	'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;'
+         }
+         }
+         });
+         
+         var dataTable = $('#remainder_master_d_table').DataTable({
+         'processing': true,
+         'serverSide': true,
+         'order': [],
+         'ajax': {
+         'url': "<?php echo base_url() . 'master_remainder/get_all_data' ?>",
+         'type': 'POST'
+         },
+         'columnDefs': [{
+         "targets": [4],
+         "orderable": false,
+         }],
+         
+         })
+         
+         // Datatable 'length' options
+         $('.datatable-show-all').DataTable({
+         lengthMenu: [
+         [10, 25, 50, -1],
+         [10, 25, 50, "All"]
+         ]
+         });
+         
+         // DOM positioning
+         $('.datatable-dom-position').DataTable({
+         dom: '<"datatable-header length-left"lp><"datatable-scroll"t><"datatable-footer info-right"fi>',
+         });
+         
+         // Highlighting rows and columns on mouseover
+         var lastIdx = null;
+         var table = $('.datatable-highlight').DataTable();
+         
+         $('.datatable-highlight tbody').on('mouseover', 'td', function() {
+         var colIdx = table.cell(this).index().column;
+         
+         if (colIdx !== lastIdx) {
+         $(table.cells().nodes()).removeClass('active');
+         $(table.column(colIdx).nodes()).addClass('active');
+         }
+         }).on('mouseleave', function() {
+         $(table.cells().nodes()).removeClass('active');
+         });
+         
+         // Columns rendering
+         $('.datatable-columns').dataTable({
+         columnDefs: [{
+         	// The `data` parameter refers to the data for the cell (defined by the
+         	// `data` option, which defaults to the column being worked with, in
+         	// this case `data: 0`.
+         	render: function(data, type, row) {
+         		return data + ' (' + row[3] + ')';
+         	},
+         	targets: 0
+         },
+         {
+         	visible: false,
+         	targets: [3]
+         }
+         ]
+         });
+         
+         };
+         
+         return {
+         init: function() {
+         _componentDatatableAdvanced();
+         }
+         }
+         }();
+         
+         document.addEventListener('DOMContentLoaded', function() {
+         DatatableAdvanced.init()
                });
                
-               function master_remainder_delete(id) {
-                    r = confirm("Are you sure to delete ?");
-                        if (r == true) {
-                        jQuery.ajax({
-                            type: "POST",
-                            url: "<?php echo base_url(); ?>master_remainder/master_remainder_delete",
-                            datatype: "text",
-                            data: {
-                                id: id
-                            },
-                            success: function(response) {
-                        
-                        $("#remainder_master_d_table").DataTable().ajax.reload();
-                            },
-                            error: function(xhr, ajaxOptions, thrownError) {}
-                        });
-                    }
-                    }
+          function master_remainder_delete(id) {
+               r = confirm("Are you sure to delete ?");
+                   if (r == true) {
+                   jQuery.ajax({
+                       type: "POST",
+                       url: "<?php echo base_url(); ?>master_remainder/master_remainder_delete",
+                       datatype: "text",
+                       data: {
+                           id: id
+                       },
+                       success: function(response) {
+                   
+                   $("#remainder_master_d_table").DataTable().ajax.reload();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {}
+                   });
+               }
+            }
       </script>
    </body>
 </html>

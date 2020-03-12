@@ -129,65 +129,78 @@
 			echo json_encode($output);
 		}
 		
-	
-	function save_master_remainder()
-	{
-		$to_email = $this->input->post('email');
-		$insert_status = $this->master_remainder->save_master_remainder();
-		if ($insert_status == "insert") {
-			$msg = "Inserted successfully";
+		function save_master_remainder()
+		{
+			$msg="";
+			$to_email = $this->input->post('email');
+			$pass = $this->input->post('pass');
+			$insert_status = $this->master_remainder->save_master_remainder();
+			if ($insert_status == "insert") {
+				$msg = "Inserted successfully";
 
-			$this->load->config('email');
-			$this->load->library('email');
-			$subject = "welcome";
-			$message = "From now you are admin";
-			$from = $this->config->item('smtp_user');
-			$to =$to_email;
-			$this->email->set_newline("\r\n");
-			$this->email->from($from, 'Webomindapps');
-			$this->email->to($to);
-			$this->email->subject($subject);
-			$this->email->message($message);
-			$this->email->send();
+				$this->load->config('email');
+				$this->load->library('email');
+				$subject = "welcome";
+				$message = "From now you are admin";
+				$from = $this->config->item('smtp_user');
+				$to =$to_email;
+				$this->email->set_newline("\r\n");
+				$this->email->from($from, 'Webomindapps');
+				$this->email->to($to);
+				$this->email->subject($subject);
+				$this->email->message($message);
+				$this->email->send();
 
-		} else if ($insert_status == "exist") {
-			$msg = "Email already exist";
-		} else if ($insert_status == "update") {
-			$msg = "Updated successfully";
-		}else if ($insert_status == "pass_wrong") {
-			$msg = "Your passwrod and conformation password mismatched";
+			} else if ($insert_status == "exist") {
+				$msg = "Email already exist";
+			} else if ($insert_status == "update") {
+				$msg = "Updated successfully";
+				if($pass!='' || !empty($pass))
+				{
+					$this->load->config('email');
+					$this->load->library('email');
+					$subject = "welcome";
+					$message = "Some one change your password(password:".$pass.")";
+					$from = $this->config->item('smtp_user');
+					$to =$to_email;
+					$this->email->set_newline("\r\n");
+					$this->email->from($from, 'Webomindapps');
+					$this->email->to($to);
+					$this->email->subject($subject);
+					$this->email->message($message);
+					$this->email->send();
+
+				}
+			}else if ($insert_status == "pass_wrong") {
+				$msg = "Your passwrod and conformation password mismatched";
+			}
+			$this->session->set_flashdata('success', $msg);
+			redirect('master-remainder', 'refresh');
 		}
-		$this->session->set_flashdata('success', $msg);
-		redirect('master-remainder', 'refresh');
-	}
-	function edit_remainder_master()
-	{
-		$data = $this->master_remainder->edit_remainder_master();
-		echo json_encode($data);
-	}
-	function master_remainder_delete()
-	{
-
-		if ($this->master_remainder->master_remainder_delete()) {
-			echo "Deleted successfully";
+		function edit_remainder_master()
+		{
+			$data = $this->master_remainder->edit_remainder_master();
+			echo json_encode($data);
 		}
+		function master_remainder_delete()
+		{
+
+			if ($this->master_remainder->master_remainder_delete()) {
+				echo "Deleted successfully";
+			}
 
 		function arr_op($arr)
+			{
+				echo "<pre>";
+				print_r($arr);
+				exit;
+			}
+		}
+		function master_remainder_edit_details($id)
 		{
-			echo "<pre>";
-			print_r($arr);
-			exit;
+			$data['data'] = $this->master_remainder->master_remainder_edit_details($id);
+			$this->load->view('master_remainder/add_new',$data);
+		
 		}
 	}
-	function master_remainder_edit_details($id)
-    {
-		$data['data'] = $this->master_remainder->master_remainder_edit_details($id);
-		$pass="iyappan";
-		
-
-
-        $this->load->view('master_remainder/add_new',$data);
-      
-    }
-}
 ?>

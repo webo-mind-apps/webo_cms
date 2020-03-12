@@ -74,18 +74,31 @@ class Master_remainder_db extends CI_Model
         $id = $this->input->post('change_id');
         $pass = $this->input->post('pass');
         $cpass = $this->input->post('cpass');
+        $hashed=hash('sha512',$pass);
+        if($pass!='' || !empty($pass))
+        {
+            $data = array(
+                'remainder_name' => $remainder_name,
+                'phone' => $phone,
+                'email' => $email,
+                'password'=>$hashed,
+            );
+        }
+        else if($pass=='' || empty($pass)){
+
+            $data = array(
+                'remainder_name' => $remainder_name,
+                'phone' => $phone,
+                'email' => $email,
+            );
+        }
        
             $hashed = hash('sha512', $pass);
             if (empty($id) || $id == '')
              {
                 if($pass==$cpass)
                 {
-                    $data = array(
-                        'remainder_name' => $remainder_name,
-                        'phone' => $phone,
-                        'email' => $email,
-                        'password'=>$hashed,
-                    );
+                   
                     $this->db->select('*');
                     $this->db->where('email', $email);
                     $query = $this->db->get('remainder_master');
@@ -110,24 +123,20 @@ class Master_remainder_db extends CI_Model
         }
         else if (!empty($id) || $id != '') 
         {
-            $data = array(
-                'remainder_name' => $remainder_name,
-                'phone' => $phone,
-                'email' => $email,
-            );
-            $this->db->where('id', $id);
-            $this->db->update('remainder_master', $data);
-            if ($this->db->affected_rows() > 0) {
-                return "update";
+            if($pass==$cpass)
+            {
+                $this->db->where('id', $id);
+                $this->db->update('remainder_master', $data);
+                if ($this->db->affected_rows() > 0) {
+                    return "update";
+                }
             }
+            else
+                {
+                    return "pass_wrong";
+                }
         }
-        
     }
-
-
-
-
-    
     public function edit_remainder_master()
     {
         $id = $this->input->post('id');
@@ -151,6 +160,5 @@ class Master_remainder_db extends CI_Model
         $query = $this->db->get("remainder_master");
         $q=$query->row_array();
         return $q;
-        
     }
 }

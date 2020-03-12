@@ -1,5 +1,4 @@
- 
-<?php
+ <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 class Service_master extends CI_Controller
 {
@@ -10,17 +9,19 @@ class Service_master extends CI_Controller
 		$this->load->library("pagination");
     }
 
-    //view the html index 
+    //view the html index ..........................................................
     function index()
     {
         $this->load->view('service_master/index');
     }
-
+    ///view the html index ..........................................................
+    //view the add_new page for add new services.....................................
     function add_new()
     {
         $this->load->view('service_master/add_new');
     }
-
+     //view the add_new page for add new services.....................................
+    //Data table coding............................................................................................
     public function get_all_data($var = null) //created for implementing data tables
 	{
 			$fetch_data = $this->service_master->make_datatables();
@@ -56,9 +57,8 @@ class Service_master extends CI_Controller
 			echo json_encode($output);  
 		
     }
-   
-    //save the index page form value to the database
-  
+    ///Data table coding............................................................................................
+    //save the add_new page form value to the database.....................................................................
     function save_service_master()
     {
         $insert_status=$this->service_master->save_service_master();
@@ -77,13 +77,15 @@ class Service_master extends CI_Controller
         $this->session->set_flashdata('success', $msg);
         redirect('Service_master', 'refresh');
     }
-
+    ///save the add_new page form value to the database.....................................................................
+    //fetch the data for updating....................................................................................
     function service_master_edit_details($id)
     {
         $data['data'] = $this->service_master->service_master_edit_details($id);
         $this->load->view('service_master/add_new',$data);
-      
     }
+    ///fetch the data for updating....................................................................................
+    //delete the service....................................................................................
     function service_master_delete()
     {
         if($data['data'] = $this->service_master->service_master_delete())
@@ -91,9 +93,8 @@ class Service_master extends CI_Controller
             echo "deleted successfully";
         }
         redirect('Service_master', 'refresh');
-      
     }
-    
+    ///delete the service....................................................................................
     
 }
 ?>
