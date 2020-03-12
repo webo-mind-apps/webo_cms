@@ -82,9 +82,12 @@
       }
 
       .danger {
-         background: #ff7043c9 !important;
+         background: red !important;
+         color:white;
       }
-
+      .danger1 {
+         background: yellow !important;
+      }
       select {
          outline: 0;
          width: 10rem;
@@ -269,19 +272,13 @@
                }
             });
 
-            var month = '';
-            // $(document).on('change', '#month' , function(){
-
-            //    month = $('#month').val();
-            //    alert(month)
-            // });
-            // console.log($('#month').val());
-
-
-
             var dataTable = $('#ssl_view_d_table').DataTable({
                'processing': true,
                'serverSide': true,
+               lengthMenu: [
+                  [25, 50, 75,100, -1],
+                  [25, 50, 75,100, "All"]
+               ],
                'order': [],
                'ajax': {
                   'url': "<?php echo base_url() ?>" + "ssl_view/get_all_data?month=" + $('#month').val(),
@@ -292,10 +289,24 @@
                   "orderable": false,
                }],
                createdRow: function(row, data, index) {
-
-                  if (new Date(data['5']) < new Date(output)) {
-                     $(row).addClass('danger');
-                  }
+                  var today_date = output.split("-");
+                    var db_date = data['5'].split("-");
+                    if(db_date[2]<today_date[2])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]<today_date[1])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]<today_date[0])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]==today_date[0])
+                    {
+                        $(row).addClass('danger1');
+                    }
                }
             })
 

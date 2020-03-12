@@ -82,7 +82,11 @@
       }
 
       .danger {
-         background: #ff7043c9 !important;
+         background: red !important;
+         color:white;
+      }
+      .danger1 {
+         background: yellow !important;
       }
 
       select {
@@ -242,20 +246,38 @@
             var dataTable = $('#ssl_view_d_table').DataTable({
                'processing': true,
                'serverSide': true,
+               lengthMenu: [
+                  [25, 50, 75,100, -1],
+                  [25, 50, 75,100, "All"]
+               ],
                'order': [],
                'ajax': {
                   'url': "<?php echo base_url() ?>" + "ssl_update/get_all_data?month=" + $('#month').val(),
                   'type': 'POST'
                },
                'columnDefs': [{
-                  "targets": [5],
+                  "targets": [6],
                   "orderable": false,
                }],
                createdRow: function(row, data, index) {
-
-                  if (new Date(data['4']) < new Date(output)) {
-                     $(row).addClass('danger');
-                  }
+                    var today_date = output.split("-");
+                    var db_date = data['4'].split("-");
+                    if(db_date[2]<today_date[2])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]<today_date[1])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]<today_date[0])
+                    {
+                        $(row).addClass('danger');
+                    }
+                    if(db_date[2]==today_date[2] && db_date[1]==today_date[1] && db_date[0]==today_date[0])
+                    {
+                        $(row).addClass('danger1');
+                    }
                }
             })
 
@@ -333,9 +355,9 @@
          return true;
       }
 
-      function appendFilter() {
-         $('#ssl_view_d_table_filter').append('<label for="month"><span></span><select class name="month" id="month" aria-controls="ssl_view_d_table"><option value="">Select Month</option><option value="01">January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November/option><option value="12">December</option></select></label>');
-      }
+    //   function appendFilter() {
+    //      $('#ssl_view_d_table_filter').append('<label for="month"><span></span><select class name="month" id="month" aria-controls="ssl_view_d_table"><option value="">Select Month</option><option value="01">January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November/option><option value="12">December</option></select></label>');
+    //   }
 
       $('#month').change(function() {
 
