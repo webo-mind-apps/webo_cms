@@ -108,7 +108,7 @@
                               <div class="form-group">
                                  <label class="down">GST %<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="text"  id="gst-per" class="form-control" name="gst_per" minlength="1" maxlength="5" required>
+                                    <input type="text"  id="gst-per" class="form-control gst_check" name="gst_per" minlength="1" maxlength="5" required>
                                  </div>
                               </div> 
                               <button  type="submit" id="button" name="insert_per" class="insert btn btn-primary down" >Submit<i class="icon-paperplane ml-2"></i></button>
@@ -128,6 +128,35 @@
          <!-- /content wrapper -->
       </div>
       <!-- /page content -->
-       
+       <script>
+       $(document).on('focusout', '.gst_check', function () {
+         var number_count=0;
+         var alpha_count=0; 
+         var i=0;
+         var number=/[0-9.]/;
+         var alpha=/[A-Za-z]/;
+         
+        
+         var s=$(this).val();
+         var s_len=s.length;
+         for(i;i<s_len;i++)
+         {
+          if(number.test(s[i]))
+          {
+           number_count++;
+          }
+          if(alpha.test(s[i]))
+          {
+            alpha_count++;
+          }
+          
+         }
+         if(number_count== 0 || alpha_count>0) 
+         {
+            $(this).val('');
+         }
+         
+         });
+       </script>
    </body>
 </html>
