@@ -136,7 +136,7 @@
                 <!-- row -->
                 <div class="row">
                     <!-- column -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- card-->
                         <div class="card">
                             <div class="card-header header-elements-inline">
@@ -152,6 +152,10 @@
                             <!-- card-body -->
                             <div class="card-body">
                                 <form action="<?php echo base_url(); ?>ssl-remainder/insert-ssl-remainder" method="post">
+                                 <!-- row -->
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-lg-6">
                                     <div class="form-group " bis_skin_checked="1">
                                         <label>Company<span style="color:red"> *</span> </label>
                                         <select name="company_id_selected" id="call_relavent_websites" class="form-control get_cmp_id" required>
@@ -169,7 +173,9 @@
                                         </select>
 
                                     </div>
+                                    </div>
 
+                                    <div class="col-lg-6">
                                     <div class="form-group " bis_skin_checked="1">
                                         <label>Company Website<span style="color:red"> *</span> </label>
                                         <select name="company_website_selected" id="dynamic_company_websites" class="form-control get_cmp_website" required>
@@ -184,7 +190,14 @@
                                         </select>
 
                                     </div>
-
+                                    </div>
+                                    </div>
+                    <!-- row end -->
+                    
+                    <!-- row -->
+                    <div class="row">
+                    <!-- column -->
+                    <div class="col-lg-6">
                                     <div class="form-group " bis_skin_checked="1" style="margin-bottom:7px;">
                                         <label>Renewal Method<span style="color:red"> *</span> </label>
                                         <select name="renewel_method_selected" id="renew_method" class="form-control" required>
@@ -201,30 +214,13 @@
                                         </select>
 
                                     </div>
-
-                                    <!-- date pickers -->
-                                    <div>
-                                        <label class="hide_manual_label" style="display:none;float:left;">Update Date </label>
-                                        <label class="hide_manual_label" style="display:none;float:right;">Renewal Date </label>
-                                        <div class="input-group renew_inputs_manual">
-
-                                            <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" value="<?php echo empty($data['manual_update_date']) ? '' : date("d-m-Y", strtotime($data['manual_update_date'])) ?>" autocomplete="off" style="display:none" required>
-
-
-                                            <input id="ren_datepick" style="margin-left:5px;display:none;" type="text" class="form-control" name="manual_renewel_date" maxlength="6" value="<?php echo empty($data['renewel_date']) ? '' : date("d-m-Y", strtotime($data['renewel_date'])) ?>" placeholder="Next Renewel Date" autocomplete="off" required>
-                                        </div>
                                     </div>
 
-                                    <div class="">
-                                        <label class="hide_auto_label" style="display:none;float:left;">Renewal Date </label>
-                                        <div class="input-group" id="renew_inputs_auto">
-                                            <input id="auto_ren_datepick" style="margin:0 250px 0 0;display:none;" type="text" class="form-control" name="auto_renewel_date" value="<?php echo empty($data['renewel_date']) ? '' :date("d-m-Y", strtotime($data['renewel_date']))  ?>" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
-                                        </div>
-                                    </div>
-                                    <!-- /date pickers -->
+                                   
 
                                     <!-- Active and Inactive -->
-                                    <div class="form-group " bis_skin_checked="1" style="margin-top:10px;">
+                                    <div class="col-lg-6">
+                                    <div class="form-group " bis_skin_checked="1" >
                                         <label>Status<span style="color:red"> *</span> </label>
                                         <select name="ssl_status_selected" id="ssl_status" class="form-control" required>
                                             <option value="">Select Method</option>
@@ -239,18 +235,48 @@
 
                                         </select>
                                     </div>
-                                    <!-- Active and Inactive -->
+                                    </div>
 
-                                    <div class="form-group" style="margin-top:10px;">
+                                    <!-- Active and Inactive -->
+                                    </div>
+
+                        <!-- date pickers -->
+                            <!-- row -->
+                                <div class="row" >
+                                    <!-- column -->
+                                    <div class="col-lg-12">
+                                     
+                                        <label class="hide_manual_label" style="display:none;float:left;">Update Date<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label class="hide_manual_label" style="display:none;margin-left:44%; float:left;">Renewal Date<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <div class="input-group renew_inputs_manual">
+                                        <div class="col-lg-6" style="padding:0">
+                                            <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" value="<?php echo empty($data['manual_update_date']) ? '' : date("d-m-Y", strtotime($data['manual_update_date'])) ?>" autocomplete="off" style="margin-bottom:10px;width:98.4%;display:none" required>
+                                            </div>
+                                            <div class="col-lg-6" >
+                                            <input id="ren_datepick" style="margin-bottom:20px;width:101.3%;display:none;" type="text" class="form-control" name="manual_renewel_date" maxlength="6" value="<?php echo empty($data['renewel_date']) ? '' : date("d-m-Y", strtotime($data['renewel_date'])) ?>" placeholder="Next Renewel Date" autocomplete="off" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" >
+                                        <label class="hide_auto_label" style="display:none;float:left;">Renewal Date<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <div class="input-group" id="renew_inputs_auto">
+                                            <input id="auto_ren_datepick" style="margin-bottom:20px;" type="text" class="form-control" name="auto_renewel_date" value="<?php echo empty($data['renewel_date']) ? '' :date("d-m-Y", strtotime($data['renewel_date']))  ?>" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /date pickers --> 
+
+                                    <div class="form-group" >
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:33%;">GST @ 18 <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:46%;">GST @ 18 <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <label style="margin-left:19%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
-                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? "" : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
+                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? "" : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:51%;text-align:right;" autocomplete="off" required>
 
-                                            <input type="text" class="form-control gst_amt_input" name="gst_amt_selected" value="<?php echo empty($data['gst_amt']) ? 0 : $data['gst_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:32%;background-color:#efeded;" autocomplete="off">
+                                            <input type="text" class="form-control gst_amt_input" name="gst_amt_selected" value="<?php echo empty($data['gst_amt']) ? 0 : $data['gst_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:24%;background-color:#efeded;" autocomplete="off">
 
-                                            <input type="text" class="form-control gst_net_amt_input" name="net_amt_selected" value="<?php echo empty($data['net_amt']) ? 0 : $data['net_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:25%;background-color:#efeded;" autocomplete="off">
+                                            <input type="text" class="form-control gst_net_amt_input" name="net_amt_selected" value="<?php echo empty($data['net_amt']) ? 0 : $data['net_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:24%;background-color:#efeded;" autocomplete="off">
                                             <!-- border-left:none; -->
                                         </div>
                                     </div>
@@ -325,6 +351,8 @@
         //for delete remainder------------------------------------------------------
 
         $(document).ready(function() {
+            
+            
             //------------------------------------------------------Default Amt's Fill Values
 
             //In Edit auto fill data table and diplay manual or auto input boxes

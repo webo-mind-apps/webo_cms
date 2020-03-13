@@ -50,3 +50,7 @@ $route['dashboard']                                             = 'Dashboard';
 //SSl update------------------------------------
 $route['ssl-update']                                            = 'Ssl_update';
 
+//GST update------------------------------------
+$route['gst-per']                                                = 'gst';
+$route['gst-per/per-insert']                                     = 'gst/percentage_insert';
+

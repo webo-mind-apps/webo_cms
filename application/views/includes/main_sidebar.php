@@ -68,6 +68,10 @@
 									<li class="nav-item">
 										<a href="<?php echo base_url(); ?>master-remainder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Admin Master</a>
 									</li>
+
+									<li class="nav-item">
+										<a href="<?php echo base_url(); ?>gst-per" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>GST</a>
+									</li>
 									
 								</ul>
 					</li>

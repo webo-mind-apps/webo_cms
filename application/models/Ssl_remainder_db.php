@@ -72,6 +72,7 @@ class Ssl_remainder_db extends CI_Model
         $this->db->select('website');
         $this->db->from('company_website');
         $this->db->where('company_id', $company_id); //need to stroe in id format
+        $this->db->where('status', 0); // website is active or inactive  0 Active
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result_array();
