@@ -64,9 +64,7 @@ class Ssl_view extends CI_Controller
                             <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr> 
                             <tr><th>Email Id</th><td>:</td><td>' . ucwords($data[0]['email']) . '</td></tr>  
                     </table>
-                </div>
-               
-
+                </div> 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-primary" data-dismiss="modal">Close</button>
@@ -78,10 +76,7 @@ class Ssl_view extends CI_Controller
 		$fetch_data = $this->ssl_view->make_datatables();
 		$data = array();
 		// $status = '<span class="badge bg-blue">Completed</span>';
-		$i = 0;
-		// echo "<pre>";
-		// print_r($fetch_data);
-		// exit;
+		$i = 0; 
 		foreach ($fetch_data as $row) {
 			//++$i;
 			//if($row->status==1){$j=$i.'<i class="fa fa-pencil"></i>';}else{$j=$i;}
