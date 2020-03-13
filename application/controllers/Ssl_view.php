@@ -13,7 +13,8 @@ class Ssl_view extends CI_Controller
 	//view the html index 
 	function index()
 	{
-		$this->load->view('ssl_view/index');
+		$data['gst_per_db'] = $this->ssl_view->fetch_gst();
+		$this->load->view('ssl_view/index', $data);
 	}
 
 	function ssl_view_edit_details($id)

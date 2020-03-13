@@ -155,7 +155,7 @@
                                           </div>
                                        </div>
                                        <div class="form-group">
-                                          <label class="down">GST</label>
+                                          <label class="down">GST @<?php echo $gst_per_db->gst_per ?></label>
                                           <div class="input-group">
                                           <input id="gst"  type="text" name="gst"
 				                              class="form-control "  autocomplete="off" onkeyup="Change_gst_amount();" required >
@@ -171,6 +171,8 @@
                                        </div>
                                        <input id="paid-id"  type="hidden" name="paid_id" 
 				                                 class="form-control " autocomplete="off">
+                                             <input id="gst-per"  type="hidden" name="gst_per" 
+				                                 class="form-control " autocomplete="off" value="<?php echo $gst_per_db->gst_per ?>">
                                     <div class="modal-footer down">
                                        <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
                                     </div>
@@ -534,7 +536,7 @@
          function Change_paid_amount()
             {
                var paid_amt=parseFloat($('#paid-amount').val());
-               var gst_per = 18;
+               var gst_per = $('#gst-per').val();
                var gst_amt = (paid_amt * gst_per) / 100;
                var net_amt = gst_amt + paid_amt;
                $('#gst').val(gst_amt);

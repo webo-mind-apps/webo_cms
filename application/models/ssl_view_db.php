@@ -182,4 +182,15 @@ class Ssl_view_db extends CI_Model
             return true;
         }
 	}
+	public function fetch_gst()
+    {
+        $this->db->select('*');
+        $this->db->from('gst');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
 }
