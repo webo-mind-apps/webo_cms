@@ -269,7 +269,7 @@
 
                                     <div class="form-group" >
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:46%;">GST @ 18 <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:46%;">GST @ <?php echo $gst_per_db->gst_per ?> <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <label style="margin-left:19%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
                                             <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? "" : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:51%;text-align:right;" autocomplete="off" required>
@@ -280,7 +280,8 @@
                                             <!-- border-left:none; -->
                                         </div>
                                     </div>
-                                    <input type="hidden" id="gst-amt">
+                                   
+                                    <input type="hidden" id="gst-per-hidden" name="gst_per_hidden" value="<?php echo $gst_per_db->gst_per ?>">
 
                                     <button type="submit" id="button" name="insert_button" class="insert btn btn-primary">Submit<i class="icon-paperplane ml-2"></i></button>
 
@@ -381,7 +382,8 @@
 
                 // console.log(capital_amt);
                 capital_amt = parseFloat(capital_amt);
-                var gst_per = 18;
+                var gst_per = $("#gst-per-hidden").val(); 
+                gst_per = parseFloat(gst_per);
                 var gst_amt = (capital_amt * gst_per) / 100;
                 var net_amt = gst_amt + capital_amt;
 
