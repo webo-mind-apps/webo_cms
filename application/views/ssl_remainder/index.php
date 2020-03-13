@@ -208,17 +208,17 @@
                                         <label class="hide_manual_label" style="display:none;float:right;">Renewal Date </label>
                                         <div class="input-group renew_inputs_manual">
 
-                                            <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" value="<?php echo empty($data['manual_update_date']) ? '' : $data['manual_update_date'] ?>" autocomplete="off" style="display:none" required>
+                                            <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" value="<?php echo empty($data['manual_update_date']) ? '' : date("d-m-Y", strtotime($data['manual_update_date'])) ?>" autocomplete="off" style="display:none" required>
 
 
-                                            <input id="ren_datepick" style="margin-left:5px;display:none;" type="text" class="form-control" name="manual_renewel_date" maxlength="6" value="<?php echo empty($data['renewel_date']) ? '' : $data['renewel_date'] ?>" placeholder="Next Renewel Date" autocomplete="off" required>
+                                            <input id="ren_datepick" style="margin-left:5px;display:none;" type="text" class="form-control" name="manual_renewel_date" maxlength="6" value="<?php echo empty($data['renewel_date']) ? '' : date("d-m-Y", strtotime($data['renewel_date'])) ?>" placeholder="Next Renewel Date" autocomplete="off" required>
                                         </div>
                                     </div>
 
                                     <div class="">
                                         <label class="hide_auto_label" style="display:none;float:left;">Renewal Date </label>
                                         <div class="input-group" id="renew_inputs_auto">
-                                            <input id="auto_ren_datepick" style="margin:0 250px 0 0;display:none;" type="text" class="form-control" name="auto_renewel_date" value="<?php echo empty($data['renewel_date']) ? '' : $data['renewel_date'] ?>" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
+                                            <input id="auto_ren_datepick" style="margin:0 250px 0 0;display:none;" type="text" class="form-control" name="auto_renewel_date" value="<?php echo empty($data['renewel_date']) ? '' :date("d-m-Y", strtotime($data['renewel_date']))  ?>" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <!-- /date pickers -->
@@ -230,11 +230,11 @@
                                             <option value="">Select Method</option>
 
                                             <?php if (!empty($data['type'])) { ?>
-                                                <option <?php echo (($data['ssl_status'] == 1) ? 'selected' : '') ?> value='1'>Active</option>
-                                                <option <?php echo (($data['ssl_status'] == 0) ? 'selected' : '') ?> value='0'>Inactive</option>
+                                                <option <?php echo (($data['ssl_status'] == 0) ? 'selected' : '') ?> value='0'>Active</option>
+                                                <option <?php echo (($data['ssl_status'] == 1) ? 'selected' : '') ?> value='1'>Inactive</option>
                                             <?php } else { ?>
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
+                                                <option value="0">Active</option>
+                                                <option value="1">Inactive</option>
                                             <?php } ?>
 
                                         </select>
@@ -393,7 +393,7 @@
                         },
                         success: function(response) {
 
-                            $("#gst-d").append(response.gst);
+                            // $("#gst-d").append(response.gst);
 
                             //renew auto or manual code
                             var option = $('#renew_method').find('option');
@@ -408,7 +408,7 @@
                             if (response.amount_paid != "" && response.amount_paid != null) {
                                 auto_fill_amount(response.amount_paid);
                             } else {
-                                $("#amount").val("0");
+                                $("#amount").val("");
                                 $(".gst_amt_input").val("0");
                                 $(".gst_net_amt_input").val("0");
                             }
@@ -442,94 +442,7 @@
             });
             //Auto Fill Values------------------------------------------------------
 
-            // //Auto Fill Values------------------------------------------------------  
-            // function ssl_auto_fill(id) {
-            //     var get_cmp_id = "";
-            //     var get_cmp_website = "";
-            //         jQuery.ajax({
-            //             type: "POST",
-            //             url: "<?php echo base_url(); ?>" + "ssl-remainder/auto-fill",
-            //             dataType: 'json',
-            //             data: {
-            //                 get_cmp_id: get_cmp_id,
-            //                 get_cmp_website: get_cmp_website,
-            //                 id:id
-            //             },
-            //             success: function(response) {
-
-            //                 $("#gst-d").append(response.gst);
-
-            //                 //renew auto or manual code
-            //                 var option = $('#renew_method').find('option');
-            //                 $('#renew_method').val(response.type);
-            //                 renewelMethod();
-            //                 //renew auto or manual code
-
-            //                 var option = $('#ssl_status').find('option');
-            //                 $('#ssl_status').val(response.ssl_status);
-            //                 $("#amount").val(response.amount_paid);
-            //                 //-----------------------------------------------------GST amount calculation
-            //                 if (response.amount_paid != "" && response.amount_paid != null) {
-            //                     auto_fill_amount(response.amount_paid);
-            //                 } else {
-            //                     $("#amount").val("0");
-            //                     $(".gst_amt_input").val("0");
-            //                     $(".gst_net_amt_input").val("0");
-            //                 }
-            //                 //-----------------------------------------------------GST amount calculation
-            //                 $("#update_datepick").empty();
-            //                 $("#ren_datepick").empty();
-            //                 $("#auto_ren_datepick").empty();
-            //                 if (response.type == 'manual') {
-
-            //                     $('#update_datepick').val(response.manual_update_date);
-            //                     $('#ren_datepick').val(response.renewel_date);
-            //                     //remove or addd required
-            //                     $('#auto_ren_datepick').removeAttr('required');
-            //                     $('#update_datepick').attr('required');
-            //                     $('#ren_datepick').attr('required');
-            //                 } else if (response.type == 'auto') {
-
-            //                     $('#auto_ren_datepick').val(response.renewel_date);
-            //                     // remove or addd required
-            //                     $('#update_datepick').removeAttr('required');
-            //                     $('#ren_datepick').removeAttr('required');
-            //                     $('#auto_ren_datepick').attr('required');
-            //                 } else {
-            //                     $('#update_datepick').val(response.manual_update_date);
-            //                     $('#ren_datepick').val(response.renewel_date);
-            //                     $('#auto_ren_datepick').val(response.renewel_date);
-            //                 }
-            //             }
-            //         });
-
-            // }
-            // //Auto Fill Values------------------------------------------------------
-
-
-
-            //  //Auto Fill Values------------------------------------------------------  
-            //  $(".get_cmp_id").change(function() {
-            //     var get_cmp_id = "";
-            //     var get_cmp_id = $('.get_cmp_id').val();
-            //     if (get_cmp_id != "") {
-            //         jQuery.ajax({
-            //             type: "POST",
-            //             url: "<?php echo base_url(); ?>" + "ssl_remainder/auto_fill_gst",
-            //             dataType: 'json',
-            //             data: {
-            //                 get_cmp_id: get_cmp_id,
-            //             },
-            //             success: function(response) {
-
-            //                 $("#gst-d").text(response.gst);
-            //                 $("#gst-amt").val(response.gst)
-
-            //             }
-            //         });
-            //     }
-            // });
-            //Auto Fill Values------------------------------------------------------
+            
 
 
             //Auto Fill Ssl Remainder Table Values---------------------------------- 
@@ -567,6 +480,15 @@
                     $("#update_datepick").css('display', 'none');
                     $("#ren_datepick").css('display', 'none');
                     $("#auto_ren_datepick").css('display', 'block');
+                }else{
+                    //label dipsplay------- 
+                    $(".hide_auto_label").css('display', 'none');
+                    $(".hide_manual_label").css('display', 'none');
+                    //label dipsplay-------
+
+                    $("#update_datepick").css('display', 'none');
+                    $("#ren_datepick").css('display', 'none');
+                    $("#auto_ren_datepick").css('display', 'none');
                 }
             }
             //Hide DATE PICKERS------------------------------------------------------
