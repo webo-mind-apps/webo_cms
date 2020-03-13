@@ -68,8 +68,8 @@ class Ssl_remainder_db extends CI_Model
     }
     public function fetch_gst()
     {
-        $this->db->select('id,company_name');
-        $this->db->from('client_master');
+        $this->db->select('*');
+        $this->db->from('gst');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result_array();

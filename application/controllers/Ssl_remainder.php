@@ -12,6 +12,7 @@ class Ssl_remainder extends CI_Controller
     function index()
     {
         $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
+        $data['gst_per_db'] = $this->Ssl_remainder_db->fetch_gst();
         $this->load->view('ssl_remainder/index', $data);
     }
 
