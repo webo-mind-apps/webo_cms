@@ -20,9 +20,9 @@ class Ssl_view extends CI_Controller
 	{
 
 		$data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
-		// $this->arr_op($data['data']);
+		$this->load->view('ssl_remainder/index', $data);
 
-		$this->load->view('ssl_view/edit_data', $data);
+		// $this->arr_op($data['data']);
 	}
 
 	function update_ssl_view()

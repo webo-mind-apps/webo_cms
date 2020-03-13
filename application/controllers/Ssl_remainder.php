@@ -14,6 +14,27 @@ class Ssl_remainder extends CI_Controller
         $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
         $this->load->view('ssl_remainder/index', $data);
     }
+
+    // function ssl_view_edit_details($id)
+    // {
+
+    //     $data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
+    //     // $this->arr_op($data['data']);
+
+    //     $this->load->view('ssl_view/edit_data', $data);
+    // }
+
+    function update_ssl_view()
+    {
+        $output = $this->ssl_view->update_ssl_view_db();
+        if ($output == "update") {
+            $this->session->set_flashdata('updated_ssl_view', 'updated successfully');
+            redirect('ssl-view');
+        } else {
+            echo "not updated";
+        }
+    }
+
     function view_ssl_remainder()
     {
         $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
@@ -61,7 +82,7 @@ class Ssl_remainder extends CI_Controller
         $id = $this->input->post('id');
         $data = $this->Ssl_remainder_db->view_ssl_details_db($id);
         $i = 0;
-        $count = count($data); 
+        $count = count($data);
         echo '
             <div class="modal-header bg-primary">
                 <h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
