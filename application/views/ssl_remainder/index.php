@@ -408,7 +408,7 @@
                             if (response.amount_paid != "" && response.amount_paid != null) {
                                 auto_fill_amount(response.amount_paid);
                             } else {
-                                $("#amount").val("0");
+                                $("#amount").val("");
                                 $(".gst_amt_input").val("0");
                                 $(".gst_net_amt_input").val("0");
                             }
@@ -480,6 +480,15 @@
                     $("#update_datepick").css('display', 'none');
                     $("#ren_datepick").css('display', 'none');
                     $("#auto_ren_datepick").css('display', 'block');
+                }else{
+                    //label dipsplay------- 
+                    $(".hide_auto_label").css('display', 'none');
+                    $(".hide_manual_label").css('display', 'none');
+                    //label dipsplay-------
+
+                    $("#update_datepick").css('display', 'none');
+                    $("#ren_datepick").css('display', 'none');
+                    $("#auto_ren_datepick").css('display', 'none');
                 }
             }
             //Hide DATE PICKERS------------------------------------------------------
