@@ -6,7 +6,7 @@ class Ssl_view_db extends CI_Model
 	{
 		parent::__construct();
 	} 
-
+	
 	function view_ssl_details_db($id)
 	{
 		$this->db->select('a.*,b.*');
