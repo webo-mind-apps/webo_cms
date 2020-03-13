@@ -50,7 +50,7 @@ class Ssl_view extends CI_Controller
                             <tr><th>Company website</th><td>:</td><td>' . ucwords($data[0]['company_website']) . '</td></tr>
                             <tr><th>Update Method</th><td>:</td><td>' . ucwords($data[0]['type']) . '</td></tr>
 							<tr><th>Amout Pay</th><td>:</td><td>' . ucwords($data[0]['amount_paid']) . '</td></tr>
-							<tr><th>Status</th><td>:</td><td>' . ucwords($data[0]['ssl_status'] ? "Active" : "InActive") . '</td></tr>
+							<tr><th>Status</th><td>:</td><td>' . ucwords($data[0]['ssl_status'] ? "InActive" : "Active") . '</td></tr>
 							<tr><th>Update Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['manual_update_date']))) . '</td></tr>
                             <tr><th>Renewel Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['renewel_date']))) . '</td></tr> 
                             <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr> 
