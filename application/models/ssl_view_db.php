@@ -173,4 +173,13 @@ class Ssl_view_db extends CI_Model
 	// 	return $query;
 	// }
 	
+	function ssl_master_delete()
+    {  
+		$id=$this->input->post('id');
+        $this->db->where('id', $id);
+        if($this->db->delete('add_ssl_remainder'))
+        {
+            return true;
+        }
+	}
 }

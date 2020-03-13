@@ -548,6 +548,25 @@
                var net_amt = gst_amt + paid_amt;
                   $('#net-amt').val(net_amt);
             }
+            // using ajex for delete the services
+          function ssl_master_delete(id) {
+              r = confirm("Are you sure to delete ?");
+                  if (r == true) {
+                  jQuery.ajax({
+                      type: "POST",
+                      url: "<?php echo base_url(); ?>ssl_view/ssl_master_delete",
+                      datatype: "text",
+                      data: {
+                          id: id
+                      },
+                      success: function(response) {
+                  
+                  $("#ssl_view_d_table").DataTable().ajax.reload();
+                      },
+                      error: function(xhr, ajaxOptions, thrownError) {}
+                  });
+              }
+              }
          
 
    </script>

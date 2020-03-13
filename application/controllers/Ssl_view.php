@@ -94,12 +94,11 @@ class Ssl_view extends CI_Controller
 							onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
 							
 							 <a href="ssl-view/ssl-view-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
-
-							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
+							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="ssl_master_delete(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
 						 </div>
 					 </div>
 				 </div>';
-
+				 	//  <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
 			$data[] = $sub_array;
 		}
 		// $sub_array[] = '<button type="button" id="' . $row->id . '" class="btn bg-primary" onclick="client_paid_date_details(this.id);" >save</button>';
@@ -142,5 +141,16 @@ class Ssl_view extends CI_Controller
 	// 		echo "not updated";
 	// 	}
 	// }
+
+	//delete the ssl....................................................................................
+    function ssl_master_delete()
+    {
+        if($data['data'] = $this->ssl_view->ssl_master_delete())
+        {
+            echo "deleted successfully";
+        }
+        redirect('Service_master', 'refresh');
+    }
+    ///delete the ssl....................................................................................
 }
 ?>
