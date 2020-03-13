@@ -106,20 +106,22 @@ class Ssl_view extends CI_Controller
 		$data = array();
 		// $status = '<span class="badge bg-blue">Completed</span>';
 		$i = 0;
+		// echo "<pre>";
+		// print_r($fetch_data);
+		// exit;
 		foreach ($fetch_data as $row) {
-			// if($row->renewel_date<date('yy-mm-d')){echo '<style></style>'}
+			//++$i;
+			//if($row->status==1){$j=$i.'<i class="fa fa-pencil"></i>';}else{$j=$i;}
 			$sub_array   = array();
 			$sub_array[] = ++$i;
 			$sub_array[] = $row->company_name;
-			$sub_array[] = $row->company_website;
-			$sub_array[] = $row->amount_paid;
+			$sub_array[] = $row->company_website; 
+			$sub_array[] = $row->net_amt;
 			$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
 
-			$sub_array[] = '<div class="check_date"><input id="paid_date' . $row->id . '" type="text" name="paid_date' . $row->id . '" 
-				class="form-control paid_date" autocomplete="off" style="padding:3px 0px 3px 0px;"><input id="renewel' . $row->id . '" class="renewel_date" type="hidden" value="' . $row->renewel_date . '"></div>';
-			$sub_array[] = '<div class="check_amount"><input id="paid_amount' . $row->id . '"  type="text" name="paid_amount' . $row->id . '" 
-				class="form-control paid_amount" onkeypress="return isNumber();" autocomplete="off" style="padding:3px 0px 3px 0px;"></div>';
+			$sub_array[] = '<a href="javascript:void(0)" id=' . $row->id . '
+			onclick="fetch_paid_details(this.id);" class="dropdown-item"><button type="button"   class="btn bg-primary" data-toggle="modal" data-target="#fetchData">Paid</button></a>';
 			$sub_array[] = '
 					 <div class="list-icons">
 					 <div class="dropdown">
@@ -130,7 +132,7 @@ class Ssl_view extends CI_Controller
 							<a href="javascript:void(0)" id=' . $row->id . '
 							onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
 							
-							 <a href="ssl-view/ssl-view-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="ssl-remainder/ssl-view-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
 
 							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
 						 </div>
@@ -148,16 +150,21 @@ class Ssl_view extends CI_Controller
 		);
 		echo json_encode($output);
 	}
-	function client_paid_date_details()
+	function save_paid_details()
 	{
-		if ($this->ssl_view->client_paid_date_details()) {
+		if ($this->ssl_view->save_paid_details()) {
 			// echo "Inserted successfully";
 			$msg = "Inserted successfully";
 			$this->session->set_flashdata('success', $msg);
 		}
 		redirect('Ssl_view', 'refresh');
 	}
-
+	function fetch_paid_details()
+	{
+		$data=$this->ssl_view->fetch_paid_details();
+		echo json_encode($data);
+	}
+	
 	function arr_op($arr)
 	{
 		echo "<pre>";

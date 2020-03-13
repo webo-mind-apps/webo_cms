@@ -101,32 +101,32 @@
                            <!-- form -->
                            <form method="post" action="<?php echo base_url(); ?>master-remainder/save-master-remainder" >
                               <div class="form-group">
-                                 <label class="down">Name</label>
+                                 <label class="down">Name<span style="color:red"> *</span> </label>
                                  <div class="input-group">
                                     <input type="text"  id="remainder-name" class="form-control" name="remainder_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data['remainder_name'])?'':$data['remainder_name'] ?>" required>
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label class="down">Email Id</label>
+                                 <label class="down">Email Id<span style="color:red"> *</span> </label>
                                  <div class="input-group">
                                     <input type="email" id="email" class="form-control"  name="email"  
                                        onfocusout="email_validation();" value="<?php echo empty($data['email'])?'':$data['email'] ?>" required>
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label class="down">Phone No.</label>
+                                 <label class="down">Phone No.<span style="color:red"> *</span> </label>
                                  <div class="input-group">
                                     <input type="text"  id="phone" class="form-control" name="phone" onkeypress="return isNumber();" value="<?php echo empty($data['phone'])?'':$data['phone'] ?>" required>
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label class="down">Password</label>
+                                 <label class="down">Password<span style="color:red"> *</span> </label>
                                  <div class="input-group">
                                     <input type="password"  id="pass" class="form-control pass" name="pass" value=""  required>
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label class="down">Conform Password</label>
+                                 <label class="down">Conform Password<span style="color:red"> *</span> </label>
                                  <div class="input-group">
                                     <input type="password"  id="cpass" class="form-control pass" name="cpass" value="" required>
                                  </div>

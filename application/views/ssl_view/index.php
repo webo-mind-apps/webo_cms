@@ -125,12 +125,60 @@
          <div class="page-header page-header-light">
             <div class="page-header-content header-elements-md-inline">
                <div class="page-title d-flex">
-                  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View SSL Remainder</span></h4>
+                  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View SSL Renewal</span></h4>
                   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                </div>
 
             </div>
          </div>
+         <div class="modal fade" role="dialog" id="fetchData">
+                        <div class="modal-dialog modal-sm">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              </div>
+                              <div class="content">
+                                 <form method="post" action="<?php echo base_url(); ?>ssl-view/save-paid-details" >
+                                    <div class="modal-body">
+                                       <div class="form-group">
+                                          <label class="down">Paid date</label>
+                                          <div class="input-group">
+                                          <input id="paid_date" type="text" name="paid_date" 
+				                                 class="form-control paid_date" autocomplete="off" required >
+                                          </div>
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="down">Amount</label>
+                                          <div class="input-group">
+                                             <input id="paid-amount"  type="text" name="paid_amount" 
+				                                 class="form-control paid_amount" onkeypress="return isNumber();" autocomplete="off" required>
+                                          </div>
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="down">GST</label>
+                                          <div class="input-group">
+                                          <input id="gst"  type="text" name="gst"
+				                              class="form-control "  autocomplete="off" required >
+                                          </div>
+                                       </div>
+                                       <div class="form-group">
+                                          <label class="down">Net Amount</label>
+                                          <div class="input-group">
+                                          <input id="net-amt"  type="text" name="net_amt" 
+				                                 class="form-control " autocomplete="off" required>
+                                          </div>
+                                       </div>
+                                       </div>
+                                       <input id="paid-id"  type="hidden" name="paid_id" 
+				                                 class="form-control " autocomplete="off">
+                                    <div class="modal-footer down">
+                                       <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
+                                    </div>
+                                 </form> 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
 
          <?php
          if ($this->session->flashdata('updated_ssl_view', 'updated successfully')) {
@@ -162,7 +210,7 @@
                   <!-- card-->
                   <div class="card">
                      <div class="card-header header-elements-inline">
-                        <h5 class="card-title">View SSL Remainder</h5>
+                        <h5 class="card-title">View SSL Renewal</h5>
                         <div class="header-elements">
                            <div class="list-icons">
                               <a class="list-icons-item" data-action="collapse"></a>
@@ -199,8 +247,7 @@
                               <th>Amount</th>
                               <th>Update Date</th>
                               <th>Renewal Date</th>
-                              <th>Paid Date</th>
-                              <th>Paid Amount</th>
+                              <th>Paid</th>
                               <th>Actions</th>
                            </tr>
                         </thead>
@@ -299,7 +346,7 @@
                   'type': 'POST'
                },
                'columnDefs': [{
-                  "targets": [6],
+                  "targets": [7],
                   "orderable": false,
                }],
                createdRow: function(row, data, index) {
@@ -456,6 +503,33 @@
          $('#ssl_view_d_table').DataTable().destroy();
          DatatableAdvanced.init();
       });
+
+
+
+      function fetch_paid_details(id) {
+         jQuery.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>" + "ssl_view/fetch_paid_details",
+            dataType: 'json',
+            data: {
+               id: id,
+            },
+            success: function(response) {
+               $("#paid-amount").val(response.amount_paid);
+               $("#gst").val(response.gst_amt);
+               $("#net-amt").val(response.net_amt);
+               $("#paid-id").val(response.id);
+            },
+            error: function(xhr, ajaxOptions, thrownError) {}
+         });
+      }
+      $('#button').click(function() {
+               //e.preventDefault();
+                if ($('#company-name').val()) {
+                   $('#fetchData').modal('toggle'); //or  $('#IDModal').modal('hide'); 
+                }
+         });
+
    </script>
 </body>
 

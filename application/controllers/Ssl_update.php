@@ -27,7 +27,7 @@ class Ssl_update extends CI_Controller
 			$sub_array[] = ++$i;
 			$sub_array[] = $row->company_name;
 			$sub_array[] = $row->company_website; 
-			$sub_array[] = $row->amount_paid;
+			$sub_array[] = $row->net_amt;
 			$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
 			$sub_array[] = '

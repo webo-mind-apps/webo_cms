@@ -152,7 +152,7 @@
                             <!-- card-body -->
                             <div class="card-body">
                                 <form action="<?php echo base_url(); ?>ssl-remainder/insert-ssl-remainder" method="post">
-                                    <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
+                                    <div class="form-group " bis_skin_checked="1">
                                         <label>Company<span style="color:red"> *</span> </label>
                                         <select name="company_id_selected" id="call_relavent_websites" class="form-control get_cmp_id" required>
 
@@ -170,7 +170,7 @@
 
                                     </div>
 
-                                    <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1">
+                                    <div class="form-group " bis_skin_checked="1">
                                         <label>Company Website<span style="color:red"> *</span> </label>
                                         <select name="company_website_selected" id="dynamic_company_websites" class="form-control get_cmp_website" required>
 
@@ -185,7 +185,7 @@
 
                                     </div>
 
-                                    <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1" style="margin-bottom:7px;">
+                                    <div class="form-group " bis_skin_checked="1" style="margin-bottom:7px;">
                                         <label>Renewal Method<span style="color:red"> *</span> </label>
                                         <select name="renewel_method_selected" id="renew_method" class="form-control" required>
                                             <option value="">Select Method</option>
@@ -224,7 +224,7 @@
                                     <!-- /date pickers -->
 
                                     <!-- Active and Inactive -->
-                                    <div class="form-group form-group-feedback form-group-feedback-left" bis_skin_checked="1" style="margin-top:10px;">
+                                    <div class="form-group " bis_skin_checked="1" style="margin-top:10px;">
                                         <label>Status<span style="color:red"> *</span> </label>
                                         <select name="ssl_status_selected" id="ssl_status" class="form-control" required>
                                             <option value="">Select Method</option>
@@ -243,8 +243,8 @@
 
                                     <div class="form-group" style="margin-top:10px;">
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:32.3%;">GST @ 18%<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:17.6%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:31.3%;">GST @ 18 <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:16.1%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
                                             <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? '' : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
 
@@ -254,10 +254,10 @@
                                             <!-- border-left:none; -->
                                         </div>
                                     </div>
-                                    <center>
-                                        <button type="submit" class="btn btn-success">Save</button>
-                                    </center>
-
+                                    <input type="hidden" id="gst-amt">
+                                  
+                                        <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
+              
                                 </form>
                             </div>
                             <!-- /card-body -->
@@ -352,7 +352,6 @@
                 // console.log(capital_amt);
                 capital_amt = parseFloat(capital_amt);
                 var gst_per = 18;
-
                 var gst_amt = (capital_amt * gst_per) / 100;
                 var net_amt = gst_amt + capital_amt;
 
@@ -377,6 +376,7 @@
             $(".get_cmp_id,.get_cmp_website").change(function() {
                 var get_cmp_id = "";
                 var get_cmp_website = "";
+                var id = "";
                 var get_cmp_id = $('.get_cmp_id').val();
                 var get_cmp_website = $('.get_cmp_website').val();
                 if (get_cmp_id != "" && get_cmp_website != "") {
@@ -386,9 +386,13 @@
                         dataType: 'json',
                         data: {
                             get_cmp_id: get_cmp_id,
-                            get_cmp_website: get_cmp_website
+                            get_cmp_website: get_cmp_website,
+                            id:id
                         },
                         success: function(response) {
+
+                            $("#gst-d").append(response.gst);
+
                             //renew auto or manual code
                             var option = $('#renew_method').find('option');
                             $('#renew_method').val(response.type);
@@ -435,6 +439,96 @@
                 }
             });
             //Auto Fill Values------------------------------------------------------
+
+            // //Auto Fill Values------------------------------------------------------  
+            // function ssl_auto_fill(id) {
+            //     var get_cmp_id = "";
+            //     var get_cmp_website = "";
+            //         jQuery.ajax({
+            //             type: "POST",
+            //             url: "<?php echo base_url(); ?>" + "ssl-remainder/auto-fill",
+            //             dataType: 'json',
+            //             data: {
+            //                 get_cmp_id: get_cmp_id,
+            //                 get_cmp_website: get_cmp_website,
+            //                 id:id
+            //             },
+            //             success: function(response) {
+
+            //                 $("#gst-d").append(response.gst);
+
+            //                 //renew auto or manual code
+            //                 var option = $('#renew_method').find('option');
+            //                 $('#renew_method').val(response.type);
+            //                 renewelMethod();
+            //                 //renew auto or manual code
+
+            //                 var option = $('#ssl_status').find('option');
+            //                 $('#ssl_status').val(response.ssl_status);
+            //                 $("#amount").val(response.amount_paid);
+            //                 //-----------------------------------------------------GST amount calculation
+            //                 if (response.amount_paid != "" && response.amount_paid != null) {
+            //                     auto_fill_amount(response.amount_paid);
+            //                 } else {
+            //                     $("#amount").val("0");
+            //                     $(".gst_amt_input").val("0");
+            //                     $(".gst_net_amt_input").val("0");
+            //                 }
+            //                 //-----------------------------------------------------GST amount calculation
+            //                 $("#update_datepick").empty();
+            //                 $("#ren_datepick").empty();
+            //                 $("#auto_ren_datepick").empty();
+            //                 if (response.type == 'manual') {
+
+            //                     $('#update_datepick').val(response.manual_update_date);
+            //                     $('#ren_datepick').val(response.renewel_date);
+            //                     //remove or addd required
+            //                     $('#auto_ren_datepick').removeAttr('required');
+            //                     $('#update_datepick').attr('required');
+            //                     $('#ren_datepick').attr('required');
+            //                 } else if (response.type == 'auto') {
+
+            //                     $('#auto_ren_datepick').val(response.renewel_date);
+            //                     // remove or addd required
+            //                     $('#update_datepick').removeAttr('required');
+            //                     $('#ren_datepick').removeAttr('required');
+            //                     $('#auto_ren_datepick').attr('required');
+            //                 } else {
+            //                     $('#update_datepick').val(response.manual_update_date);
+            //                     $('#ren_datepick').val(response.renewel_date);
+            //                     $('#auto_ren_datepick').val(response.renewel_date);
+            //                 }
+            //             }
+            //         });
+               
+            // }
+            // //Auto Fill Values------------------------------------------------------
+
+
+
+            //  //Auto Fill Values------------------------------------------------------  
+            //  $(".get_cmp_id").change(function() {
+            //     var get_cmp_id = "";
+            //     var get_cmp_id = $('.get_cmp_id').val();
+            //     if (get_cmp_id != "") {
+            //         jQuery.ajax({
+            //             type: "POST",
+            //             url: "<?php echo base_url(); ?>" + "ssl_remainder/auto_fill_gst",
+            //             dataType: 'json',
+            //             data: {
+            //                 get_cmp_id: get_cmp_id,
+            //             },
+            //             success: function(response) {
+
+            //                 $("#gst-d").text(response.gst);
+            //                 $("#gst-amt").val(response.gst)
+
+            //             }
+            //         });
+            //     }
+            // });
+            //Auto Fill Values------------------------------------------------------
+
 
             //Auto Fill Ssl Remainder Table Values---------------------------------- 
 
