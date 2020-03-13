@@ -122,13 +122,13 @@
                               <div class="form-group">
                                  <label class="down">Password<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="password"  id="pass" class="form-control pass" name="pass" value=""  required>
+                                    <input type="password"  id="pass" class="form-control pass" name="pass" value=""  placeholder="*******" required>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label class="down">Conform Password<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="password"  id="cpass" class="form-control pass" name="cpass" value="" required>
+                                    <input type="password"  id="cpass" class="form-control pass" name="cpass" value="" placeholder="*******" required>
                                  </div>
                               </div>
                               <input type="hidden" name="change_id" id="change-id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">  
