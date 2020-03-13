@@ -82,11 +82,12 @@
       }
 
       .danger {
-         background: red !important;
-         color:white;
+         background: #f44336 !important;
+         color: white;
       }
+
       .danger1 {
-         background: yellow !important;
+         background: #ffff00  !important;
       }
 
       select {

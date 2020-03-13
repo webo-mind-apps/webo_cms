@@ -110,10 +110,10 @@ class Ssl_view extends CI_Controller
 		// print_r($fetch_data);
 		// exit;
 		foreach ($fetch_data as $row) {
-			//++$i;
-			//if($row->status==1){$j=$i.'<i class="fa fa-pencil"></i>';}else{$j=$i;}
+			++$i;
+			if($row->ssl_status==1){$j=$i.'<i class="icon-cross" style="margin:10px 0px 3px 3px;color:black;font-size:7px;"></i>';}else{$j=$i;}
 			$sub_array   = array();
-			$sub_array[] = ++$i;
+			$sub_array[] = $j;
 			$sub_array[] = $row->company_name;
 			$sub_array[] = $row->company_website; 
 			$sub_array[] = $row->net_amt;
@@ -121,7 +121,7 @@ class Ssl_view extends CI_Controller
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
 
 			$sub_array[] = '<a href="javascript:void(0)" id=' . $row->id . '
-			onclick="fetch_paid_details(this.id);" class="dropdown-item"><button type="button"   class="btn bg-primary" data-toggle="modal" data-target="#fetchData">Paid</button></a>';
+			onclick="fetch_paid_details(this.id);" class="dropdown-item"><button type="button" class="btn bg-primary" data-toggle="modal" data-target="#fetchData" style="padding:3px 10px 3px 10px">Paid</button></a>';
 			$sub_array[] = '
 					 <div class="list-icons">
 					 <div class="dropdown">
