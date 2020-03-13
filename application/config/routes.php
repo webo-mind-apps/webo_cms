@@ -25,6 +25,8 @@ $route['ssl-view']                                              = 'Ssl_view';
 $route['ssl-remainder/auto-fill']                               = 'Ssl_remainder/auto_fill';
 $route['ssl-view/ssl-view-edit-details/(:any)']                 = 'Ssl_view/ssl_view_edit_details/$1';
 $route['ssl-view/update-ssl-view']                              = 'ssl_view/update_ssl_view';
+$route['ssl-view/save-paid-details']                            = 'Ssl_view/save_paid_details';
+
 
 //MASTER REMAINDER------------------------
 $route['master-remainder']                                      = 'Master_remainder';
@@ -44,4 +46,7 @@ $route['service-master/service-master-edit-details/(:any)']     = 'Service_maste
 
 //DASHBOARD------------------------------------
 $route['dashboard']                                             = 'Dashboard';
+
+//SSl update------------------------------------
+$route['ssl-update']                                            = 'Ssl_update';
 

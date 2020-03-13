@@ -73,7 +73,7 @@
             <div class="page-header page-header-light">
                <div class="page-header-content header-elements-md-inline">
                   <div class="page-title d-flex">
-                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Master</span></h4>
+                     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Client Master</span></h4>
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                </div>
@@ -83,7 +83,7 @@
                <!-- card -->
                <div class="card">
                   <div class="card-header header-elements-inline">
-                     <h5 class="card-title">Add Service Master</h5>
+                     <h5 class="card-title">Client Master</h5>
                      <div class="header-elements">
                         <div class="list-icons">
                            <a class="list-icons-item" data-action="collapse"></a>
