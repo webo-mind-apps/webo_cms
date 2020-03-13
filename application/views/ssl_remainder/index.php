@@ -208,17 +208,17 @@
                                         <label class="hide_manual_label" style="display:none;float:right;">Renewal Date </label>
                                         <div class="input-group renew_inputs_manual">
 
-                                            <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" value="<?php echo empty($data['manual_update_date']) ? '' : $data['manual_update_date'] ?>" autocomplete="off" style="display:none" required>
+                                            <input id="update_datepick" type="text" class="form-control" name="manual_update_date" maxlength="6" placeholder="Next Update Date" value="<?php echo empty($data['manual_update_date']) ? '' : date("d-m-Y", strtotime($data['manual_update_date'])) ?>" autocomplete="off" style="display:none" required>
 
 
-                                            <input id="ren_datepick" style="margin-left:5px;display:none;" type="text" class="form-control" name="manual_renewel_date" maxlength="6" value="<?php echo empty($data['renewel_date']) ? '' : $data['renewel_date'] ?>" placeholder="Next Renewel Date" autocomplete="off" required>
+                                            <input id="ren_datepick" style="margin-left:5px;display:none;" type="text" class="form-control" name="manual_renewel_date" maxlength="6" value="<?php echo empty($data['renewel_date']) ? '' : date("d-m-Y", strtotime($data['renewel_date'])) ?>" placeholder="Next Renewel Date" autocomplete="off" required>
                                         </div>
                                     </div>
 
                                     <div class="">
                                         <label class="hide_auto_label" style="display:none;float:left;">Renewal Date </label>
                                         <div class="input-group" id="renew_inputs_auto">
-                                            <input id="auto_ren_datepick" style="margin:0 250px 0 0;display:none;" type="text" class="form-control" name="auto_renewel_date" value="<?php echo empty($data['renewel_date']) ? '' : $data['renewel_date'] ?>" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
+                                            <input id="auto_ren_datepick" style="margin:0 250px 0 0;display:none;" type="text" class="form-control" name="auto_renewel_date" value="<?php echo empty($data['renewel_date']) ? '' :date("d-m-Y", strtotime($data['renewel_date']))  ?>" maxlength="6" placeholder="Next Renewel Date" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <!-- /date pickers -->
