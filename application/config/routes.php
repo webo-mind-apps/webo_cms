@@ -33,7 +33,7 @@ $route['master-remainder/edit-remainder-master']                = 'Master_remain
 $route['master-remainder/master-remainder-edit-details/(:any)'] = 'Master_remainder/master_remainder_edit_details/$1';
 $route['master-remainder/delete-remainder-master']              = 'Master_remainder/delete_remainder_master';
 $route['master-remainder/add-new']                              = 'Master_remainder/add_new';
-$route['master-remainder']                                      = 'Master_remainder';
+
 
 //SERVICE MASTER-----------------------------
 $route['month-renewal']                                         = 'Month_renewal';
