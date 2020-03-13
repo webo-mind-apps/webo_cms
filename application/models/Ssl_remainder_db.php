@@ -66,6 +66,17 @@ class Ssl_remainder_db extends CI_Model
             return false;
         }
     }
+    public function fetch_gst()
+    {
+        $this->db->select('id,company_name');
+        $this->db->from('client_master');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
 
     public function fetch_company_relavent_websites($company_id)
     {
@@ -158,7 +169,7 @@ class Ssl_remainder_db extends CI_Model
     {
         $get_cmp_id = $this->input->get('cid');
         $get_cmp_website = $this->input->get('cweb');
-        $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.renewel_date", "a.amount_paid", "a.paid_date",);
+        $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.renewel_date", "a.net_amt", "a.paid_date",);
         $this->db->select('a.*,c.company_name');
         $this->db->from('paid_ssl_remainder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
@@ -171,7 +182,7 @@ class Ssl_remainder_db extends CI_Model
             $this->db->or_like("a.company_website", $_POST["search"]["value"]);
             $this->db->or_like("a.type", $_POST["search"]["value"]);
             $this->db->or_like("a.renewel_date", $_POST["search"]["value"]);
-            $this->db->or_like("a.amount_paid", $_POST["search"]["value"]);
+            $this->db->or_like("a.net_amt", $_POST["search"]["value"]);
             $this->db->or_like("a.paid_date", $_POST["search"]["value"]);
             $this->db->group_end();
         }
