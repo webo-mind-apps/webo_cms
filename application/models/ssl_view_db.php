@@ -5,44 +5,7 @@ class Ssl_view_db extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-	}
-
-	public function update_ssl_view_db()
-	{
-		$id = $this->input->post('view_ssl_rec_id');
-		$company_id = $this->input->post('company_id');
-		$company_website = $this->input->post('company_website');
-		$ssl_type_selected = $this->input->post('ssl_type_selected');
-		$ssl_status_selected = $this->input->post('ssl_status_selected');
-		$manual_update_date = $this->input->post('manual_update_date');
-		$renewal_update_date = $this->input->post('renewal_update_date');
-		$amount_paid = $this->input->post('amount_paid');
-		$gst_amount = $this->input->post('gst_amount');
-		$net_amount = $this->input->post('net_amount');
-		$data = array(
-			"company_id"		=> $company_id,
-			"company_website"	=> $company_website,
-			"type"				=> $ssl_type_selected,
-			"ssl_status	"		=> $ssl_status_selected,
-			"manual_update_date" => $manual_update_date,
-			"renewel_date"		=> $renewal_update_date,
-			"amount_paid"		=> $amount_paid,
-			"gst_amt"			=> $gst_amount,
-			"net_amt"			=> $net_amount,
-		);
-		// echo "<pre>";
-		// print_r($id);
-		// print_r($data);
-		// exit;
-		if ($id != '' || !empty($id)) {
-			$this->db->where('id', $id);
-			if ($this->db->update('add_ssl_remainder', $data)) {
-				return "update";
-			} else {
-				return "not_update";
-			}
-		}
-	}
+	} 
 
 	function view_ssl_details_db($id)
 	{
@@ -56,6 +19,7 @@ class Ssl_view_db extends CI_Model
 		// $q[0]['paid_date'] = $this->getPaidDate($q[0]['company_id'], $q[0]['company_website']);
 		return $q;
 	}
+
 	function ssl_view_edit_details_db($id)
 	{
 		$this->db->select('a.*,b.company_name');
@@ -66,16 +30,6 @@ class Ssl_view_db extends CI_Model
 		$q = $query->row_array();
 		return $q;
 	}
-
-	// function getPaidDate($company_id = null, $company_website = null)
-	// {
-	// 	$this->db->select('paid_date,paid_amount');
-	// 	$this->db->where('company_id', $company_id);
-	// 	$this->db->where('company_website', $company_website);
-	// 	$query = $this->db->get('paid_ssl_remainder')->result();
-
-	// 	return $query;
-	// }
 
 	public function make_query()
 	{
@@ -161,6 +115,7 @@ class Ssl_view_db extends CI_Model
             return false;
 		}
 	}
+
 	public function fetch_paid_details()
     {
 		$id = $this->input->post('id');
@@ -170,5 +125,52 @@ class Ssl_view_db extends CI_Model
         $q = $query->row_array();
         return $q;
 	}
+
+	// public function update_ssl_view_db()
+	// {
+	// 	$id = $this->input->post('view_ssl_rec_id');
+	// 	$company_id = $this->input->post('company_id');
+	// 	$company_website = $this->input->post('company_website');
+	// 	$ssl_type_selected = $this->input->post('ssl_type_selected');
+	// 	$ssl_status_selected = $this->input->post('ssl_status_selected');
+	// 	$manual_update_date = $this->input->post('manual_update_date');
+	// 	$renewal_update_date = $this->input->post('renewal_update_date');
+	// 	$amount_paid = $this->input->post('amount_paid');
+	// 	$gst_amount = $this->input->post('gst_amount');
+	// 	$net_amount = $this->input->post('net_amount');
+	// 	$data = array(
+	// 		"company_id"		=> $company_id,
+	// 		"company_website"	=> $company_website,
+	// 		"type"				=> $ssl_type_selected,
+	// 		"ssl_status	"		=> $ssl_status_selected,
+	// 		"manual_update_date" => $manual_update_date,
+	// 		"renewel_date"		=> $renewal_update_date,
+	// 		"amount_paid"		=> $amount_paid,
+	// 		"gst_amt"			=> $gst_amount,
+	// 		"net_amt"			=> $net_amount,
+	// 	);
+	// 	// echo "<pre>";
+	// 	// print_r($id);
+	// 	// print_r($data);
+	// 	// exit;
+	// 	if ($id != '' || !empty($id)) {
+	// 		$this->db->where('id', $id);
+	// 		if ($this->db->update('add_ssl_remainder', $data)) {
+	// 			return "update";
+	// 		} else {
+	// 			return "not_update";
+	// 		}
+	// 	}
+	// }
+
+	// function getPaidDate($company_id = null, $company_website = null)
+	// {
+	// 	$this->db->select('paid_date,paid_amount');
+	// 	$this->db->where('company_id', $company_id);
+	// 	$this->db->where('company_website', $company_website);
+	// 	$query = $this->db->get('paid_ssl_remainder')->result();
+
+	// 	return $query;
+	// }
 	
 }

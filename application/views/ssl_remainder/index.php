@@ -243,10 +243,10 @@
 
                                     <div class="form-group" style="margin-top:10px;">
                                         <label>Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:31.3%;">GST @ 18 <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
-                                        <label style="margin-left:16.1%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:33%;">GST @ 18 <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
+                                        <label style="margin-left:19%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
-                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? 0 : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
+                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? "" : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
 
                                             <input type="text" class="form-control gst_amt_input" name="gst_amt_selected" value="<?php echo empty($data['gst_amt']) ? 0 : $data['gst_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:32%;background-color:#efeded;" autocomplete="off">
 
