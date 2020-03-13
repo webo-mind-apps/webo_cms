@@ -78,8 +78,8 @@ class Ssl_remainder extends CI_Controller
                             <tr><th>Company website</th><td>:</td><td>' . ucwords($data[0]['company_website']) . '</td></tr>
                             <tr><th>Update Method</th><td>:</td><td>' . ucwords($data[0]['type']) . '</td></tr>
                             <tr><th>Amout Pay</th><td>:</td><td>' . ucwords($data[0]['amount_paid']) . '</td></tr>
-                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords($data[0]['renewel_date']) . '</td></tr>
-                            <tr><th>Paid Date</th><td>:</td><td>' . ucwords($data[0]['paid_date']) . '</td></tr>
+                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['renewel_date']))) . '</td></tr>
+                            <tr><th>Paid Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['paid_date']))) . '</td></tr>
                             <tr><th>Paid Amount</th><td>:</td><td>' . ucwords($data[0]['paid_amount']) . '</td></tr>
                             
                             <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr>
@@ -108,9 +108,9 @@ class Ssl_remainder extends CI_Controller
             $sub_array[] = $row->company_name;
             $sub_array[] = $row->company_website;
             $sub_array[] = $row->type;
-            $sub_array[] = $row->renewel_date;
+            $sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
             $sub_array[] = $row->amount_paid;
-            $sub_array[] = $row->paid_date;
+            $sub_array[] = date("d-m-Y", strtotime($row->paid_date));
             $sub_array[] = '
 					 <div class="list-icons">
 					 <div class="dropdown">

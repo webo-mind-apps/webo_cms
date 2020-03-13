@@ -25,16 +25,7 @@ class Ssl_view extends CI_Controller
 		// $this->arr_op($data['data']);
 	}
 
-	function update_ssl_view()
-	{
-		$output = $this->ssl_view->update_ssl_view_db();
-		if ($output == "update") {
-			$this->session->set_flashdata('updated_ssl_view', 'updated successfully');
-			redirect('ssl-view');
-		} else {
-			echo "not updated";
-		}
-	}
+	
 
 	function view_ssl_details()
 	{
@@ -52,15 +43,16 @@ class Ssl_view extends CI_Controller
                 <div class="row">
                     <div class="col-sm-1">
                     </div>
-                    <table class="mod-table">
+					<table class="mod-table">
+					  
                             <tr><th>Client Name</th><td>:</td><td>' . ucwords($data[0]['client_name']) . '</td></tr>
                             <tr><th>Company Name</th><td>:</td><td>' . ucwords($data[0]['company_name']) . '</td></tr>
                             <tr><th>Company website</th><td>:</td><td>' . ucwords($data[0]['company_website']) . '</td></tr>
                             <tr><th>Update Method</th><td>:</td><td>' . ucwords($data[0]['type']) . '</td></tr>
 							<tr><th>Amout Pay</th><td>:</td><td>' . ucwords($data[0]['amount_paid']) . '</td></tr>
 							<tr><th>Status</th><td>:</td><td>' . ucwords($data[0]['ssl_status'] ? "Active" : "InActive") . '</td></tr>
-							<tr><th>Update Date</th><td>:</td><td>' . ucwords($data[0]['manual_update_date']) . '</td></tr>
-                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords($data[0]['renewel_date']) . '</td></tr> 
+							<tr><th>Update Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['manual_update_date']))) . '</td></tr>
+                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['renewel_date']))) . '</td></tr> 
                             <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr> 
                             <tr><th>Email Id</th><td>:</td><td>' . ucwords($data[0]['email']) . '</td></tr>  
                     </table>
@@ -139,5 +131,15 @@ class Ssl_view extends CI_Controller
 		print_r($arr);
 		exit;
 	}
+	// function update_ssl_view()
+	// {
+	// 	$output = $this->ssl_view->update_ssl_view_db();
+	// 	if ($output == "update") {
+	// 		$this->session->set_flashdata('updated_ssl_view', 'updated successfully');
+	// 		redirect('ssl-view');
+	// 	} else {
+	// 		echo "not updated";
+	// 	}
+	// }
 }
 ?>
