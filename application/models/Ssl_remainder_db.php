@@ -72,7 +72,7 @@ class Ssl_remainder_db extends CI_Model
         $this->db->from('gst');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
-            return $query->result_array();
+            return $query->row();
         } else {
             return false;
         }
