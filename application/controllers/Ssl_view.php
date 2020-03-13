@@ -27,7 +27,6 @@ class Ssl_view extends CI_Controller
 		// $this->arr_op($data['data']);
 	}
 
-	
 
 	function view_ssl_details()
 	{
@@ -73,7 +72,7 @@ class Ssl_view extends CI_Controller
 		$i = 0; 
 		foreach ($fetch_data as $row) {
 			++$i;
-			if($row->ssl_status==1){$j=$i.'<i class="icon-cross" style="margin:10px 0px 3px 3px;color:black;font-size:7px;"></i>';}else{$j=$i;}
+			if($row->ssl_status==1){$j=$i.'<input type="checkbox" style="height:20px;width:20px;cursor:pointer;margin-left:20px;" class="checkbox" name="checkbox" id="'.$row->id.'" value="' . $row->ssl_status . '">';}else{$j=$i.'<input type="checkbox" checked style="height:20px;width:20px;cursor:pointer;margin-left:20px;" class="checkbox" name="checkbox" id="'.$row->id.'" value="' . $row->ssl_status . '">';}
 			$sub_array   = array();
 			$sub_array[] = $j;
 			$sub_array[] = $row->company_name;
@@ -153,5 +152,12 @@ class Ssl_view extends CI_Controller
         redirect('Service_master', 'refresh');
     }
     ///delete the ssl....................................................................................
+	function ssl_status_change()
+    {
+        if ($this->ssl_view->ssl_status_change()) {
+            echo "1";
+        }
+        redirect('client-master', 'refresh');
+    }
 }
 ?>

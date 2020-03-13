@@ -192,5 +192,18 @@ class Ssl_view_db extends CI_Model
         } else {
             return false;
         }
-    }
+	}
+	
+	function ssl_status_change()
+	{
+		$id=$this->input->post('id'); 
+        $change_val=$this->input->post('change_val'); 
+        
+        $data=array('ssl_status'=>$change_val);
+		$this->db->where("id",$id);
+        if($this->db->update("add_ssl_remainder",$data))
+        {
+            return true;
+		}
+	}
 }
