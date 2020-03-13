@@ -246,18 +246,18 @@
                                         <label style="margin-left:31.3%;">GST @ 18 <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <label style="margin-left:16.1%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
-                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? '' : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
+                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? 0 : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:43%;text-align:right;" autocomplete="off" required>
 
-                                            <input type="text" class="form-control gst_amt_input" name="gst_amt_selected" value="<?php echo empty($data['gst_amt']) ? '' : $data['gst_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:32%;background-color:#efeded;" autocomplete="off">
+                                            <input type="text" class="form-control gst_amt_input" name="gst_amt_selected" value="<?php echo empty($data['gst_amt']) ? 0 : $data['gst_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:32%;background-color:#efeded;" autocomplete="off">
 
-                                            <input type="text" class="form-control gst_net_amt_input" name="net_amt_selected" value="<?php echo empty($data['net_amt']) ? '' : $data['net_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:25%;background-color:#efeded;" autocomplete="off">
+                                            <input type="text" class="form-control gst_net_amt_input" name="net_amt_selected" value="<?php echo empty($data['net_amt']) ? 0 : $data['net_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:25%;background-color:#efeded;" autocomplete="off">
                                             <!-- border-left:none; -->
                                         </div>
                                     </div>
                                     <input type="hidden" id="gst-amt">
-                                  
-                                        <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
-              
+
+                                    <button type="submit" id="button" name="insert_button" class="insert btn btn-primary">Submit<i class="icon-paperplane ml-2"></i></button>
+
                                 </form>
                             </div>
                             <!-- /card-body -->
@@ -326,10 +326,12 @@
 
         $(document).ready(function() {
             //------------------------------------------------------Default Amt's Fill Values
+
+            //In Edit auto fill data table and diplay manual or auto input boxes
+            $('#ssl_remainder_d_table').DataTable().destroy();
+            DatatableAdvanced.init();
             renewelMethod_display();
-            // $("#amount").val(0);
-            // $(".gst_amt_input").val(0);
-            // $(".gst_net_amt_input").val(0);
+            //In Edit auto fill data table and diplay manual or auto input boxes 
 
             $("#amount").on('keyup change', function() {
                 var capital_amt = 0;
@@ -387,7 +389,7 @@
                         data: {
                             get_cmp_id: get_cmp_id,
                             get_cmp_website: get_cmp_website,
-                            id:id
+                            id: id
                         },
                         success: function(response) {
 
@@ -500,7 +502,7 @@
             //                 }
             //             }
             //         });
-               
+
             // }
             // //Auto Fill Values------------------------------------------------------
 

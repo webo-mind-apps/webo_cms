@@ -18,25 +18,30 @@ $route['ssl-remainder']                                         = 'Ssl_remainder
 $route['ssl-remainder/dispaly-relavent-websites']               = 'Ssl_remainder/dispaly_relavent_websites';
 $route['ssl-remainder/view-ssl-remainder']                      = 'Ssl_remainder/view_ssl_remainder';
 $route['ssl-remainder/insert-ssl-remainder']                    = 'Ssl_remainder/insert_ssl_remainder';
-$route['ssl-remainder/delete-remainder-fun']                    = 'Ssl_remainder/delete_remainder_fun'; 
+$route['ssl-remainder/delete-remainder-fun']                    = 'Ssl_remainder/delete_remainder_fun';
 
 //SSL VIEW RENEWAL-----------------------             
 $route['ssl-view']                                              = 'Ssl_view';
 $route['ssl-remainder/auto-fill']                               = 'Ssl_remainder/auto_fill';
-$route['ssl-view/ssl-view-edit-details/(:any)']                 = 'ssl_view/ssl_view_edit_details/$1';
+$route['ssl-view/ssl-view-edit-details/(:any)']                 = 'Ssl_view/ssl_view_edit_details/$1';
+$route['ssl-view/update-ssl-view']                              = 'ssl_view/update_ssl_view';
 
+//MASTER REMAINDER------------------------
 $route['master-remainder']                                      = 'Master_remainder';
 $route['master-remainder/save-master-remainder']                = 'Master_remainder/save_master_remainder';
 $route['master-remainder/edit-remainder-master']                = 'Master_remainder/edit_remainder_master';
 $route['master-remainder/master-remainder-edit-details/(:any)'] = 'Master_remainder/master_remainder_edit_details/$1';
 $route['master-remainder/delete-remainder-master']              = 'Master_remainder/delete_remainder_master';
-$route['month-renewal']                                         = 'Month_renewal';
-$route['dashboard']                                             = 'Dashboard';
-$route['service-master']                                        = 'Service_master';
-$route['service-master/add-new']                                = 'Service_master/add_new';
 $route['master-remainder/add-new']                              = 'Master_remainder/add_new';
 $route['master-remainder']                                      = 'Master_remainder';
+
+//SERVICE MASTER-----------------------------
+$route['month-renewal']                                         = 'Month_renewal';
+$route['service-master']                                        = 'Service_master';
+$route['service-master/add-new']                                = 'Service_master/add_new'; 
 $route['service-master/save-service-master']                    = 'Service_master/save_service_master';
-$route['ssl-view/update-ssl-view']                              = 'ssl_view/update_ssl_view';
 $route['service-master/service-master-edit-details/(:any)']     = 'Service_master/service_master_edit_details/$1';
-// $route['ssl-remainder/view-ssl-details']        = 'ssl_remainder/view_ssl_details';
+
+//DASHBOARD------------------------------------
+$route['dashboard']                                             = 'Dashboard';
+
