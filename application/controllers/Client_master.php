@@ -119,8 +119,6 @@ class Client_master extends CI_Controller
         $status = $this->client_master->save_client_master();
         if ($status == "update") {
             $msg = "updated successfully";
-            $this->session->set_flashdata('success', $msg);
-            redirect('client-master', 'refresh');
         } else if ($status == "true") {
             $exist = 0;
             $insert = 0;
@@ -141,12 +139,19 @@ class Client_master extends CI_Controller
             }
             if ($exist != 0 && $insert != 0) {
                 $msg = "Inserted successfully<br>" . $exist . " website already exist";
-            } else {
+            } 
+            else {
                 $msg = "Inserted successfully";
             }
-            $this->session->set_flashdata('success', $msg);
-            redirect('client-master', 'refresh');
         }
+        else if ($status == "email") {
+            $msg = "This E-mail Id already exist give another E-mail Id";
+        }
+        else if ($status == "phone") {
+            $msg = "This Phone No. already exist give another number";
+        }
+       
+        $this->session->set_flashdata('success', $msg);
         redirect('client-master', 'refresh');
     }
     function client_master_delete()

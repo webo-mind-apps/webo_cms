@@ -150,7 +150,7 @@
                                        <div class="form-group">
                                           <label class="down">Amount</label>
                                           <div class="input-group">
-                                             <input id="paid-amount"  type="text" name="paid_amount" 
+                                             <input id="paid-amount" onkeyup="Change_paid_amount();" type="text" name="paid_amount" 
 				                                 class="form-control paid_amount" onkeypress="return isNumber();" autocomplete="off" required>
                                           </div>
                                        </div>
@@ -158,7 +158,7 @@
                                           <label class="down">GST</label>
                                           <div class="input-group">
                                           <input id="gst"  type="text" name="gst"
-				                              class="form-control "  autocomplete="off" required >
+				                              class="form-control "  autocomplete="off" onkeyup="Change_gst_amount();" required >
                                           </div>
                                        </div>
                                        <div class="form-group">
@@ -529,6 +529,26 @@
                    $('#fetchData').modal('toggle'); //or  $('#IDModal').modal('hide'); 
                 }
          });
+
+
+         function Change_paid_amount()
+            {
+               var paid_amt=parseFloat($('#paid-amount').val());
+               var gst_per = 18;
+               var gst_amt = (paid_amt * gst_per) / 100;
+               var net_amt = gst_amt + paid_amt;
+               $('#gst').val(gst_amt);
+               $('#net-amt').val(net_amt);
+
+            }
+            function Change_gst_amount()
+            {
+               var paid_amt=parseFloat($('#paid-amount').val());
+               var gst_amt = parseFloat($('#gst').val());
+               var net_amt = gst_amt + paid_amt;
+                  $('#net-amt').val(net_amt);
+            }
+         
 
    </script>
 </body>

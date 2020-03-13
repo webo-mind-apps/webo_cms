@@ -110,9 +110,9 @@
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label class="down">HSN Code</label>
+                                 <label class="down">HSN/SAC Code</label>
                                  <div class="input-group">
-                                    <input type="text" id="hsn-code" class="form-control" name="hsn_code" value="<?php echo empty($data['hsn_code'])?'':$data['hsn_code'] ?>" required>
+                                    <input type="text" id="hsn-code" class="form-control" name="hsn_code" value="<?php echo empty($data['hsn_code'])?'':$data['hsn_code'] ?>" onkeypress="return isNumber();" minlength="6" maxlength="6" required>
                                  </div>
                                  <input type="hidden" name="service_id" value="<?php echo empty($data['id'])?'':$data['id'] ?>">
                               </div>
@@ -140,6 +140,13 @@
              var charCode = (evt.which) ? evt.which : evt.keyCode;
              if (charCode == 32) {return true;} 
              else if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) || charCode == 13) {return false;}
+         }
+         function isNumber(evt)
+         {
+             evt = (evt) ? evt : window.event;
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57)) {return false;}
+             return true;
          }
       </script>
    </body>
