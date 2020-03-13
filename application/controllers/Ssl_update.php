@@ -23,8 +23,10 @@ class Ssl_update extends CI_Controller
 		// $status = '<span class="badge bg-blue">Completed</span>';
 		$i = 0;
 		foreach ($fetch_data as $row) {
+			++$i;
+			if($row->ssl_status==1){$j=$i.'<i class="icon-cross" style="margin:10px 0px 3px 3px;color:black;font-size:7px;"></i>';}else{$j=$i;}
 			$sub_array   = array();
-			$sub_array[] = ++$i;
+			$sub_array[] = $j;
 			$sub_array[] = $row->company_name;
 			$sub_array[] = $row->company_website; 
 			$sub_array[] = $row->net_amt;

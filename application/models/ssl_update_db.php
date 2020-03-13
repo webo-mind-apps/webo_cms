@@ -13,7 +13,7 @@ class Ssl_update_db extends CI_Model
 		$year = date("Y");
 		$date_from=$year."-".$month."-01";
 		$date_to=$year."-".$month."-31";
-        $order_column = array("a.id","b.company_name","a.company_website","a.manual_update_date" ,"a.renewel_date","a.amount_paid");  
+		$order_column = array("a.id","b.company_name","a.company_website","a.manual_update_date" ,"a.renewel_date","a.net_amt,a.ssl_status",);  
 		$this->db->select('a.*,b.company_name');
 		$this->db->from('add_ssl_remainder a');
 		$this->db->join('client_master b','b.id=a.company_id','left');
@@ -29,7 +29,7 @@ class Ssl_update_db extends CI_Model
 				$this->db->or_like("a.type", $_POST["search"]["value"]);
 				$this->db->or_like("a.manual_update_date", $_POST["search"]["value"]);
 				$this->db->or_like("a.renewel_date", $_POST["search"]["value"]); 
-				$this->db->or_like("a.amount_paid", $_POST["search"]["value"]); 
+				$this->db->or_like("a.net_amt", $_POST["search"]["value"]); 
             $this->db->group_end();
 		}
 		if(isset($_POST["order"]))  
