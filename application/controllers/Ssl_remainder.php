@@ -14,6 +14,7 @@ class Ssl_remainder extends CI_Controller
         $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
         $this->load->view('ssl_remainder/index', $data);
     }
+
     function view_ssl_remainder()
     {
         $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
@@ -46,30 +47,22 @@ class Ssl_remainder extends CI_Controller
 
     function auto_fill()
     {
-        
-        if ($data = $this->Ssl_remainder_db->check_record_db()) {
-            //echo json_encode($data);
+        $get_cmp_id = $this->input->post('get_cmp_id');
+        $get_cmp_website = $this->input->post('get_cmp_website');
+        if ($data = $this->Ssl_remainder_db->check_record_db($get_cmp_id, $get_cmp_website)) {
+            echo json_encode($data);
         } else {
             $data = array("manual_update_date" => "", "renewel_date" => "", "amount_paid" => "");
-                echo json_encode($data);
+            echo json_encode($data);
         }
-      
     }
-    // function auto_fill_gst()
-    // {
-        
-    //     if ($data = $this->Ssl_remainder_db->auto_fill_gst()) {
-    //         echo json_encode($data);
-    //     } 
-      
-    // }
 
     function view_ssl_details()
     {
         $id = $this->input->post('id');
         $data = $this->Ssl_remainder_db->view_ssl_details_db($id);
         $i = 0;
-        $count = count($data); 
+        $count = count($data);
         echo '
             <div class="modal-header bg-primary">
                 <h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
@@ -116,7 +109,7 @@ class Ssl_remainder extends CI_Controller
             $sub_array[] = $row->company_website;
             $sub_array[] = $row->type;
             $sub_array[] = $row->renewel_date;
-            $sub_array[] = $row->net_amt;
+            $sub_array[] = $row->amount_paid;
             $sub_array[] = $row->paid_date;
             $sub_array[] = '
 					 <div class="list-icons">

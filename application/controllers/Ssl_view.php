@@ -20,9 +20,9 @@ class Ssl_view extends CI_Controller
 	{
 
 		$data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
-		// $this->arr_op($data['data']);
+		$this->load->view('ssl_remainder/index', $data);
 
-		$this->load->view('ssl_view/edit_data', $data);
+		// $this->arr_op($data['data']);
 	}
 
 	function update_ssl_view()
@@ -34,33 +34,6 @@ class Ssl_view extends CI_Controller
 		} else {
 			echo "not updated";
 		}
-		// else if ($status == "true") {
-		//     $exist = 0;
-		//     $insert = 0;
-		//     $website = $this->input->post('website_name');
-		//     $company_name = $this->input->post('company_name');
-		//     foreach ($website as $key => $row) {
-		//         $company_id = $this->client_master->get_client_master_company_id($company_name);
-		//         $datas = array(
-		//             "company_id"            => $company_id['id'],
-		//             "website"                => $row,
-		//         );
-		//         $insert_status = $this->client_master->save_website($datas);
-		//         if ($insert_status == "insert") {
-		//             $insert++;
-		//         } else if ($insert_status == "exist") {
-		//             $exist++;
-		//         }
-		//     }
-		//     if ($exist != 0 && $insert != 0) {
-		//         $msg = "Inserted successfully<br>" . $exist . " website already exist";
-		//     } else {
-		//         $msg = "Inserted successfully";
-		//     }
-		//     $this->session->set_flashdata('success', $msg);
-		//     redirect('client-master', 'refresh');
-		// }
-		// redirect('client-master', 'refresh');
 	}
 
 	function view_ssl_details()
@@ -115,7 +88,7 @@ class Ssl_view extends CI_Controller
 			$sub_array   = array();
 			$sub_array[] = $j;
 			$sub_array[] = $row->company_name;
-			$sub_array[] = $row->company_website; 
+			$sub_array[] = $row->company_website;
 			$sub_array[] = $row->net_amt;
 			$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
@@ -132,7 +105,7 @@ class Ssl_view extends CI_Controller
 							<a href="javascript:void(0)" id=' . $row->id . '
 							onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
 							
-							 <a href="ssl-remainder/ssl-view-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
+							 <a href="ssl-view/ssl-view-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
 
 							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
 						 </div>
@@ -161,10 +134,10 @@ class Ssl_view extends CI_Controller
 	}
 	function fetch_paid_details()
 	{
-		$data=$this->ssl_view->fetch_paid_details();
+		$data = $this->ssl_view->fetch_paid_details();
 		echo json_encode($data);
 	}
-	
+
 	function arr_op($arr)
 	{
 		echo "<pre>";
