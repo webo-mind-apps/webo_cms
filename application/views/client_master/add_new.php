@@ -164,7 +164,7 @@
                               <div class="form-group">
                                  <label class="down">GST<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="text" id="gst" class="form-control"  name="gst" value="<?php echo empty($data['gst'])?'':$data['gst'] ?>"  required>
+                                    <input type="text" id="gst" class="form-control"  name="gst" value="<?php echo empty($data['gst'])?'':$data['gst'] ?>" minlength="15" maxlength="15"  onfocusout="isAlpha_Number();" required>
                                  </div>
                               </div>
                               <?php 
@@ -220,6 +220,33 @@
              var charCode = (evt.which) ? evt.which : evt.keyCode;
              if (charCode > 31 && (charCode < 48 || charCode > 57)) {return false;}
              return true;
+         }
+         function isAlpha_Number()
+         {
+            var number_count=0;
+            var letter_count=0;
+            var i=0;
+            var number=/[0-9]/;
+            var letter=/[a-zA-z]/;
+            
+            var s=$("#gst").val();
+            var s_len=s.length;
+            for(i;i<s_len;i++)
+            {
+               if(number.test(s[i]))
+               {
+               number_count++;
+               }
+               
+               else if(letter.test(s[i]))
+               {
+                  letter_count++;
+               }
+            }
+            if(s_len<15 || number_count== 0 || letter_count==0 ) 
+            {
+               $("#gst").val('');
+            }
          }
          $(document).on('focusout', '.email', function () { 
               // website validation

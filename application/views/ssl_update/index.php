@@ -185,8 +185,8 @@
                               <th>Company Name</th>
                               <th>Website</th>
                               <th>Amount</th>
-                              <th>Update Date</th>
                               <th>Renewal Date</th>
+                              <th>Update Date</th>
                               <th>Actions</th>
                            </tr>
                         </thead>
@@ -262,7 +262,7 @@
                }],
                createdRow: function(row, data, index) {
                     var today_date = output.split("-");
-                    var db_date = data['4'].split("-");
+                    var db_date = data['5'].split("-");
                     if(db_date[2]<today_date[2])
                     {
                         $(row).addClass('danger');
@@ -365,6 +365,26 @@
          $('#ssl_view_d_table').DataTable().destroy();
          DatatableAdvanced.init();
       });
+
+
+      function ssl_update(id) {
+            // alert(id);
+            r = confirm("Are you sure to update?");
+            if (r == true) {
+                jQuery.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>ssl_update/ssl_update",
+                    datatype: "text",
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        $("#ssl_view_d_table").DataTable().ajax.reload();
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {}
+                });
+            }
+        }
 
    </script>
 </body>

@@ -141,7 +141,7 @@
 				$this->load->config('email');
 				$this->load->library('email');
 				$subject = "welcome";
-				$message = "From now you are admin";
+				$message = "From now you are webomindapps admin";
 				$from = $this->config->item('smtp_user');
 				$to =$to_email;
 				$this->email->set_newline("\r\n");

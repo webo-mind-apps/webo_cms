@@ -80,14 +80,29 @@ class Client_master_db extends CI_Model
             $query = $this->db->get("client_master");
             if ($query->num_rows() <= 0)
             {
-                $this->db->insert('client_master',$data);
-                if ($this->db->affected_rows() > 0)
+                $this->db->where('email', $email);
+                $query = $this->db->get("client_master");
+                if ($query->num_rows() <= 0)
                 {
-                    return "true";
+                    $this->db->where('phone', $phone);
+                    $query = $this->db->get("client_master");
+                    if ($query->num_rows() <= 0)
+                    {
+                        $this->db->insert('client_master',$data);
+                        if ($this->db->affected_rows() > 0)
+                        {
+                            return "true";
+                        }
+                    }
+                    else{
+                        return "phone";
+                    }
+                }
+                else{
+                    return "email";
                 }
             }
-            else
-            {
+            else{
                 return "true";
             }
         }else{

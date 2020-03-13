@@ -30,21 +30,10 @@ class Ssl_update extends CI_Controller
 			$sub_array[] = $row->company_name;
 			$sub_array[] = $row->company_website; 
 			$sub_array[] = $row->net_amt;
-			$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
 			$sub_array[] = date("d-m-Y", strtotime($row->renewel_date));
-			$sub_array[] = '
-					 <div class="list-icons">
-					 <div class="dropdown">
-						 <a href="#" class="list-icons-item" data-toggle="dropdown">
-							 <i class="icon-menu9"></i>
-						 </a>
-						 <div class="dropdown-menu dropdown-menu-right">
-							 <a href="service-master/service-master-edit-details/' . $row->id . '" id=' . $row->id . ' class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
-
-							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="client_paid_date_details(this.id);" class="dropdown-item"><i class="fas fa-save"></i>Save</a>
-						 </div>
-					 </div>
-				 </div>';
+			$sub_array[] = date("d-m-Y", strtotime($row->manual_update_date));
+			$sub_array[] = '<a href="javascript:void(0)" id=' . $row->id . '
+			onclick="ssl_update(this.id);" class="dropdown-item"><button type="button" class="btn bg-primary" style="padding:3px 10px 3px 10px">Update</button></a>';
 
 			$data[] = $sub_array;
 		}
@@ -57,6 +46,12 @@ class Ssl_update extends CI_Controller
 		);
 		echo json_encode($output);
 	}
-	
+	function ssl_update()
+    {
+        if ($this->ssl_update->ssl_update()) {
+            echo "updated successfully";
+        }
+        
+    }
 }
 ?>

@@ -75,7 +75,7 @@ class Master_remainder_db extends CI_Model
         $pass = $this->input->post('pass');
         $cpass = $this->input->post('cpass');
         $hashed=hash('sha512',$pass);
-        if($pass!='' || !empty($pass))
+        if($pass!='Pass@123')
         {
             $data = array(
                 'remainder_name' => $remainder_name,
@@ -84,7 +84,7 @@ class Master_remainder_db extends CI_Model
                 'password'=>$hashed,
             );
         }
-        else if($pass=='' || empty($pass)){
+        else if($pass=='Pass@123'){
 
             $data = array(
                 'remainder_name' => $remainder_name,
