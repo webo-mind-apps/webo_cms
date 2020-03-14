@@ -45,7 +45,7 @@ $route['service-master/save-service-master']                    = 'Service_maste
 $route['service-master/service-master-edit-details/(:any)']     = 'Service_master/service_master_edit_details/$1';
 
 //DASHBOARD------------------------------------
-$route['dashboard']                                             = 'Dashboard';
+$route['dashboard']                                             = 'dashboard';
 
 //SSl update------------------------------------
 $route['ssl-update']                                            = 'Ssl_update';
