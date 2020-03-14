@@ -102,6 +102,28 @@
          border: 1px solid #ddd;
          border-radius: .1875rem;
       }
+      ul.detail-list {
+            list-style: none;
+            column-count: 2;
+            width: 100%;
+         }
+      p.list-title {
+            margin-bottom: 5px;
+            color: #000;
+            font-weight: 500;
+         }
+
+         ul.detail-list li {
+            margin-bottom: 17px;
+         }
+
+         ul.detail-list li p:nth-child(2) {
+            color: #575757;
+         }
+         .details-heading
+         {
+            margin-bottom: 25px;
+         }
    </style>
 </head>
 
@@ -271,7 +293,7 @@
 
    <!-- view details code -->
    <div id="modal_theme_primary" class="modal fade" tabindex="-1">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-md">
          <div class="modal-content" id="ssl_view_details">
          </div>
       </div>
@@ -601,6 +623,19 @@
                   error: function(xhr, ajaxOptions, thrownError) {}
                   });
                   }
+                  else if (r == false){
+            
+                        if($(this).val()==0)
+                        {
+                           this.setAttribute("checked", "checked");
+                           this.checked = true;
+                        }
+                        else if(change_id=$(this).val()==1){
+                           this.setAttribute("checked", ""); // For IE
+                           this.removeAttribute("checked"); // For other browsers
+                           this.checked = false;
+                     }
+                     }
                   }) 
 
    </script>

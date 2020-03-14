@@ -36,31 +36,25 @@ class Ssl_view extends CI_Controller
 		$count = count($data);
 
 		echo '
-            <div class="modal-header bg-primary">
+            <div class="modal-header details-heading">
                 <h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-1">
-                    </div>
-					<table class="mod-table">
-					  
-                            <tr><th>Client Name</th><td>:</td><td>' . ucwords($data[0]['client_name']) . '</td></tr>
-                            <tr><th>Company Name</th><td>:</td><td>' . ucwords($data[0]['company_name']) . '</td></tr>
-                            <tr><th>Company website</th><td>:</td><td>' . ucwords($data[0]['company_website']) . '</td></tr>
-                            <tr><th>Update Method</th><td>:</td><td>' . ucwords($data[0]['type']) . '</td></tr>
-							<tr><th>Amout Pay</th><td>:</td><td>' . ucwords($data[0]['amount_paid']) . '</td></tr>
-							<tr><th>Status</th><td>:</td><td>' . ucwords($data[0]['ssl_status'] ? "InActive" : "Active") . '</td></tr>
-							<tr><th>Update Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['manual_update_date']))) . '</td></tr>
-                            <tr><th>Renewel Date</th><td>:</td><td>' . ucwords(date("d-m-Y", strtotime($data[0]['renewel_date']))) . '</td></tr> 
-                            <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr> 
-                            <tr><th>Email Id</th><td>:</td><td>' . ucwords($data[0]['email']) . '</td></tr>  
-                    </table>
-                </div> 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn bg-primary" data-dismiss="modal">Close</button>
+				<div class="row">
+				<ul class="detail-list">
+					<li><p class="list-title">Company Name</p><p>' . ucwords($data[0]['company_name']) . '</p></li>
+					<li><p class="list-title">Client Name</p><p>' . ucwords($data[0]['client_name']) . '</p></li>
+					<li><p class="list-title">Email Id</p><p>' .ucwords($data[0]['company_website']). '</p></li>
+					<li><p class="list-title">Alter Email Id</p><p>' .ucwords($data[0]['type']). '</p></li>
+					<li><p class="list-title">Phone No.</p><p>' . ucwords($data[0]['amount_paid']) . '</p></li>
+					<li><p class="list-title">Alter Phone No.</p><p>' .ucwords($data[0]['ssl_status'] ? "InActive" : "Active") . '</p></li>
+					<li><p class="list-title">Address</p><p>' .ucwords(date("d-m-Y", strtotime($data[0]['manual_update_date']))). '</p></li>
+					<li><p class="list-title">Address</p><p>' . ucwords(date("d-m-Y", strtotime($data[0]['renewel_date']))). '</p></li>
+					<li><p class="list-title">Address</p><p>' .  ucwords($data[0]['phone']). '</p></li>
+					<li><p class="list-title">Address</p><p>' . ucwords($data[0]['email']). '</p></li>
+					</ul>
+				</div>
             </div>';
 	}
 

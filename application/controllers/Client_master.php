@@ -64,55 +64,47 @@ class Client_master extends CI_Controller
         $data = $this->client_master->client_master_view_details($id);
         $i = 0;
         $count = count($data);
-        echo '
-					<div class="modal-header bg-primary">
-						<h6 class="modal-title">' . ucwords($data[0]['company_name']) . '</h6>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        echo '  
+              <div class="modal-header details-heading">
+		 				<h6 class="modal-title">'. ucwords($data[0]['company_name']) . '</h6>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
                     <div class="row">
-                    <div class="col-sm-1"> </div>
-                    <table class="mod-table">
-                            <tr><th>Company Name</th><td>:</td><td>' . ucwords($data[0]['company_name']) . '</td></tr>
-                            <tr><th>Client Name</th><td>:</td><td>' . ucwords($data[0]['client_name']) . '</td></tr>
-                            <tr><th>Phone No.</th><td>:</td><td>' . ucwords($data[0]['phone']) . '</td></tr>
-                            <tr><th>Alter Phone No.</th><td>:</td><td>' . ucwords($data[0]['alt_phone']) . '</td></tr>
-                            <tr><th>Email Id</th><td>:</td><td>' . ucwords($data[0]['email']) . '</td></tr>
-                            <tr><th>Alter Email Id</th><td>:</td><td>' . ucwords($data[0]['alt_email']) . '</td></tr>
-                            <tr><th>Address</th><td>:</td><td>' . ucwords($data[0]['address']) . '</td></tr>
-                        </table>
+                        <ul class="detail-list">
+                            <li><p class="list-title">Company Name</p><p>' . ucwords($data[0]['company_name']) . '</p></li>
+                            <li><p class="list-title">Client Name</p><p>' . ucwords($data[0]['client_name']) . '</p></li>
+                            <li><p class="list-title">Email Id</p><p>' . ucwords($data[0]['email']) . '</p></li>
+                            <li><p class="list-title">Alter Email Id</p><p>' .ucwords(empty($data[0]['alt_email'])?'No Data':$data[0]['alt_email']). '</p></li>
+                            <li><p class="list-title">Phone No.</p><p>' . ucwords($data[0]['phone']) . '</p></li>
+                            <li><p class="list-title">Alter Phone No.</p><p>' . ucwords(empty($data[0]['alt_phone'])?'No Data':$data[0]['alt_phone']) . '</p></li>
+                            <li><p class="list-title">Address</p><p>' . ucwords($data[0]['address']) . '</p></li>
+                            <li><p class="list-title">Website Name</p>';
+                            if ($data[0]['website'] != '' || !empty($data[0]['website'])) {
+                                foreach ($data as $row) {
+                                    if ($row['status'] == 1) {
+                                        $checked = "";
+                                    } else {
+                                        $checked = "checked";
+                                    }
+                                    echo '<p><input type="checkbox"  ' . $checked . ' style="cursor:pointer "  name="checkbox" id="' . $row['site_id'] . '" value="' . $row['status'] . '" class="checkbox">';
+                                    if ($row['status'] == 1) {
+                                        echo '<span class="danger">' . $row['website'] . '</span>';
+                                    } else {
+                                        echo '<span>' . $row['website'] . '</span>';
+                                    }
+                                    echo '</span></p>';
+                                    $i++;
+                                }
+                            }
+                            echo '
+                            </li></ul>
                         </div>
-                        <div class="row">
-                    <div class="col-sm-1"> </div>
-                        <table class="mod-table">
-                            <tr><th><u>Website Name</u></th></tr>';
-        if ($data[0]['website'] != '' || !empty($data[0]['website'])) {
-            foreach ($data as $row) {
-                if ($row['status'] == 1) {
-                    $checked = "";
-                } else {
-                    $checked = "checked";
-                }
-                echo '<tr><td><input type="checkbox"  ' . $checked . ' style="cursor:pointer " class="checkbox" name="checkbox" id="' . $row['site_id'] . '" value="' . $row['status'] . '">';
-                if ($row['status'] == 1) {
-                    echo '<span class="danger">' . $row['website'] . '</span>';
-                } else {
-                    echo '<span>' . $row['website'] . '</span>';
-                }
-                echo '</span></td></tr>';
-                $i++;
-            }
-        }
-        echo '
-                            </table>
-                        </table>
-                    </div>
-						
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn bg-primary" data-dismiss="modal">Close</button>
-					</div>';
+                        </div>';
     }
+    // <div class="modal-footer">
+	// 					<button type="button" class="btn bg-primary" data-dismiss="modal">Close</button>
+	// 				</div>
     //save the index page form value to the database
     function save_client_master()
     {
@@ -175,3 +167,4 @@ class Client_master extends CI_Controller
     }
 }
 ?>
+

@@ -120,7 +120,7 @@
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label class="down">Password<span style="color:red"> *</span> </label>
+                                 <label class="down">Password<span style="color:red"> *</span><br>(password should have combination of capital letter, number, special charecter) </label>
                                  <div class="input-group">
                                     <input type="password"  id="pass" class="form-control pass" name="pass" value="<?php echo empty($data['password'])?'':'Pass@123' ?>"   required>
                                  </div>

@@ -26,6 +26,15 @@
       <script src="<?php echo base_url(); ?>admin_assets/assets/js/app.js"></script>
       <script src="<?php echo base_url(); ?>admin_assets/global_assets/js/demo_pages/datatables_responsive.js"></script>
       <!-- /theme JS files -->
+      <!-- for toggle -->
+      <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+      <!-- /for toggle -->
+
       <!-- fafa-font -->
       <script src="https://kit.fontawesome.com/f64c26b0b8.js" crossorigin="anonymous"></script>
       <style>
@@ -56,6 +65,36 @@
          padding:15px 20px 15px 20px;
          }
          .danger{color:red;}
+         ul.detail-list {
+            list-style: none;
+            column-count: 2;
+            width: 100%;
+         }
+
+         p.list-title {
+            margin-bottom: 5px;
+            color: #000;
+            font-weight: 500;
+         }
+
+         ul.detail-list li {
+            margin-bottom: 17px;
+         }
+
+         ul.detail-list li p:nth-child(2) {
+            color: #575757;
+         }
+         .details-heading
+         {
+            margin-bottom: 25px;
+         }
+         .checkbox{
+            margin-right:10px;
+            margin-top: 10px;
+
+            height:15px;
+            width:15px;
+           }
       </style>
    </head>
    <body>
@@ -116,6 +155,7 @@
                               </div>
                            </div>
                         </div>
+                        
                         <table id="client_master_d_table" class="table datatable-basic table-bordered table-striped table-hover">
                            <thead>
                               <tr>
@@ -142,7 +182,7 @@
       </div>
       <!-- /page content -->
       <div id="modal_theme_primary" class="modal fade" tabindex="-1">
-         <div class="modal-dialog modal-lg">
+         <div class="modal-dialog modal-md">
             <div class="modal-content" id="client_details">
             </div>
          </div>
@@ -328,7 +368,20 @@
          error: function(xhr, ajaxOptions, thrownError) {}
          });
          }
-         })  
+         else if (r == false){
+            
+            if($(this).val()==0)
+            {
+               this.setAttribute("checked", "checked");
+               this.checked = true;
+            }
+            else if(change_id=$(this).val()==1){
+               this.setAttribute("checked", ""); // For IE
+               this.removeAttribute("checked"); // For other browsers
+               this.checked = false;
+         }
+         }
+       });  
       </script>
    </body>
 </html>
