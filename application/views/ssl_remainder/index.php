@@ -272,7 +272,7 @@
                                         <label style="margin-left:46%;">GST @ <?php echo $gst_per_db->gst_per ?> <span id="gst-d"></span><span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <label style="margin-left:19%;">Net Amount<span style="color:red;padding-top:-15px;"> *</span> </label>
                                         <div class="input-group">
-                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? "" : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:51%;text-align:right;" autocomplete="off" required>
+                                            <input type="text" id="amount" class="form-control" name="amount_selected" value="<?php echo empty($data['amount_paid']) ? "" : $data['amount_paid'] ?>" onkeypress="return isNumber();" maxlength="6" style="width:50.5%;text-align:right;" autocomplete="off" required>
 
                                             <input type="text" class="form-control gst_amt_input" name="gst_amt_selected" value="<?php echo empty($data['gst_amt']) ? 0 : $data['gst_amt'] ?>" onkeypress="return isNumber();" style="text-align:right;width:24%;background-color:#efeded;" autocomplete="off">
 
@@ -385,8 +385,9 @@
                 var gst_per = $("#gst-per-hidden").val(); 
                 gst_per = parseFloat(gst_per);
                 var gst_amt = (capital_amt * gst_per) / 100;
+                
                 var net_amt = gst_amt + capital_amt;
-
+                net_amt = net_amt.toFixed(2);
 
                 $(".gst_amt_input").val(gst_amt);
                 $(".gst_net_amt_input").val(net_amt);
