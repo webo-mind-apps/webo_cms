@@ -11,11 +11,7 @@
 
 		public function index()
 		{
-			// $this->notify();
-
-			// // $remainder_name['remainder_name'] = "fdafa";
-			// // $this->load->view('master_remainder/mail_format',$remainder_name); 
-			// exit;
+			// $this->notify();  
 			$this->load->view('master_remainder/index');
 		}
 		function add_new()
@@ -25,34 +21,47 @@
 		function notify()
 		{
 			exit;
-			$data['notify_master_remainder_db'] = $this->master_remainder->notify_master_remainder_db();
-			$data['notify_client_remainder_db'] = $this->master_remainder->notify_client_remainder_db();
-
-			foreach ($data['notify_master_remainder_db'] as $row) {
-				$remainder_names[] = $row['remainder_name'];
-				$remainder_emails[] = $row['email'];
-				$remainder_phones[] = $row['phone'];
-			}
-			foreach ($data['notify_client_remainder_db'] as $row) {
+			 
+			$data['fetch_master_remainder_db'] = $this->master_remainder->fetch_master_remainder_db();
+			$data['fetch_notify_ssl_remainder_db'] = $this->master_remainder->fetch_notify_ssl_remainder_db();
+				 
+			foreach ($data['fetch_notify_ssl_remainder_db'] as $row) {
 				$remainder_company_names[] = $row['company_name'];
-				$remainder_names[] = $row['client_name'];
-				$remainder_emails[] = $row['email'];
-				$remainder_phones[] = $row['phone'];
+				$remainder_websites[] = $row['company_website'];
+				$remainder_amount[] = $row['amount_paid'];
+				$remainder_gst_amt[] = $row['gst_amt'];
+				$remainder_net_amt[] = $row['net_amt'];
+				$remainder_renewel_date[] = $row['renewel_date'];
 			}
-
-			for ($i = 0; $i < count($remainder_names); $i++) {
-
-				// $this->arr_op($remainder_phones);
+			foreach ($data['fetch_master_remainder_db'] as $row) {
+				$remainder_name[] = $row['remainder_name'];
+				$phone[] = $row['phone'];
+				$email[] = $row['email'];
+				
+			}
+			// $this->arr_op( $email );
+			// exit;
+			for ($i = 0; $i < count($remainder_company_names); $i++) { 
 				//----------------------------------------------------------SMS CODE 
 				try {
 					$curl = curl_init();
-					$message = "Reminder of pending SSL Renewal payment Kindly release the pending payment within final renewal date xx-xx-xxxx.
+					$message = 'SSL Renewal Reminder
+								 
+								Company Name:'.$remainder_company_names[$i].'
+								Website:'.$remainder_websites[$i].'
+								Amount :'.$remainder_amount[$i].'
+								GST @ 18 :'.$remainder_gst_amt[$i].'
+								Net :'.$remainder_net_amt[$i].'
+								Renewal Date:'. date("d-m-Y", strtotime($remainder_renewel_date[$i])).'
+
+								Pending SSL Renewal payment to be paid within final renewal date. 
 
 					Thanks,
-					Webomindapps Team.
-					";
+					Webomindapps HR.
+					';
 					$message = urlencode($message);
-					$number = $remainder_phones[$i];
+					$number = $phone[$i];
+					// $number = 8668120415;
 
 					$number = urlencode($number);
 					curl_setopt_array($curl, array(
@@ -81,9 +90,10 @@
 				$this->load->library('email');
 				$from = $this->config->item('smtp_user');
 				$this->email->set_newline("\r\n");
-				$this->email->from($from, 'Webomindapps');
-				$this->email->to($remainder_emails[$i]);
-				$subject = "Renewal Date";
+				$this->email->from($from, 'Webomindapps'); 
+				$this->email->to($email[$i]); 
+				// $this->email->to("madhusudhandummy@gmail.com");
+				$subject = "SSL Renewal Reminder";
 				$this->email->subject($subject);
 				$message = $this->load->view('master_remainder/mail_format', $data, TRUE);
 				$this->email->message($message);
@@ -183,18 +193,15 @@
 			echo json_encode($data);
 		}
 		function master_remainder_delete()
-		{
-
+		{ 
 			if ($this->master_remainder->master_remainder_delete()) {
 				echo "Deleted successfully";
 			}
-
-		function arr_op($arr)
-			{
-				echo "<pre>";
-				print_r($arr);
-				exit;
-			}
+		}
+		public function arr_op($arr){ 
+			echo "<pre>";
+			print_r($arr);
+			exit; 
 		}
 		function master_remainder_edit_details($id)
 		{

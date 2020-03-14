@@ -100,7 +100,7 @@
   		</ul>
 
   		<span class="navbar-text ml-md-3 mr-md-auto">
-  			<span class="badge bg-success">Online</span>
+  			<!-- <span class="badge bg-success">Online</span> -->
   		</span>
 
   		<ul class="navbar-nav">

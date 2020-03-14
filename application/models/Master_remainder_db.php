@@ -6,9 +6,23 @@ class Master_remainder_db extends CI_Model
     {
         parent::__construct();
     }
-    public function notify_master_remainder_db()
+
+    public function fetch_notify_ssl_remainder_db()
     {
-        $this->db->select('*');
+        $now = date("Y-m-d"); 
+        $this->db->select('a.*,b.company_name');
+        $this->db->from('add_ssl_remainder a');
+		$this->db->join('client_master b', 'a.company_id=b.id', 'left'); 
+        if(!empty($now)){ 
+            $this->db->where('renewel_date BETWEEN DATE_SUB(NOW(), INTERVAL 10 DAY) AND NOW()');
+		}
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function fetch_master_remainder_db()
+    {
+        $this->db->select('remainder_name,phone,email');
         $this->db->from('remainder_master');
         $query = $this->db->get();
         return $query->result_array();
