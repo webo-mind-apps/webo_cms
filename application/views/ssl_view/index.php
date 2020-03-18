@@ -138,8 +138,8 @@
 <body>
    <!-- Main navbar  -->
    <?php
-  $d=date_parse_from_format("Y-m-d", "2021-01-01");
-  echo $d["month"];
+//   $d=date_parse_from_format("Y-m-d", "2021-01-01");
+//   echo $d["month"];
 
     
    $this->load->view('includes/main_navbar');
