@@ -80,9 +80,8 @@
          cursor: pointer;
          border-radius: .1875rem;
       }
-
       .danger {
-         background: #f44336 !important;
+         background: #f9021f !important;
          color: white;
       }
 
