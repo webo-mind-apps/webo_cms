@@ -16,7 +16,7 @@ class Month_renewal_db extends CI_Model
        
         $order_column = array("a.id","b.company_name","a.company_website","a.type","a.manual_update_date" ,"a.renewel_date","a.amount_paid");  
 		$this->db->select('a.*,b.company_name');
-		$this->db->from('add_ssl_remainder a');
+		$this->db->from('add_ssl_reminder a');
 		$this->db->join('client_master b','b.id=a.company_id','left');
 		$this->db->where("a.renewel_date>=",$date_from );  
 		$this->db->where("a.renewel_date<=",$date_to ); 
@@ -44,7 +44,7 @@ class Month_renewal_db extends CI_Model
 	function get_all_data()  
     {  
            $this->db->select("*");
-           $this->db->from('add_ssl_remainder');  
+           $this->db->from('add_ssl_reminder');  
            return $this->db->count_all_results();  
 	}
 	

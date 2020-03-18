@@ -84,7 +84,7 @@
          <div class="page-header page-header-light">
             <div class="page-header-content header-elements-md-inline">
                <div class="page-title d-flex">
-                  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View SSL Remainder
+                  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">View SSL reminder
                      </span></h4>
                   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                </div>
@@ -95,7 +95,7 @@
             <!-- card -->
             <div class="card">
                <div class="card-header header-elements-inline">
-                  <h5 class="card-title">Edit SSL Remainder
+                  <h5 class="card-title">Edit SSL reminder
                   </h5>
                   <div class="header-elements">
                      <div class="list-icons">
@@ -247,7 +247,7 @@
                         </div>
                      </div> -->
 
-                     <button type="submit" id="button" name="update_ssl_remainder_button" class="insert btn btn-primary">Update<i class="icon-paperplane ml-2"></i></button>
+                     <button type="submit" id="button" name="update_ssl_reminder_button" class="insert btn btn-primary">Update<i class="icon-paperplane ml-2"></i></button>
                   </form>
                   <!-- /form -->
                </div>

@@ -15,7 +15,7 @@ class Ssl_update_db extends CI_Model
 		$date_to=$year."-".$month."-31";
 		$order_column = array("a.id","b.company_name","a.company_website","a.manual_update_date" ,"a.renewel_date","a.net_amt,a.ssl_status",);  
 		$this->db->select('a.*,b.company_name');
-		$this->db->from('add_ssl_remainder a');
+		$this->db->from('add_ssl_reminder a');
 		$this->db->join('client_master b','b.id=a.company_id','left');
 		if(!empty($month)){
 			$this->db->where("a.manual_update_date>=",$date_from );  
@@ -45,7 +45,7 @@ class Ssl_update_db extends CI_Model
 	function get_all_data()  
     {  
            $this->db->select("*");
-           $this->db->from('add_ssl_remainder');  
+           $this->db->from('add_ssl_reminder');  
            return $this->db->count_all_results();  
 	}
 	
@@ -72,11 +72,11 @@ class Ssl_update_db extends CI_Model
 		$paid_amount=$this->input->post('paid_amount'); 
 		$this->db->select('company_id,company_website,type,renewel_date,amount_paid');
         $this->db->where('id', $id);
-		$query=$this->db->get('add_ssl_remainder');
+		$query=$this->db->get('add_ssl_reminder');
 		$row1=$query->row_array();
 		$row2=array("paid_date"=>$paid_date,"paid_amount"=>$paid_amount);
 		$row=array_merge($row1, $row2);
-		$this->db->insert('paid_ssl_remainder',$row);
+		$this->db->insert('paid_ssl_reminder',$row);
 		if ($this->db->affected_rows() > 0)
         {
             return true;
@@ -92,13 +92,13 @@ class Ssl_update_db extends CI_Model
 		$id=$this->input->post('id'); 
 		$this->db->select("manual_update_date");
 		$this->db->where('id', $id);
-        $query = $this->db->get("add_ssl_remainder");
+        $query = $this->db->get("add_ssl_reminder");
 		$q=$query->row();
         $data = array(
             "manual_update_date"	=> date('Y-m-d', strtotime( $q->manual_update_date. ' + 84 days')),
 		);
 		$this->db->where('id', $id);
-		$this->db->update('add_ssl_remainder',$data);
+		$this->db->update('add_ssl_reminder',$data);
 		if ($this->db->affected_rows() > 0)
         {
             return true;
@@ -115,7 +115,7 @@ class Ssl_update_db extends CI_Model
         
     //     $data=array('ssl_status'=>$change_val);
 	// 	$this->db->where("id",$id);
-    //     if($this->db->update("add_ssl_remainder",$data))
+    //     if($this->db->update("add_ssl_reminder",$data))
     //     {
     //         return true;
 	// 	}

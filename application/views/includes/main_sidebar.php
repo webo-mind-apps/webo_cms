@@ -98,7 +98,7 @@
 								<i class="icon-stack2"></i> <span>SSL</span></a>
 								<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 									<li class="nav-item">
-										<a href="<?php echo base_url(); ?>ssl-remainder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Add SSL</a>
+										<a href="<?php echo base_url(); ?>ssl-reminder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Add SSL</a>
 									</li>
 									<li class="nav-item">
 										<a href="<?php echo base_url(); ?>ssl-view" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>View SSL Renewal</a>
@@ -114,10 +114,10 @@
 
 <!-- 
 				<li class="nav-item">
-					<a href="<?php echo base_url(); ?>ssl-remainder" class="nav-link">
+					<a href="<?php echo base_url(); ?>ssl-reminder" class="nav-link">
 						<i class="fa fa-user"></i>
 						<span>
-							&nbsp Add SSL Remainder
+							&nbsp Add SSL reminder
 						</span>
 					</a>
 				</li>
@@ -126,16 +126,16 @@
 					<a href="<?php echo base_url(); ?>ssl-view" class="nav-link">
 						<i class="fa fa-user"></i>
 						<span>
-							&nbsp View SSL Remainder
+							&nbsp View SSL reminder
 						</span>
 					</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="<?php echo base_url(); ?>master-remainder" class="nav-link">
+					<a href="<?php echo base_url(); ?>master-reminder" class="nav-link">
 						<i class="fa fa-book" aria-hidden="true"></i>
 						<span>
-							&nbsp Master Remainder
+							&nbsp Master reminder
 						</span>
 					</a>
 				</li> -->

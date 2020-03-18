@@ -69,7 +69,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-md-inline">
                     <div class="page-title d-flex">
-                        <h4><i style="font-size:18px;" class="fa fa-lock"></i> &nbsp;SSL Remainder</h4>
+                        <h4><i style="font-size:18px;" class="fa fa-lock"></i> &nbsp;SSL reminder</h4>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@
                     if (company_name) {
                         jQuery.ajax({
                             type: 'POST',
-                            url: "<?php echo base_url(); ?>" + "ssl-remainder/dispaly-relavent-websites",
+                            url: "<?php echo base_url(); ?>" + "ssl-reminder/dispaly-relavent-websites",
                             data: {
                                 company_name: company_name
                             },

@@ -11,7 +11,7 @@ class Master_reminder_db extends CI_Model
     {
         $now = date("Y-m-d"); 
         $this->db->select('a.*,b.company_name');
-        $this->db->from('add_ssl_remainder a');
+        $this->db->from('add_ssl_reminder a');
 		$this->db->join('client_master b', 'a.company_id=b.id', 'left'); 
         if(!empty($now)){ 
             $this->db->where('renewel_date BETWEEN DATE_SUB(NOW(), INTERVAL 10 DAY) AND NOW()');

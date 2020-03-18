@@ -99,11 +99,11 @@
                          <!-- card body-->
                         <div class="card-body">
                            <!-- form -->
-                           <form method="post" action="<?php echo base_url(); ?>master-remainder/save-master-remainder" >
+                           <form method="post" action="<?php echo base_url(); ?>master-reminder/save-master-reminder" >
                               <div class="form-group">
                                  <label class="down">Name<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="text"  id="remainder-name" class="form-control" name="remainder_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data['remainder_name'])?'':$data['remainder_name'] ?>" required>
+                                    <input type="text"  id="reminder-name" class="form-control" name="reminder_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data['reminder_name'])?'':$data['reminder_name'] ?>" required>
                                  </div>
                               </div>
                               <div class="form-group">
@@ -235,7 +235,7 @@
          }
          
          });
-         if($("#remainder-name").val() != "")
+         if($("#reminder-name").val() != "")
          {
          $("#pass").removeAttr("required");
          $("#cpass").removeAttr("required");

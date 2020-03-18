@@ -93,7 +93,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-md-inline">
                     <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">&nbsp;SSL Remainder</span></h4>
+                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">&nbsp;SSL reminder</span></h4>
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                         <!-- card-->
                         <div class="card">
                             <div class="card-header header-elements-inline">
-                                <h5 class="card-title">&nbsp;SSL Remainder</h5>
+                                <h5 class="card-title">&nbsp;SSL reminder</h5>
                                 <div class="header-elements">
                                     <div class="list-icons">
                                         <a class="list-icons-item" data-action="collapse"></a>
@@ -128,7 +128,7 @@
                             </div>
                             <!-- card-body -->
                             <div class="card-body">
-                                <form action="<?php echo base_url(); ?>ssl-remainder/insert-ssl-remainder" method="post">
+                                <form action="<?php echo base_url(); ?>ssl-reminder/insert-ssl-reminder" method="post">
                                  <!-- row -->
                 <div class="row">
                     <!-- column -->
@@ -273,7 +273,7 @@
                 <!-- /row -->
                 <!-- Data Table -->
                 <div class="card">
-                    <table id="ssl_remainder_d_table" class="table datatable-basic table-bordered table-striped table-hover">
+                    <table id="ssl_reminder_d_table" class="table datatable-basic table-bordered table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>Si No</th>
@@ -307,26 +307,26 @@
     <!-- view details code -->
 
     <script>
-        //For delete remainder------------------------------------------------------
-        function delete_remainder(id) {
+        //For delete reminder------------------------------------------------------
+        function delete_reminder(id) {
             // alert(id);
             r = confirm("Are you sure to delete ?");
             if (r == true) {
                 jQuery.ajax({
                     type: "POST",
-                    url: "<?php echo base_url(); ?>ssl-remainder/delete-remainder-fun",
+                    url: "<?php echo base_url(); ?>ssl-reminder/delete-reminder-fun",
                     datatype: "text",
                     data: {
                         id: id
                     },
                     success: function(response) {
-                        $("#ssl_remainder_d_table").DataTable().ajax.reload();
+                        $("#ssl_reminder_d_table").DataTable().ajax.reload();
                     },
                     error: function(xhr, ajaxOptions, thrownError) {}
                 });
             }
         }
-        //for delete remainder------------------------------------------------------
+        //for delete reminder------------------------------------------------------
 
         $(document).ready(function() {
             
@@ -334,7 +334,7 @@
             //------------------------------------------------------Default Amt's Fill Values
 
             //In Edit auto fill data table and diplay manual or auto input boxes
-            $('#ssl_remainder_d_table').DataTable().destroy();
+            $('#ssl_reminder_d_table').DataTable().destroy();
             DatatableAdvanced.init();
             renewelMethod_display();
             //In Edit auto fill data table and diplay manual or auto input boxes 
@@ -392,7 +392,7 @@
                 if (get_cmp_id != "" && get_cmp_website != "") {
                     jQuery.ajax({
                         type: "POST",
-                        url: "<?php echo base_url(); ?>" + "ssl-remainder/auto-fill",
+                        url: "<?php echo base_url(); ?>" + "ssl-reminder/auto-fill",
                         dataType: 'json',
                         data: {
                             get_cmp_id: get_cmp_id,
@@ -453,13 +453,13 @@
             
 
 
-            //Auto Fill Ssl Remainder Table Values---------------------------------- 
+            //Auto Fill Ssl reminder Table Values---------------------------------- 
 
             $(".get_cmp_id,.get_cmp_website").change(function() {
-                $('#ssl_remainder_d_table').DataTable().destroy();
+                $('#ssl_reminder_d_table').DataTable().destroy();
                 DatatableAdvanced.init();
             });
-            //Auto Fill view Ssl Remainder Table Values------------------------------ 
+            //Auto Fill view Ssl reminder Table Values------------------------------ 
 
 
             //Hide DATE PICKERS------------------------------------------------------
@@ -507,7 +507,7 @@
                 if (company_id) {
                     jQuery.ajax({
                         type: 'POST',
-                        url: "<?php echo base_url(); ?>" + "ssl-remainder/dispaly-relavent-websites",
+                        url: "<?php echo base_url(); ?>" + "ssl-reminder/dispaly-relavent-websites",
                         data: {
                             company_id: company_id
                         },
@@ -592,7 +592,7 @@
             $("div#divLoading").addClass('show');
             jQuery.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>" + "ssl_remainder/view_ssl_details",
+                url: "<?php echo base_url(); ?>" + "ssl_reminder/view_ssl_details",
                 datatype: "text",
                 data: {
                     id: id
@@ -649,12 +649,12 @@
                 var get_cmp_id = $('.get_cmp_id').val();
                 var get_cmp_website = $('.get_cmp_website').val();
                 if (get_cmp_id != "" && get_cmp_website != "") {
-                    var dataTable = $('#ssl_remainder_d_table').DataTable({
+                    var dataTable = $('#ssl_reminder_d_table').DataTable({
                         'processing': true,
                         'serverSide': true,
                         'order': [],
                         'ajax': {
-                            'url': "<?php echo base_url() ?>" + "ssl_remainder/get_all_data?cid=" + get_cmp_id + "&cweb=" + get_cmp_website,
+                            'url': "<?php echo base_url() ?>" + "ssl_reminder/get_all_data?cid=" + get_cmp_id + "&cweb=" + get_cmp_website,
                             'type': 'POST'
                         },
                         'columnDefs': [{
