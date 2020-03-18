@@ -44,18 +44,43 @@ class Ssl_view extends CI_Controller
 				<div class="row">
 				<ul class="detail-list">
 					<li><p class="list-title">Company Name</p><p>' . ucwords($data[0]['company_name']) . '</p></li>
+					<li><p class="list-title">Website Name</p><p>' .$data[0]['company_website']. '</p></li>
 					<li><p class="list-title">Client Name</p><p>' . ucwords($data[0]['client_name']) . '</p></li>
-					<li><p class="list-title">Email Id</p><p>' .ucwords($data[0]['company_website']). '</p></li>
-					<li><p class="list-title">Alter Email Id</p><p>' .ucwords($data[0]['type']). '</p></li>
-					<li><p class="list-title">Phone No.</p><p>' . ucwords($data[0]['amount_paid']) . '</p></li>
-					<li><p class="list-title">Alter Phone No.</p><p>' .ucwords($data[0]['ssl_status'] ? "InActive" : "Active") . '</p></li>
-					<li><p class="list-title">Address</p><p>' .ucwords(date("d-m-Y", strtotime($data[0]['manual_update_date']))). '</p></li>
-					<li><p class="list-title">Address</p><p>' . ucwords(date("d-m-Y", strtotime($data[0]['renewel_date']))). '</p></li>
-					<li><p class="list-title">Address</p><p>' .  ucwords($data[0]['phone']). '</p></li>
-					<li><p class="list-title">Address</p><p>' . ucwords($data[0]['email']). '</p></li>
-					</ul>
+					<li><p class="list-title">Email Id</p><p>' .$data[0]['email']. '</p></li>
+					<li><p class="list-title">Alter Email Id</p><p>' .(!empty($data[0]['alt_email'])?$data[0]['alt_email']:'no-data'). '</p></li>
+					<li><p class="list-title">Phone No.</p><p>' .$data[0]['phone']. '</p></li>
+					<li><p class="list-title">Alter Phone No.</p><p>' .(!empty($data[0]['alt_alt_phoneemail'])?$data[0]['alt_phone']:'no-data'). '</p></li>
+					<li><p class="list-title">Update Type</p><p>' .ucwords($data[0]['type']). '</p></li>
+					<li><p class="list-title">Amount</p><p>' .$data[0]['net_amt']. '</p></li>
+					<li><p class="list-title">Update Date</p><p>' .date("d-m-Y", strtotime($data[0]['manual_update_date'])). '</p></li>
+					<li><p class="list-title">Renewal Date</p><p>' .date("d-m-Y", strtotime($data[0]['renewel_date'])). '</p></li>
+					<li><p class="list-title">Status</p><p>' .ucwords($data[0]['ssl_status'] ? "InActive" : "Active"). '</p></li>
+					
 				</div>
-            </div>';
+			</div>
+			<table class="table table-bordered table-striped table-hover paid-table">
+				<tr>
+					<th>Company Name</th>
+					<th>Website Name</th>
+					<th>Client Name</th>
+					<th>Renewal Date</th>
+					<th>Amount</th>
+					<th>Paid Amount</th>
+				</tr>';
+				foreach($data as $row)
+				{
+					echo '
+				<tr>
+					<td>'.$row['company_name'].'</td>
+					<td>'.$row['company_website'].'</td>
+					<td>'.$row['client_name'].'</td>
+					<td>'.$row['renewel_date'].'</td>
+					<td>'.$row['net_amt'].'</td>
+					<td>'.$row['paid_net_amount'].'</td>
+				</tr>';
+			
+				}
+				echo '</table>';
 	}
 
 	public function get_all_data($var = null) //created for implementing data tables
@@ -66,7 +91,7 @@ class Ssl_view extends CI_Controller
 		$i = 0; 
 		foreach ($fetch_data as $row) {
 			++$i;
-			if($row->ssl_status==1){$j=$i.'<input type="checkbox" style="height:20px;width:20px;cursor:pointer;margin-left:20px;" class="checkbox" name="checkbox" id="'.$row->id.'" value="' . $row->ssl_status . '">';}else{$j=$i.'<input type="checkbox" checked style="height:20px;width:20px;cursor:pointer;margin-left:20px;" class="checkbox" name="checkbox" id="'.$row->id.'" value="' . $row->ssl_status . '">';}
+			if($row->ssl_status==1){$j=$i.'<span class="badge bg-danger" style="cursor:pointer;margin-left:20px;">Inactive</span>';}else{$j=$i.'<span class="badge bg-success" style="cursor:pointer;margin-left:20px;">Active</span>';}
 			$sub_array   = array();
 			$sub_array[] = $j;
 			$sub_array[] = $row->company_name;
@@ -146,12 +171,12 @@ class Ssl_view extends CI_Controller
         redirect('Service_master', 'refresh');
     }
     ///delete the ssl....................................................................................
-	function ssl_status_change()
-    {
-        if ($this->ssl_view->ssl_status_change()) {
-            echo "1";
-        }
-        redirect('client-master', 'refresh');
-    }
+	// function ssl_status_change()
+    // {
+    //     if ($this->ssl_view->ssl_status_change()) {
+    //         echo "1";
+    //     }
+    //     redirect('client-master', 'refresh');
+    // }
 }
 ?>

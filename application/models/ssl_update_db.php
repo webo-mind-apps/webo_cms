@@ -94,7 +94,6 @@ class Ssl_update_db extends CI_Model
 		$this->db->where('id', $id);
         $query = $this->db->get("add_ssl_remainder");
 		$q=$query->row();
-		print_r($q);
         $data = array(
             "manual_update_date"	=> date('Y-m-d', strtotime( $q->manual_update_date. ' + 84 days')),
 		);
@@ -108,7 +107,19 @@ class Ssl_update_db extends CI_Model
         {
             return false;
         }
-    }
+	}
+	// function ssl_status_change()
+	// {
+	// 	$id=$this->input->post('id'); 
+    //     $change_val=$this->input->post('change_val'); 
+        
+    //     $data=array('ssl_status'=>$change_val);
+	// 	$this->db->where("id",$id);
+    //     if($this->db->update("add_ssl_remainder",$data))
+    //     {
+    //         return true;
+	// 	}
+	// }
    
 }
 

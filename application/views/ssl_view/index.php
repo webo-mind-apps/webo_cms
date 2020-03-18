@@ -104,7 +104,7 @@
       }
       ul.detail-list {
             list-style: none;
-            column-count: 2;
+            column-count: 3;
             width: 100%;
          }
       p.list-title {
@@ -119,10 +119,18 @@
 
          ul.detail-list li p:nth-child(2) {
             color: #575757;
+            font-size:16px;
          }
          .details-heading
          {
             margin-bottom: 25px;
+            background-color:blue;
+            height:60px;
+            color:white;
+         }
+         .paid-table
+         {
+            margin:0px 0px 20px 0px;
          }
    </style>
 </head>
@@ -130,6 +138,10 @@
 <body>
    <!-- Main navbar  -->
    <?php
+  $d=date_parse_from_format("Y-m-d", "2021-01-01");
+  echo $d["month"];
+
+    
    $this->load->view('includes/main_navbar');
    ?>
    <!-- /main navbar -->
@@ -203,17 +215,6 @@
                            </div>
                         </div>
                      </div>
-
-         <?php
-         if ($this->session->flashdata('updated_ssl_view', 'updated successfully')) {
-         ?>
-            <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <span class="text-semibold" id="success-msg">Updated SSL View</span>
-            </div>
-         <?php
-         }
-         ?>
 
          <?php
          if ($this->session->flashdata('success')) {
@@ -293,7 +294,7 @@
 
    <!-- view details code -->
    <div id="modal_theme_primary" class="modal fade" tabindex="-1">
-      <div class="modal-dialog modal-md">
+      <div class="modal-dialog modal-lg">
          <div class="modal-content" id="ssl_view_details">
          </div>
       </div>
@@ -591,52 +592,52 @@
                   });
               }
               }
-              $(document).on('change', '.checkbox', function () { 
-                  r = confirm("Are you sure to change the status ?");
-                  if (r == true) {
-                  var id= $(this).attr("id");
-                  var change_id=$(this).val();
+            //   $(document).on('change', '.checkbox', function () { 
+            //       r = confirm("Are you sure to change the status ?");
+            //       if (r == true) {
+            //       var id= $(this).attr("id");
+            //       var change_id=$(this).val();
                   
-                  if(change_id==1)
-                  {
-                     var change_val=0;
-                     $(this).val(0);
-                     }
-                     else{
-                        var change_val=1;
-                     $(this).val(1);
+            //       if(change_id==1)
+            //       {
+            //          var change_val=0;
+            //          $(this).val(0);
+            //          }
+            //          else{
+            //             var change_val=1;
+            //          $(this).val(1);
                   
-                        }
+            //             }
                   
-                  jQuery.ajax({
-                  type: "POST",
-                  url: "<?php echo base_url(); ?>ssl_view/ssl_status_change",
-                  datatype: "text",
-                  data: {
-                        id:id,
-                  change_val: change_val
-                  },
-                  success: function(response) {
+            //       jQuery.ajax({
+            //       type: "POST",
+            //       url: "<?php echo base_url(); ?>ssl_view/ssl_status_change",
+            //       datatype: "text",
+            //       data: {
+            //             id:id,
+            //       change_val: change_val
+            //       },
+            //       success: function(response) {
                         
                      
-                  },
-                  error: function(xhr, ajaxOptions, thrownError) {}
-                  });
-                  }
-                  else if (r == false){
+            //       },
+            //       error: function(xhr, ajaxOptions, thrownError) {}
+            //       });
+            //       }
+            //       else if (r == false){
             
-                        if($(this).val()==0)
-                        {
-                           this.setAttribute("checked", "checked");
-                           this.checked = true;
-                        }
-                        else if(change_id=$(this).val()==1){
-                           this.setAttribute("checked", ""); // For IE
-                           this.removeAttribute("checked"); // For other browsers
-                           this.checked = false;
-                     }
-                     }
-                  }) 
+            //             if($(this).val()==0)
+            //             {
+            //                this.setAttribute("checked", "checked");
+            //                this.checked = true;
+            //             }
+            //             else if(change_id=$(this).val()==1){
+            //                this.setAttribute("checked", ""); // For IE
+            //                this.removeAttribute("checked"); // For other browsers
+            //                this.checked = false;
+            //          }
+            //          }
+            //       }) 
 
    </script>
 </body>

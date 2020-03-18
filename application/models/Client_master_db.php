@@ -114,10 +114,15 @@ class Client_master_db extends CI_Model
     }
     function client_master_edit_details($id)
     {  
-		// $id=$this->input->post('id');
-        $this->db->where('id', $id);
-        $query = $this->db->get("client_master");
-        $q=$query->row_array();
+        $this->db->select('a.*,b.website');
+        $this->db->from('client_master a');
+		$this->db->join('company_website b','a.id=b.company_id','left');
+        $this->db->where('a.id', $id);
+        $query = $this->db->get();
+        $q=$query->result_array();
+        // echo "<pre>";
+        // print_r($q);
+        // exit;
         return $q;
         
     }
@@ -146,23 +151,45 @@ class Client_master_db extends CI_Model
         }
     }
     //save the index form value to the database
-    function save_website($data)
+    function save_website()
     {
-        $this->db->where('website', $data['website']);
-        $query = $this->db->get("company_website");
-        if ($query->num_rows() <= 0)
-		{
-            $this->db->insert('company_website',$data);
-            if ($this->db->affected_rows() > 0)
-            {
-               return "insert";
-            }
-        }
-        else
+        $website = $this->input->post('website_name');
+        $company_name = $this->input->post('company_name');
+        $client_id=$this->input->post('client_id'); 
+
+        $company_id = $this->get_client_master_company_id($company_name);
+
+        if($client_id!='' || !empty($client_id))
         {
-           return "exist";
+        $this->db->where("company_id",$company_id['id']);
+        $this->db->delete("company_website");
+        }
+        foreach ($website as $key => $row) {
+            $this->db->where('website', $row);
+            $query = $this->db->get("company_website");
+            if ($query->num_rows() <= 0)
+            {
+                $data = array(
+                    "company_id"            => $company_id['id'],
+                    "website"                => $row,
+                );
+                $web_status = $this->save_website1($data);
+            }
+            
+        }
+        if($web_status)
+        {
+            return true;
         }
     }
+    function save_website1($data)
+    {
+        $this->db->insert('company_website',$data);
+        if ($this->db->affected_rows() > 0)
+        {
+            return true;
+        }
+     }
     function client_master_view_details($id)
 	{
 		$this->db->select('a.*,b.*, b.id as site_id,a.id as id');

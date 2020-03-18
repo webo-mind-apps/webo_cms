@@ -9,14 +9,14 @@ class Ssl_view_db extends CI_Model
 	
 	function view_ssl_details_db($id)
 	{
-		$this->db->select('a.*,b.*');
+		$this->db->select('a.*,b.*,c.*, b.id as site_id,a.id as id');
 		$this->db->from('add_ssl_remainder a');
 		$this->db->join('client_master b', 'a.company_id=b.id', 'left');
+		$this->db->join('paid_ssl_remainder c', 'a.company_website=c.company_website', 'left');
 
 		$this->db->where('a.id', $id);
 		$query = $this->db->get();
 		$q = $query->result_array();
-		// $q[0]['paid_date'] = $this->getPaidDate($q[0]['company_id'], $q[0]['company_website']);
 		return $q;
 	}
 
@@ -37,7 +37,7 @@ class Ssl_view_db extends CI_Model
 		$year = date("Y");
 		$date_from=$year."-".$month."-01";
 		$date_to=$year."-".$month."-31";
-        $order_column = array("a.id","b.company_name","a.company_website","a.manual_update_date" ,"a.renewel_date","a.net_amt,a.ssl_status",);  
+        $order_column = array("a.id","b.company_name","a.company_website","a.manual_update_date" ,"a.renewel_date","a.net_amt","a.ssl_status",);  
 		$this->db->select('a.*,b.company_name');
 		$this->db->from('add_ssl_remainder a');
 		$this->db->join('client_master b','b.id=a.company_id','left');
@@ -108,7 +108,28 @@ class Ssl_view_db extends CI_Model
 		$this->db->insert('paid_ssl_remainder',$row);
 		if ($this->db->affected_rows() > 0)
         {
-            return true;
+			$this->db->select("renewel_date");
+			$this->db->where('id', $id);
+			$query = $this->db->get("add_ssl_remainder");
+			$q=$query->row();
+			$renewel=$q->renewel_date;
+			if($paid_date<=$renewel)
+			{
+				$next_renewel=$renewel;
+			}
+			else if($paid_date>$renewel)
+			{
+				$next_renewel=$paid_date;
+			}
+			$data = array(
+				"renewel_date"	=> date('Y-m-d', strtotime($next_renewel. '+1 year')),
+			);
+			$this->db->where('id', $id);
+			$this->db->update('add_ssl_remainder',$data);
+			if ($this->db->affected_rows() > 0)
+			{
+				return true;
+			}
         }
         else
         {
@@ -119,7 +140,7 @@ class Ssl_view_db extends CI_Model
 	public function fetch_paid_details()
     {
 		$id = $this->input->post('id');
-		$this->db->select('id,amount_paid,gst_amt,net_amt');
+		$this->db->select('id,amount_paid,gst_amt,net_amt,renewel_date');
         $this->db->where('id', $id);
         $query = $this->db->get('add_ssl_remainder');
         $q = $query->row_array();
@@ -194,16 +215,16 @@ class Ssl_view_db extends CI_Model
         }
 	}
 	
-	function ssl_status_change()
-	{
-		$id=$this->input->post('id'); 
-        $change_val=$this->input->post('change_val'); 
+	// function ssl_status_change()
+	// {
+	// 	$id=$this->input->post('id'); 
+    //     $change_val=$this->input->post('change_val'); 
         
-        $data=array('ssl_status'=>$change_val);
-		$this->db->where("id",$id);
-        if($this->db->update("add_ssl_remainder",$data))
-        {
-            return true;
-		}
-	}
+    //     $data=array('ssl_status'=>$change_val);
+	// 	$this->db->where("id",$id);
+    //     if($this->db->update("add_ssl_remainder",$data))
+    //     {
+    //         return true;
+	// 	}
+	// }
 }

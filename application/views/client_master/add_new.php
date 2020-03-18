@@ -101,7 +101,7 @@
                               <div class="form-group">
                                  <label class="down">Company Name<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="text" id="company-name" class="form-control"  name="company_name" minlength="3" maxlength="100" value="<?php echo empty($data['company_name'])?'':$data['company_name'] ?>" required>
+                                    <input type="text" id="company-name" class="form-control"  name="company_name" minlength="3" maxlength="100" value="<?php echo empty($data[0]['company_name'])?'':$data[0]['company_name'] ?>" required>
                                  </div>
                               </div>
                            </div>
@@ -109,7 +109,7 @@
                               <div class="form-group">
                                  <label class="down">Client Name<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="text" id="client-name" class="form-control" name="client_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data['client_name'])?'':$data['client_name'] ?>" required>
+                                    <input type="text" id="client-name" class="form-control" name="client_name" minlength="3" maxlength="25" onkeypress="return isalpha();" value="<?php echo empty($data[0]['client_name'])?'':$data[0]['client_name'] ?>" required>
                                  </div>
                               </div>
                            </div>
@@ -119,7 +119,7 @@
                               <div class="form-group">
                                  <label class="down">Phone No.<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="text" id="phone" class="form-control phone" name="phone" onkeypress="return isNumber();" maxlength="15" value="<?php echo empty($data['phone'])?'':$data['phone'] ?>"  required>
+                                    <input type="text" id="phone" class="form-control phone" name="phone" onkeypress="return isNumber();" maxlength="15" value="<?php echo empty($data[0]['phone'])?'':$data[0]['phone'] ?>"  required>
                                  </div>
                               </div>
                            </div>
@@ -127,7 +127,7 @@
                               <div class="form-group">
                                  <label class="down">Alter Phone No.</label>
                                  <div class="input-group">
-                                    <input type="text" id="alt-phone" class="form-control phone" name="alt_phone" maxlength="15"  onkeypress="return isNumber();"  value="<?php echo empty($data['alt_phone'])?'':$data['alt_phone'] ?>" >
+                                    <input type="text" id="alt-phone" class="form-control phone" name="alt_phone" maxlength="15"  onkeypress="return isNumber();"  value="<?php echo empty($data[0]['alt_phone'])?'':$data[0]['alt_phone'] ?>" >
                                  </div>
                               </div>
                            </div>
@@ -137,7 +137,7 @@
                               <div class="form-group">
                                  <label class="down">Email Id<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="email" id="email" class="form-control email"  name="email" value="<?php echo empty($data['email'])?'':$data['email'] ?>" required>
+                                    <input type="email" id="email" class="form-control email"  name="email" value="<?php echo empty($data[0]['email'])?'':$data[0]['email'] ?>" required>
                                  </div>
                               </div>
                            </div>
@@ -145,7 +145,7 @@
                               <div class="form-group">
                                  <label class="down">Alter Email Id</label>
                                  <div class="input-group">
-                                    <input type="email" id="alt-email" class="form-control email"  name="alt_email" value="<?php echo empty($data['alt_email'])?'':$data['alt_email'] ?>" >
+                                    <input type="email" id="alt-email" class="form-control email"  name="alt_email" value="<?php echo empty($data[0]['alt_email'])?'':$data[0]['alt_email'] ?>" >
                                  </div>
                               </div>
                            </div>
@@ -156,7 +156,7 @@
                                  <label class="down">Address<span style="color:red"> *</span> </label>
                                  <div class="input-group">
                                     <textarea name="address" id="address" cols="30" rows="5" class="form-control" 
-                                       required><?php echo empty($data['address'])?'':$data['address'] ?></textarea>
+                                       required><?php echo empty($data[0]['address'])?'':$data[0]['address'] ?></textarea>
                                  </div>
                               </div>
                            </div>
@@ -164,32 +164,52 @@
                               <div class="form-group">
                                  <label class="down">GST<span style="color:red"> *</span> </label>
                                  <div class="input-group">
-                                    <input type="text" id="gst" class="form-control"  name="gst" value="<?php echo empty($data['gst'])?'':$data['gst'] ?>" minlength="15" maxlength="15"  onfocusout="isAlpha_Number();" required>
+                                    <input type="text" id="gst" class="form-control"  name="gst" value="<?php echo empty($data[0]['gst'])?'':$data[0]['gst'] ?>" minlength="15" maxlength="15"  onfocusout="isAlpha_Number();" required>
                                  </div>
                               </div>
                               <?php 
-                                 $check=empty($data['company_name'])?'':$data['company_name'];
+                                 $check=empty($data[0]['company_name'])?'':$data[0]['company_name'];
                                  if($check =='' || empty($check))
                                  {
                                      ?>
-                              <div class="website" style="display:block">
-                                 <div class="form-group">
+                            
+                                 <div class="form-group" >
                                     <label class="down">Website Name<span style="color:red"> *</span> </label>
                                     <div class="input-group">
                                        <input type="text" class="form-control website-name"  name="website_name[]" maxlength="100" onfocusout="website_validation();" placeholder="eg:www.google.com" required>
                                     </div>
                                  </div>
+                                 <?php
+                                 }
+                                 else 
+                                 {
+                                    ?>
+                                 <label class="down">Website Name<span style="color:red"> *</span> </label>
+                                    <?php
+                                    foreach ($data as $key => $row) {
+                                       ?>
+
+                                    <div class="form-group">
+                                   
+                                    <div class="input-group">
+                                       <input type="text" class="form-control website-name"  name="website_name[]" maxlength="100" onfocusout="website_validation();" placeholder="eg:www.google.com" value="<?php echo $row['website']; ?>" required>
+                                    </div>
+                                 </div>
+                                       
+                                  <?php
+                                   }
+
+                                 }
+                                 ?>
                                  <div class="form-group" id="append-web" style="margin-top:10px;"></div>
                                  <div  style="color:blue;text-align:right;margin-top:5px;">
                                     <span id="add-new"><i class="fas fa-plus" style="margin-right:3px;"></i>Add new</span>
                                  </div>
-                              </div>
-                              <?php
-                                 }
-                                 ?>
+                              
+                             
                            </div>
                         </div>
-                        <input type="hidden" value="<?php echo empty($data['id'])?'':$data['id'] ?>" name="client_id">
+                        <input type="hidden" value="<?php echo empty($data[0]['id'])?'':$data[0]['id'] ?>" name="client_id">
                         <button  type="submit" id="button" name="insert_button" class="insert btn btn-primary" >Submit<i class="icon-paperplane ml-2"></i></button>
                      </form>
                      <!-- /form -->

@@ -110,31 +110,17 @@ class Client_master extends CI_Controller
     {
         $status = $this->client_master->save_client_master();
         if ($status == "update") {
-            $msg = "updated successfully";
-        } else if ($status == "true") {
-            $exist = 0;
-            $insert = 0;
-            $website = $this->input->post('website_name');
-            $company_name = $this->input->post('company_name');
-            foreach ($website as $key => $row) {
-                $company_id = $this->client_master->get_client_master_company_id($company_name);
-                $datas = array(
-                    "company_id"            => $company_id['id'],
-                    "website"                => $row,
-                );
-                $insert_status = $this->client_master->save_website($datas);
-                if ($insert_status == "insert") {
-                    $insert++;
-                } else if ($insert_status == "exist") {
-                    $exist++;
-                }
+            if($this->client_master->save_website())
+            {
+                $msg = "updated successfully";
             }
-            if ($exist != 0 && $insert != 0) {
-                $msg = "Inserted successfully<br>" . $exist . " website already exist";
-            } 
-            else {
+        } else if ($status == "true") {
+           
+            if($this->client_master->save_website())
+            {
                 $msg = "Inserted successfully";
             }
+           
         }
         else if ($status == "email") {
             $msg = "This E-mail Id already exist give another E-mail Id";

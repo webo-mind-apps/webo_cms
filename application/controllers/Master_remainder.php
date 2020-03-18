@@ -143,6 +143,7 @@
 		{
 			$msg="";
 			$to_email = $this->input->post('email');
+			$name = $this->input->post('remainder_name');
 			$pass = $this->input->post('pass');
 			$insert_status = $this->master_remainder->save_master_remainder();
 			if ($insert_status == "insert") {
@@ -151,7 +152,7 @@
 				$this->load->config('email');
 				$this->load->library('email');
 				$subject = "welcome";
-				$message = "From now you are webomindapps admin";
+				$message = "Hi ".$name.",<br>Account is created for webomindapps.";
 				$from = $this->config->item('smtp_user');
 				$to =$to_email;
 				$this->email->set_newline("\r\n");
@@ -170,7 +171,7 @@
 					$this->load->config('email');
 					$this->load->library('email');
 					$subject = "welcome";
-					$message = "Some one change your webomindapsps admin password";
+					$message = "Hi ".$name.",<br>Your webomindapps admin password is reset check the dashboard.";
 					$from = $this->config->item('smtp_user');
 					$to =$to_email;
 					$this->email->set_newline("\r\n");

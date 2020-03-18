@@ -102,6 +102,37 @@
          border: 1px solid #ddd;
          border-radius: .1875rem;
       }
+
+      ul.detail-list {
+            list-style: none;
+            column-count: 3;
+            width: 100%;
+         }
+      p.list-title {
+            margin-bottom: 5px;
+            color: #000;
+            font-weight: 500;
+         }
+
+         ul.detail-list li {
+            margin-bottom: 17px;
+         }
+
+         ul.detail-list li p:nth-child(2) {
+            color: #575757;
+            font-size:16px;
+         }
+         .details-heading
+         {
+            margin-bottom: 25px;
+            background-color:blue;
+            height:60px;
+            color:white;
+         }
+         .paid-table
+         {
+            margin:0px 0px 20px 0px;
+         }
    </style>
 </head>
 
@@ -187,6 +218,7 @@
                               <th>Amount</th>
                               <th>Renewal Date</th>
                               <th>Update Date</th>
+                              <th>Update</th>
                               <th>Actions</th>
                            </tr>
                         </thead>
@@ -205,6 +237,14 @@
       <!-- /content wrapper -->
    </div>
    <!-- /page content -->
+    <!-- view details code -->
+    <div id="modal_theme_primary" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content" id="ssl_view_details">
+         </div>
+      </div>
+   </div>
+   <!-- view details code -->
 
    <script>
       //DATA TABLES CODE
@@ -385,6 +425,92 @@
                 });
             }
         }
+
+        function ssl_master_delete(id) {
+              r = confirm("Are you sure to delete ?");
+                  if (r == true) {
+                  jQuery.ajax({
+                      type: "POST",
+                      url: "<?php echo base_url(); ?>ssl_view/ssl_master_delete",
+                      datatype: "text",
+                      data: {
+                          id: id
+                      },
+                      success: function(response) {
+                  
+                  $("#ssl_view_d_table").DataTable().ajax.reload();
+                      },
+                      error: function(xhr, ajaxOptions, thrownError) {}
+                  });
+              }
+              }
+               //View Details Code----------------------
+      function view_ssl_details(id) {
+         $("div#divLoading").addClass('show');
+         jQuery.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>" + "ssl_view/view_ssl_details",
+            datatype: "text",
+            data: {
+               id: id
+            },
+            success: function(response) {
+               $('#ssl_view_details').empty();
+               $('#ssl_view_details').append(response);
+               $("div#divLoading").removeClass('show');
+               $('#modal_theme_primary').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {}
+         });
+      }
+      //View Details Code----------------------
+      //   $(document).on('change', '.checkbox', function () { 
+      //             r = confirm("Are you sure to change the status ?");
+      //             if (r == true) {
+      //             var id= $(this).attr("id");
+      //             var change_id=$(this).val();
+                  
+      //             if(change_id==1)
+      //             {
+      //                var change_val=0;
+      //                $(this).val(0);
+      //                }
+      //                else{
+      //                   var change_val=1;
+      //                $(this).val(1);
+                  
+      //                   }
+                  
+      //             jQuery.ajax({
+      //             type: "POST",
+      //             url: "<?php echo base_url(); ?>ssl_view/ssl_status_change",
+      //             datatype: "text",
+      //             data: {
+      //                   id:id,
+      //             change_val: change_val
+      //             },
+      //             success: function(response) {
+                        
+                     
+      //             },
+      //             error: function(xhr, ajaxOptions, thrownError) {}
+      //             });
+      //             }
+      //             else if (r == false){
+            
+      //                   if($(this).val()==0)
+      //                   {
+      //                      this.setAttribute("checked", "checked");
+      //                      this.checked = true;
+      //                   }
+      //                   else if(change_id=$(this).val()==1){
+      //                      this.setAttribute("checked", ""); // For IE
+      //                      this.removeAttribute("checked"); // For other browsers
+      //                      this.checked = false;
+      //                }
+      //                }
+      //             }) 
+
 
    </script>
 </body>
