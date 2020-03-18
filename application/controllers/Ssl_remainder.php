@@ -142,9 +142,7 @@ class Ssl_remainder extends CI_Controller
 
     function delete_remainder_fun()
     {
-        if ($this->Ssl_remainder_db->delete_remainder_db()) {
-            //$this->session->set_flashdata('ssl_deleted', 'ssl_deleted');
-        }
+         $this->Ssl_remainder_db->delete_remainder_db(); 
     }
     function arr_op($arr)
     {
