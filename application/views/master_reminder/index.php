@@ -77,7 +77,7 @@
                      <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                   </div>
                   <div class="right text-center ">
-                     <a href="<?php echo base_url(); ?>master-remainder/add-new">
+                     <a href="<?php echo base_url(); ?>master-reminder/add-new">
                      <button type="button" class="btn btn-labeled btn-labeled-right bg-primary" data-toggle="modal" data-target="#fetchData">Add New <b><i class="fa fa-plus" aria-hidden="true"></i></b></button>
                      </a>
                   </div>
@@ -113,11 +113,11 @@
                         </div>
                         <!-- card-body -->
                         <!-- <div class="card-body"> -->
-                        <table id="remainder_master_d_table" class="table datatable-basic table-bordered table-striped table-hover">
+                        <table id="reminder_master_d_table" class="table datatable-basic table-bordered table-striped table-hover">
                            <thead>
                               <tr>
                                  <th>Si No</th>
-                                 <th>Remainder Name</th>
+                                 <th>reminder Name</th>
                                  <th>Phone No.</th>
                                  <th>Email Id</th>
                                  <th class="text-center">Actions</th>
@@ -171,12 +171,12 @@
          }
          });
          
-         var dataTable = $('#remainder_master_d_table').DataTable({
+         var dataTable = $('#reminder_master_d_table').DataTable({
          'processing': true,
          'serverSide': true,
          'order': [],
          'ajax': {
-         'url': "<?php echo base_url() . 'master_remainder/get_all_data' ?>",
+         'url': "<?php echo base_url() . 'master_reminder/get_all_data' ?>",
          'type': 'POST'
          },
          'columnDefs': [{
@@ -245,19 +245,19 @@
          DatatableAdvanced.init()
                });
                
-          function master_remainder_delete(id) {
+          function master_reminder_delete(id) {
                r = confirm("Are you sure to delete ?");
                    if (r == true) {
                    jQuery.ajax({
                        type: "POST",
-                       url: "<?php echo base_url(); ?>master_remainder/master_remainder_delete",
+                       url: "<?php echo base_url(); ?>master_reminder/master_reminder_delete",
                        datatype: "text",
                        data: {
                            id: id
                        },
                        success: function(response) {
                    
-                   $("#remainder_master_d_table").DataTable().ajax.reload();
+                   $("#reminder_master_d_table").DataTable().ajax.reload();
                        },
                        error: function(xhr, ajaxOptions, thrownError) {}
                    });
