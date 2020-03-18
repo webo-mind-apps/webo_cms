@@ -99,38 +99,15 @@
                 </div>
             </div>
             <?php
-            if ($this->session->flashdata('ssl_deleted', 'ssl_deleted')) {
+               if ($this->session->flashdata('success')) {
             ?>
-                <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span class="text-semibold">Deleted Successfully</span>
-                </div>
+            <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <span class="text-semibold"><?php echo $this->session->flashdata('success'); ?></span>
+            </div>
             <?php
-            }
-            ?>
-            <?php
-            if ($this->session->flashdata('ssl_remainder_added', 'ssl_remainder_added')) {
-            ?>
-                <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span class="text-semibold">SSL Remainder Added</span>
-                </div>
-            <?php
-            }
-            ?>
-            <?php
-            if ($this->session->flashdata('ssl_remainder_updated', 'ssl_remainder_updated')) {
-            ?>
-                <div class="alert bg-success alert-styled-left" style="margin: 0 20px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span class="text-semibold">SSL Remainder Exist Updated!..</span>
-                </div>
-            <?php
-            }
-            ?>
-            <!-- <?php //echo $this->session->flashdata('success'); 
-                    ?> -->
-
+               }
+            ?> 
             <!-- Content area -->
             <div class="content">
                 <!-- row -->

@@ -50,7 +50,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a href="<?php echo base_url(); ?>dash-board" class="nav-link">
+					<a href="<?php echo base_url(); ?>dashboard" class="nav-link">
 						<i class="fa fa-user" aria-hidden="true"></i>
 						<span>
 							&nbsp Dashboard
