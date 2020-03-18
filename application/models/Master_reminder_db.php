@@ -7,6 +7,18 @@ class Master_reminder_db extends CI_Model
         parent::__construct();
     }
 
+    public function fetch_gst()
+    {
+        $this->db->select('gst_per');
+        $this->db->from('gst');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
     public function fetch_notify_ssl_reminder_db()
     {
         $now = date("Y-m-d"); 
