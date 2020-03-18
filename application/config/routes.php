@@ -29,12 +29,12 @@ $route['ssl-view/save-paid-details']                            = 'Ssl_view/save
 
 
 //MASTER REMAINDER------------------------
-$route['master-remainder']                                      = 'Master_remainder';
-$route['master-remainder/save-master-remainder']                = 'Master_remainder/save_master_remainder';
-$route['master-remainder/edit-remainder-master']                = 'Master_remainder/edit_remainder_master';
-$route['master-remainder/master-remainder-edit-details/(:any)'] = 'Master_remainder/master_remainder_edit_details/$1';
-$route['master-remainder/delete-remainder-master']              = 'Master_remainder/delete_remainder_master';
-$route['master-remainder/add-new']                              = 'Master_remainder/add_new';
+$route['master-reminder']                                      = 'Master_reminder';
+$route['master-reminder/save-master-reminder']                = 'Master_reminder/save_master_reminder';
+$route['master-reminder/edit-reminder-master']                = 'Master_reminder/edit_reminder_master';
+$route['master-reminder/master-reminder-edit-details/(:any)'] = 'Master_reminder/master_reminder_edit_details/$1';
+$route['master-reminder/delete-reminder-master']              = 'Master_reminder/delete_reminder_master';
+$route['master-reminder/add-new']                              = 'Master_reminder/add_new';
 
 
 //SERVICE MASTER-----------------------------

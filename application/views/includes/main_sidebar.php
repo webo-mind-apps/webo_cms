@@ -66,7 +66,7 @@
 										<a href="<?php echo base_url(); ?>service-master" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Service Master</a>
 									</li>
 									<li class="nav-item">
-										<a href="<?php echo base_url(); ?>master-remainder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Admin Master</a>
+										<a href="<?php echo base_url(); ?>master-reminder" class="nav-link"><i class="fa fa-angle-right" aria-hidden="true"></i>Admin Master</a>
 									</li>
 
 									<li class="nav-item">

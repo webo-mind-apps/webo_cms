@@ -397,8 +397,8 @@
                     <td>
                       <div class="container">
                         <div class="content">
-                          <!-- <b>Dear <?php //echo $remainder_name 
-                                        ?>,</b> -->
+                          <b>Dear <?php echo $reminder_name 
+                                        ?>,</b>
                           <p style="margin-top:15px;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reminder of pending Renewal payment is a kind notification to a client who has not made a payment as expected. This notification is to request the company or individual to release the pending renewal payment on before renewal date xx-xx-xxxx.</p>
 
                           <p>Thanks,</p>
