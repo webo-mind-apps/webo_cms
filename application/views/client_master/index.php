@@ -67,11 +67,10 @@
          .danger{color:red;}
          ul.detail-list {
             list-style: none;
-            column-count: 2;
+            column-count: 3;
             width: 100%;
          }
-
-         p.list-title {
+      p.list-title {
             margin-bottom: 5px;
             color: #000;
             font-weight: 500;
@@ -83,10 +82,15 @@
 
          ul.detail-list li p:nth-child(2) {
             color: #575757;
+            font-size:16px;
          }
+
          .details-heading
          {
             margin-bottom: 25px;
+            background-color:blue;
+            height:60px;
+            color:white;
          }
          .checkbox{
             margin-right:10px;
@@ -95,6 +99,10 @@
             height:15px;
             width:15px;
            }
+           .web {
+            color: #575757;
+            font-size:16px;
+         }
       </style>
    </head>
    <body>
@@ -182,7 +190,7 @@
       </div>
       <!-- /page content -->
       <div id="modal_theme_primary" class="modal fade" tabindex="-1">
-         <div class="modal-dialog modal-md">
+         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="client_details">
             </div>
          </div>

@@ -24,7 +24,7 @@ class Ssl_update extends CI_Controller
 		$i = 0;
 		foreach ($fetch_data as $row) {
 			++$i;
-			if($row->ssl_status==1){$j=$i.'<span class="badge bg-danger" style="cursor:pointer;margin-left:20px;">Inactive</span>';}else{$j=$i.'<span class="badge bg-success" style="cursor:pointer;margin-left:20px;">Active</span>';}
+			if($row->ssl_status==1){$j=$i.'<span class="badge" style="cursor:pointer;margin-left:20px;background-color:#f49761;color:white;">Inactive</span>';}else{$j=$i.'<span class="badge bg-success" style="cursor:pointer;margin-left:20px;color:white;">Active</span>';}
 			$sub_array   = array();
 			$sub_array[] = $j;
 			$sub_array[] = $row->company_name;

@@ -49,7 +49,7 @@ class Ssl_view extends CI_Controller
 					<li><p class="list-title">Email Id</p><p>' .$data[0]['email']. '</p></li>
 					<li><p class="list-title">Alter Email Id</p><p>' .(!empty($data[0]['alt_email'])?$data[0]['alt_email']:'no-data'). '</p></li>
 					<li><p class="list-title">Phone No.</p><p>' .$data[0]['phone']. '</p></li>
-					<li><p class="list-title">Alter Phone No.</p><p>' .(!empty($data[0]['alt_alt_phoneemail'])?$data[0]['alt_phone']:'no-data'). '</p></li>
+					<li><p class="list-title">Alter Phone No.</p><p>' .(!empty($data[0]['alt_phone'])?$data[0]['alt_phone']:'no-data'). '</p></li>
 					<li><p class="list-title">Update Type</p><p>' .ucwords($data[0]['type']). '</p></li>
 					<li><p class="list-title">Amount</p><p>' .$data[0]['net_amt']. '</p></li>
 					<li><p class="list-title">Update Date</p><p>' .date("d-m-Y", strtotime($data[0]['manual_update_date'])). '</p></li>
@@ -63,6 +63,7 @@ class Ssl_view extends CI_Controller
 					<th>Company Name</th>
 					<th>Website Name</th>
 					<th>Client Name</th>
+					<th>Update Type</th>
 					<th>Renewal Date</th>
 					<th>Amount</th>
 					<th>Paid Amount</th>
@@ -74,6 +75,7 @@ class Ssl_view extends CI_Controller
 					<td>'.$row['company_name'].'</td>
 					<td>'.$row['company_website'].'</td>
 					<td>'.$row['client_name'].'</td>
+					<td>'.$row['type'].'</td>
 					<td>'.$row['renewel_date'].'</td>
 					<td>'.$row['net_amt'].'</td>
 					<td>'.$row['paid_net_amount'].'</td>
@@ -91,7 +93,7 @@ class Ssl_view extends CI_Controller
 		$i = 0; 
 		foreach ($fetch_data as $row) {
 			++$i;
-			if($row->ssl_status==1){$j=$i.'<span class="badge" style="cursor:pointer;margin-left:20px;background-color:#f49761">Inactive</span>';}else{$j=$i.'<span class="badge bg-success" style="cursor:pointer;margin-left:20px;">Active</span>';}
+			if($row->ssl_status==1){$j=$i.'<span class="badge" style="cursor:pointer;margin-left:20px;background-color:#f49761;color:white;">Inactive</span>';}else{$j=$i.'<span class="badge bg-success" style="cursor:pointer;margin-left:20px;color:white;">Active</span>';}
 			$sub_array   = array();
 			$sub_array[] = $j;
 			$sub_array[] = $row->company_name;

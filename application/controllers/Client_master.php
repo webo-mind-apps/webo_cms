@@ -74,10 +74,10 @@ class Client_master extends CI_Controller
                         <ul class="detail-list">
                             <li><p class="list-title">Company Name</p><p>' . ucwords($data[0]['company_name']) . '</p></li>
                             <li><p class="list-title">Client Name</p><p>' . ucwords($data[0]['client_name']) . '</p></li>
-                            <li><p class="list-title">Email Id</p><p>' . ucwords($data[0]['email']) . '</p></li>
-                            <li><p class="list-title">Alter Email Id</p><p>' .ucwords(empty($data[0]['alt_email'])?'No Data':$data[0]['alt_email']). '</p></li>
+                            <li><p class="list-title">Email Id</p><p>' . $data[0]['email']. '</p></li>
+                            <li><p class="list-title">Alter Email Id</p><p>' .(!empty($data[0]['alt_email'])?$data[0]['alt_email']:'no-data'). '</p></li>
                             <li><p class="list-title">Phone No.</p><p>' . ucwords($data[0]['phone']) . '</p></li>
-                            <li><p class="list-title">Alter Phone No.</p><p>' . ucwords(empty($data[0]['alt_phone'])?'No Data':$data[0]['alt_phone']) . '</p></li>
+                            <li><p class="list-title">Alter Phone No.</p><p>' .(!empty($data[0]['alt_phone'])?$data[0]['alt_phone']:'no-data'). '</p></li>
                             <li><p class="list-title">Address</p><p>' . ucwords($data[0]['address']) . '</p></li>
                             <li><p class="list-title">Website Name</p>';
                             if ($data[0]['website'] != '' || !empty($data[0]['website'])) {
@@ -87,7 +87,7 @@ class Client_master extends CI_Controller
                                     } else {
                                         $checked = "checked";
                                     }
-                                    echo '<p><input type="checkbox"  ' . $checked . ' style="cursor:pointer "  name="checkbox" id="' . $row['site_id'] . '" value="' . $row['status'] . '" class="checkbox">';
+                                    echo '<p class="web"><input type="checkbox"  ' . $checked . ' style="cursor:pointer "  name="checkbox" id="' . $row['site_id'] . '" value="' . $row['status'] . '" class="checkbox">';
                                     if ($row['status'] == 1) {
                                         echo '<span class="danger">' . $row['website'] . '</span>';
                                     } else {
