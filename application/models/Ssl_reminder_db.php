@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Ssl_remainder_db extends CI_Model
+class Ssl_reminder_db extends CI_Model
 {
     function __construct()
     {
@@ -14,7 +14,7 @@ class Ssl_remainder_db extends CI_Model
         $get_cmp_website = $this->input->post('get_cmp_website');
         $id = $this->input->post('id');
         $this->db->select('a.*,c.company_name,c.id,c.gst,DATE_FORMAT(manual_update_date, "%d-%m-%Y") as manual_update_date,DATE_FORMAT(renewel_date, "%d-%m-%Y") as renewel_date');
-        $this->db->from('add_ssl_remainder a');
+        $this->db->from('add_ssl_reminder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
         if($id=="" || empty($id))
         {
@@ -95,7 +95,7 @@ class Ssl_remainder_db extends CI_Model
     function view_ssl_details_db($id)
     {
         $this->db->select('a.*,b.*');
-        $this->db->from('paid_ssl_remainder a');
+        $this->db->from('paid_ssl_reminder a');
         $this->db->join('client_master b', 'a.company_id=b.id', 'left');
         $this->db->where('a.id', $id);
         $query = $this->db->get();
@@ -103,7 +103,7 @@ class Ssl_remainder_db extends CI_Model
         return $q;
     }
 
-    function insert_ssl_remainder_db()
+    function insert_ssl_reminder_db()
     {
         $company_id = $company_website_selected = $renewel_method_selected = $gst_amt_selected = $net_amt_selected = "";
 
@@ -136,29 +136,29 @@ class Ssl_remainder_db extends CI_Model
         //SQL_QUERY
         $this->db->where('company_id', $company_id);
         $this->db->where('company_website', $company_website_selected);
-        $query = $this->db->get('add_ssl_remainder');
+        $query = $this->db->get('add_ssl_reminder');
 
         if ($query->num_rows() > 0) {
             //UPDATE CODE---------------------------------------------------/  
             $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'ssl_status' => $status_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected, 'gst_amt' => $gst_amt_selected, 'net_amt' => $net_amt_selected);
             $this->db->where('company_id', $company_id);
             $this->db->where('company_website', $company_website_selected);
-            $this->db->update("add_ssl_remainder", $field);
+            $this->db->update("add_ssl_reminder", $field);
             return "ssl_updated";
         }
 
         //INSERT CODE---------------------------------------------------/
         $field = array('company_id' => $company_id, 'company_website' => $company_website_selected, 'type' => $renewel_method_selected, 'ssl_status' => $status_selected, 'manual_update_date' => $manual_update_date, 'renewel_date' => $renewel_date, 'amount_paid' => $amount_selected, 'gst_amt' => $gst_amt_selected, 'net_amt' => $net_amt_selected);
-        if ($this->db->insert("add_ssl_remainder", $field)) {
+        if ($this->db->insert("add_ssl_reminder", $field)) {
             return "ssl_inserted";
         }
     }
 
-    function delete_remainder_db()
+    function delete_reminder_db()
     {
         $id = $this->input->post('id');
         $this->db->where('id', $id);
-        if ($this->db->delete('paid_ssl_remainder')) {
+        if ($this->db->delete('paid_ssl_reminder')) {
             return true;
         }
     }
@@ -171,7 +171,7 @@ class Ssl_remainder_db extends CI_Model
         $get_cmp_website = $this->input->get('cweb');
         $order_column = array("a.id", "c.company_name", "a.company_website", "a.type", "a.renewel_date", "a.net_amt", "a.paid_date",);
         $this->db->select('a.*,c.company_name');
-        $this->db->from('paid_ssl_remainder a');
+        $this->db->from('paid_ssl_reminder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
         $this->db->where('company_id', $get_cmp_id);
         $this->db->where('company_website', $get_cmp_website);
@@ -196,7 +196,7 @@ class Ssl_remainder_db extends CI_Model
     function get_all_data()
     {
         $this->db->select('a.*,c.company_name');
-        $this->db->from('paid_ssl_remainder a');
+        $this->db->from('paid_ssl_reminder a');
         $this->db->join('client_master c', 'a.company_id=c.id', 'left');
         return $this->db->count_all_results();
     }

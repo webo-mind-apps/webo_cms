@@ -1,32 +1,32 @@
  
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Ssl_remainder extends CI_Controller
+class Ssl_reminder extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ssl_remainder_db');
+        $this->load->model('Ssl_reminder_db');
     }
 
     function index()
     {
-        $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
-        $data['gst_per_db'] = $this->Ssl_remainder_db->fetch_gst();
+        $data['company_names_db'] = $this->Ssl_reminder_db->fetch_company_names();
+        $data['gst_per_db'] = $this->Ssl_reminder_db->fetch_gst();
         // $this->arr_op( $data);
-        $this->load->view('ssl_remainder/index', $data);
+        $this->load->view('ssl_reminder/index', $data);
     }
 
-    function view_ssl_remainder()
+    function view_ssl_reminder()
     {
-        $data['company_names_db'] = $this->Ssl_remainder_db->fetch_company_names();
-        $this->load->view('ssl_remainder/index', $data);
+        $data['company_names_db'] = $this->Ssl_reminder_db->fetch_company_names();
+        $this->load->view('ssl_reminder/index', $data);
     }
 
     function dispaly_relavent_websites()
     {
         $company_id = $this->input->post('company_id');
-        $data['company_websites_db'] = $this->Ssl_remainder_db->fetch_company_relavent_websites($company_id);
+        $data['company_websites_db'] = $this->Ssl_reminder_db->fetch_company_relavent_websites($company_id);
         echo "<option value=''>Select Website</option>";
         foreach ($data['company_websites_db'] as $key => $row) {
             echo '<option value="' . $row['website'] . '">' . $row['website'] . '</option>';
@@ -37,23 +37,23 @@ class Ssl_remainder extends CI_Controller
         }
     }
 
-    function insert_ssl_remainder()
+    function insert_ssl_reminder()
     {
         $msg ="";
-        if ("ssl_inserted" == $this->Ssl_remainder_db->insert_ssl_remainder_db()) {
-			$msg = "SSL Remainder Added";  
+        if ("ssl_inserted" == $this->Ssl_reminder_db->insert_ssl_reminder_db()) {
+			$msg = "SSL reminder Added";  
         } else {
-			$msg = "SSL Remainder Exist Updated!";   
+			$msg = "SSL reminder Exist Updated!";   
         }
         $this->session->set_flashdata('success', $msg); 
-        redirect('ssl_remainder/');
+        redirect('ssl_reminder/');
     }
 
     function auto_fill()
     {
         $get_cmp_id = $this->input->post('get_cmp_id');
         $get_cmp_website = $this->input->post('get_cmp_website');
-        if ($data = $this->Ssl_remainder_db->check_record_db($get_cmp_id, $get_cmp_website)) {
+        if ($data = $this->Ssl_reminder_db->check_record_db($get_cmp_id, $get_cmp_website)) {
             echo json_encode($data);
         } else {
             $data = array("manual_update_date" => "", "renewel_date" => "", "net_amt" => "");
@@ -64,7 +64,7 @@ class Ssl_remainder extends CI_Controller
     function view_ssl_details()
     {
         $id = $this->input->post('id');
-        $data = $this->Ssl_remainder_db->view_ssl_details_db($id);
+        $data = $this->Ssl_reminder_db->view_ssl_details_db($id);
         $i = 0;
         $count = count($data);
         echo '
@@ -103,7 +103,7 @@ class Ssl_remainder extends CI_Controller
     public function get_all_data($var = null) //created for implementing data tables
     {
 
-        $fetch_data = $this->Ssl_remainder_db->make_datatables();
+        $fetch_data = $this->Ssl_reminder_db->make_datatables();
         $data = array();
         $i = 0;
         foreach ($fetch_data as $row) {
@@ -124,7 +124,7 @@ class Ssl_remainder extends CI_Controller
 						 <div class="dropdown-menu dropdown-menu-right">
                          <a href="javascript:void(0)" id=' . $row->id . '
                          onclick="view_ssl_details(this.id);" class="dropdown-item"><i class="fa fa-eye"></i> View Details</a>
-							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_remainder(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+							 <a href="javascript:void(0);" id="' . $row->id . '" onclick="delete_reminder(this.id);" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
 						 </div>
 					 </div>
 				 </div>
@@ -133,16 +133,16 @@ class Ssl_remainder extends CI_Controller
         }
         $output = array(
             "draw"                =>     intval($_POST["draw"]),
-            "recordsTotal"        =>     $this->Ssl_remainder_db->get_all_data(),
-            "recordsFiltered"     =>     $this->Ssl_remainder_db->get_filtered_data(),
+            "recordsTotal"        =>     $this->Ssl_reminder_db->get_all_data(),
+            "recordsFiltered"     =>     $this->Ssl_reminder_db->get_filtered_data(),
             "data" => $data
         );
         echo json_encode($output);
     }
 
-    function delete_remainder_fun()
+    function delete_reminder_fun()
     {
-         $this->Ssl_remainder_db->delete_remainder_db(); 
+         $this->Ssl_reminder_db->delete_reminder_db(); 
     }
     function arr_op($arr)
     {

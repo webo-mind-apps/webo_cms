@@ -15,9 +15,9 @@ class Dashboard extends CI_Controller
     {  
 		$data['total_clients_count'] = $this->dashboard_db->fetch_total_clients();
 		$data['fetch_total_active_websites'] = $this->dashboard_db->fetch_total_active_websites();
-		$data['fetch_total_ssl_remainders'] = $this->dashboard_db->fetch_total_ssl_remainders();
+		$data['fetch_total_ssl_reminders'] = $this->dashboard_db->fetch_total_ssl_reminders();
 		// echo "<pre>";
-		// print_r($data['fetch_total_ssl_remainders']);
+		// print_r($data['fetch_total_ssl_reminders']);
 		// exit;
         $this->load->view('dashboard/index',$data);
     }

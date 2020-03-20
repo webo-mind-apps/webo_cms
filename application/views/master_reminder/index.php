@@ -117,7 +117,7 @@
                            <thead>
                               <tr>
                                  <th>Si No</th>
-                                 <th>reminder Name</th>
+                                 <th>Reminder Name</th>
                                  <th>Phone No.</th>
                                  <th>Email Id</th>
                                  <th class="text-center">Actions</th>

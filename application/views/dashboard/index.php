@@ -167,15 +167,15 @@
 								<div class="card bg-blue-400">
 									<div class="card-body">
 										<div class="d-flex">
-											<h3 class="font-weight-semibold mb-0"><?php echo $fetch_total_ssl_remainders[0] ?></h3>
+											<h3 class="font-weight-semibold mb-0"><?php echo $fetch_total_ssl_reminders[0] ?></h3>
 											<div class="list-icons ml-auto">
 						                		<a class="list-icons-item" data-action="reload"></a>
 						                	</div>
 					                	</div>
 					                	
 					                	<div>
-											Total SSL Remainders
-											<div class="font-size-sm opacity-75"><?php echo $fetch_total_ssl_remainders[1]. " Amount Total" ?></div>
+											Total SSL reminders
+											<div class="font-size-sm opacity-75"><?php echo $fetch_total_ssl_reminders[1]. " Amount Total" ?></div>
 										</div>
 									</div>
 

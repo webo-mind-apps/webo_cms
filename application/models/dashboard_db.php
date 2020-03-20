@@ -28,11 +28,11 @@ class Dashboard_db extends CI_Model
 		return $data;
 	
 	}
-	public function fetch_total_ssl_remainders()
+	public function fetch_total_ssl_reminders()
     {   
 		
 		$now = date("Y");
-        $query = $this->db->get('add_ssl_remainder');
+        $query = $this->db->get('add_ssl_reminder');
 		$ssl_rem_count = $query->num_rows();  
 		 
 		$ssl_array = $query->result_array(); 
