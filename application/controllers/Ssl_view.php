@@ -22,7 +22,7 @@ class Ssl_view extends CI_Controller
 		$data['gst_per_db'] = $this->ssl_view->fetch_gst();
 
 		$data['data'] = $this->ssl_view->ssl_view_edit_details_db($id);
-		$this->load->view('ssl_remainder/index', $data);
+		$this->load->view('ssl_reminder/index', $data);
 
 		// $this->arr_op($data['data']);
 	}
